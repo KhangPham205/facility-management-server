@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{17B813C7-D2BE-40F5-BD37-227E273FC9B7}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>FacilityManagementServer</RootNamespace>
+    <AssemblyName>FacilityManagementServer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Data\DataApplicationDbContext.cs" />
+    <Compile Include="Data\Seed\DefaultAdminSeed.cs" />
+    <Compile Include="DTOs\EmployeeDTO.cs" />
+    <Compile Include="Mapping\AutoMapperProfile.cs" />
+    <Compile Include="Middlewares\ExceptionMiddleware.cs" />
+    <Compile Include="Middlewares\JwtMiddleware.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Repositories\Implements\IEmployeeRepository.cs" />
+    <Compile Include="Repositories\Interfaces\EmployeeRepository.cs" />
+    <Compile Include="Services\Implements\IEmployeeService.cs" />
+    <Compile Include="Services\Interfaces\EmployeeService.cs" />
+    <Compile Include="Utils\JwtUtils.cs" />
+    <Compile Include="Utils\PasswordHasher.cs" />
+    <Compile Include="Utils\ResponseWrapper.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

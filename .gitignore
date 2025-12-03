@@ -50,5 +50,6 @@ CodeCoverage/
 
 # NUnit
 *.VisualState.xml
+*.vs
 TestResult.xml
 nunit-*.xml
