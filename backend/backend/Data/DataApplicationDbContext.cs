@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using backend.Models.TaiKhoan;
+using backend.Models.PhieuChuyen;
 
 namespace backend.Data
 {
@@ -19,8 +20,8 @@ namespace backend.Data
         //public DbSet<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
         //public DbSet<PhieuXuat> PhieuXuat { get; set; }
         //public DbSet<ChiTietPhieuXuat> ChiTietPhieuXuat { get; set; }
-        //public DbSet<PhieuChuyen> PhieuChuyen { get; set; }
-        //public DbSet<ChiTietPhieuChuyen> ChiTietPhieuChuyen { get; set; }
+        public DbSet<PhieuChuyen> PhieuChuyen { get; set; }
+        public DbSet<ChiTietPhieuChuyen> ChiTietPhieuChuyen { get; set; }
         //public DbSet<PhieuMuon> PhieuMuon { get; set; }
         //public DbSet<ChiTietPhieuMuon> ChiTietPhieuMuon { get; set; }
         //public DbSet<PhieuViPhamMuon> PhieuViPhamMuon { get; set; }
