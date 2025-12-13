@@ -14,5 +14,9 @@ namespace backend.Models
         public int soLuongTang { get; set; }
 
         public string ghiChu { get; set; }
+
+        // Foreign
+
+        public ICollection<Tang> Tangs { get; set; } = new List<Tang>();
     }
 }

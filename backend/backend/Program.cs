@@ -4,6 +4,7 @@ using backend.Models.TaiKhoan;
 using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
 using backend.Services.AuthService;
+using backend.Services.TangService;
 using backend.Services.ToaService;
 using backend.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,6 +51,9 @@ builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddScoped<IToaRepository, ToaRepository>();
 builder.Services.AddScoped<IToaService, ToaService>();
+
+builder.Services.AddScoped<ITangRepository, TangRepository>();
+builder.Services.AddScoped<ITangService, TangService>();
 
 builder.Services.AddControllers();
 

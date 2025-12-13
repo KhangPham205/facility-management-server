@@ -12,7 +12,7 @@ namespace backend.Data
         }
         public DbSet<TaiKhoan> TaiKhoan { get; set; }
         public DbSet<Toa> Toa { get; set; }
-        //public DbSet<Tang> Tang { get; set; }
+        public DbSet<Tang> Tang { get; set; }
         //public DbSet<Phong> Phong { get; set; }
         //public DbSet<ThoiKhoaBieu> ThoiKhoaBieu { get; set; }
         //public DbSet<ThietBi> ThietBi { get; set; }
