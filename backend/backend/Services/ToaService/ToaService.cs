@@ -121,7 +121,7 @@ namespace backend.Services.ToaService
                 return false;
             }
 
-            _toaRepository.DeleteAsync(toa);
+            await _toaRepository.DeleteAsync(toa);
 
             return await _toaRepository.SaveChangesAsync();
         }
