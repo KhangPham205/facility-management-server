@@ -4,6 +4,7 @@ using backend.Models.TaiKhoan;
 using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
 using backend.Services.AuthService;
+using backend.Services.ToaService;
 using backend.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<JwtUtils>();
+
+builder.Services.AddScoped<IToaRepository, ToaRepository>();
+builder.Services.AddScoped<IToaService, ToaService>();
 
 builder.Services.AddControllers();
 
