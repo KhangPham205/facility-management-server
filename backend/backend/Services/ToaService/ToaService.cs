@@ -1,5 +1,6 @@
 ﻿using backend.DTOs.Toa.Request;
 using backend.DTOs.Toa.Response;
+using backend.Mapping;
 using backend.Models;
 using backend.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -15,22 +16,15 @@ namespace backend.Services.ToaService
             _toaRepository = toaRepository;
         }
 
-        // *** Lấy tất cả ***
+        // GET ALL TOA
         public async Task<IEnumerable<ToaResponse>> GetAllToasAsync()
         {
             var toas = await _toaRepository.GetAllAsync();
 
-            // Ánh xạ (Mapping) từ Entity/Model (Toa) sang DTO Response
-            return toas.Select(t => new ToaResponse
-            {
-                maToa = t.maToa,
-                tenToa = t.tenToa,
-                soLuongTang = t.soLuongTang,
-                ghiChu = t.ghiChu
-            }).ToList();
+            return toas.Select(t => ToaMapper.ToaResponseFromEntity(t)).ToList();
         }
 
-        // *** Lấy theo mã ***
+        // GET TOA BY ID
         public async Task<ToaResponse?> GetToaByIdAsync(string maToa)
         {
             var toa = await _toaRepository.GetByIdAsync(maToa);
@@ -40,43 +34,23 @@ namespace backend.Services.ToaService
                 return null;
             }
 
-            // Ánh xạ (Mapping) từ Entity/Model (Toa) sang DTO Response
-            return new ToaResponse
-            {
-                maToa = toa.maToa,
-                tenToa = toa.tenToa,
-                soLuongTang = toa.soLuongTang,
-                ghiChu = toa.ghiChu
-            };
+            return ToaMapper.ToaResponseFromEntity(toa);
         }
 
-        // *** Tạo mới ***
+        // CREATE TOA
         public async Task<ToaResponse> CreateToaAsync(ToaCreationRequest request)
         {
-            // 1. Ánh xạ (Mapping) từ DTO Request sang Entity/Model (Toa)
-            var newToa = new Toa
-            {
-                maToa = Guid.NewGuid().ToString(), // Sinh mã Toa ở đây
-                tenToa = request.tenToa,
-                soLuongTang = request.soLuongTang,
-                ghiChu = request.ghiChu
-            };
+            var newToa = ToaMapper.EntityFromCreateRequest(request);
 
-            // 2. Gọi Repository để thêm vào DB
+            newToa.maToa = Guid.NewGuid().ToString();
+
             await _toaRepository.AddAsync(newToa);
             await _toaRepository.SaveChangesAsync();
 
-            // 3. Ánh xạ Entity/Model đã lưu sang DTO Response để trả về
-            return new ToaResponse
-            {
-                maToa = newToa.maToa,
-                tenToa = newToa.tenToa,
-                soLuongTang = newToa.soLuongTang,
-                ghiChu = newToa.ghiChu
-            };
+            return ToaMapper.ToaResponseFromEntity(newToa);
         }
 
-        //*** Cập nhật ***
+        // UPDATE TOA
         public async Task<ToaResponse?> UpdateToaAsync(string maToa, ToaUpdateRequest request)
         {
             if (maToa == null)
@@ -91,9 +65,7 @@ namespace backend.Services.ToaService
                 return null;
             }
 
-            toa.tenToa = request.tenToa;
-            toa.soLuongTang = request.soLuongTang;
-            toa.ghiChu = request.ghiChu;
+            ToaMapper.EntityFromUpdateRequest(request, toa);
 
             var success = await _toaRepository.SaveChangesAsync();
 
@@ -102,16 +74,10 @@ namespace backend.Services.ToaService
                 return null;
             }
 
-            return new ToaResponse
-            {
-                maToa = maToa,
-                tenToa = toa.tenToa,
-                soLuongTang = toa.soLuongTang,
-                ghiChu = toa.ghiChu
-            };
+            return ToaMapper.ToaResponseFromEntity(toa);
         }
 
-        //*** Xóa ***
+        // DELETE TOA
         public async Task<bool> DeleteToaAsync(string maToa)
         {
             var toa = await _toaRepository.GetByIdAsync(maToa);
