@@ -4,6 +4,7 @@ using backend.Models.TaiKhoan;
 using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
 using backend.Services.AuthService;
+using backend.Services.PhongService;
 using backend.Services.TangService;
 using backend.Services.ToaService;
 using backend.Utils;
@@ -54,6 +55,9 @@ builder.Services.AddScoped<IToaService, ToaService>();
 
 builder.Services.AddScoped<ITangRepository, TangRepository>();
 builder.Services.AddScoped<ITangService, TangService>();
+
+builder.Services.AddScoped<IPhongRepository, PhongRepository>();
+builder.Services.AddScoped<IPhongService, PhongService>();
 
 builder.Services.AddControllers();
 
