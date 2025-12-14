@@ -1,5 +1,6 @@
 ﻿using backend.DTOs.Tang.Request;
 using backend.DTOs.Tang.Response;
+using backend.Mapping;
 using backend.Models;
 using backend.Repositories.Interfaces;
 
@@ -14,6 +15,7 @@ namespace backend.Services.TangService
             _tangRepository = tangRepository;
         }
 
+        // GET TANG BY ID
         public async Task<TangResponse?> GetTangByIdAsync(string maTang){
             var tang = await _tangRepository.getTangByIdAsync(maTang);
 
@@ -22,51 +24,31 @@ namespace backend.Services.TangService
                 return null;
             }
 
-            return new TangResponse
-            {
-                maTang = maTang,
-                maToa = tang.maToa,
-                tenTang = tang.tenTang,
-                ghiChu = tang.ghiChu,
-            };
+            return TangMapper.TangResponseFromEntity(tang);
         }
 
+        // GET ALL TANG
         public async Task<IEnumerable<TangResponse>> GetAllTangAsync()
         {
             var tangs = await _tangRepository.getAllTangAsync();
 
-            return tangs.Select(tang => new TangResponse
-            {
-                maTang = tang.maTang,
-                maToa = tang.maToa,
-                tenTang = tang.tenTang,
-                ghiChu = tang.ghiChu,
-            }).ToList();
+            return tangs.Select(tang => TangMapper.TangResponseFromEntity(tang)).ToList();
 
         }
 
+        // GET ALL TANG OF TOA
         public async Task<IEnumerable<TangResponse>> GetAllTangOfToaAsync(string maToa)
         {
             var tangs = await _tangRepository.getAllTangOfToaAsync(maToa);
 
-            return tangs.Select(tang => new TangResponse
-            {
-                maTang = tang.maTang,
-                maToa = tang.maToa,
-                tenTang = tang.tenTang,
-                ghiChu = tang.ghiChu,
-            }).ToList();
+            return tangs.Select(tang => TangMapper.TangResponseFromEntity(tang)).ToList();
         }
 
+        // CREATE TANG
         public async Task<TangResponse?> CreateTangAsync(TangCreationRequest request)
         {
-            var newTang = new Tang
-            {
-                maTang = Guid.NewGuid().ToString(),
-                maToa = request.maToa,
-                tenTang = request.tenTang,
-                ghiChu = request.ghiChu,
-            };
+            var newTang = TangMapper.EntityFromCreateRequest(request);
+            newTang.maTang = Guid.NewGuid().ToString();
 
             await _tangRepository.AddTangAsync(newTang);
             bool isSuccessed = await _tangRepository.SaveChangesAsync();
@@ -76,15 +58,11 @@ namespace backend.Services.TangService
                 return null;
             }
 
-            return new TangResponse
-            {
-                maTang = newTang.maTang,
-                maToa = newTang.maToa,
-                tenTang = newTang.tenTang,
-                ghiChu = newTang.ghiChu,
-            };
+            return TangMapper.TangResponseFromEntity(newTang);
             
         }
+
+        // UPDATE TANG
         public async Task<TangResponse?> UpdateTangAsync(string maTang, TangUpdateRequest request)
         {
             if (maTang  == null)
@@ -99,9 +77,7 @@ namespace backend.Services.TangService
                 return null;
             }
 
-            tang.maToa = request.maToa;
-            tang.tenTang = request.tenTang;
-            tang.ghiChu = request.ghiChu;
+            TangMapper.EntityFromUpdateRequest(request, tang);
 
             bool isSuccessed = await _tangRepository.SaveChangesAsync();
 
@@ -110,14 +86,10 @@ namespace backend.Services.TangService
                 return null;
             }
 
-            return new TangResponse
-            {
-                maTang = tang.maTang,
-                maToa = tang.maToa,
-                tenTang = tang.tenTang,
-                ghiChu = tang.ghiChu,
-            };
+            return TangMapper.TangResponseFromEntity(tang);
         }
+
+        // DELETE TANG
         public async Task<bool> DeleteTangAsync(string maTang)
         {
             if (maTang == null)
