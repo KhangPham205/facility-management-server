@@ -25,7 +25,7 @@ namespace backend.Controllers
 
             if (tang == null)
             {
-                return NotFound();
+                return BadRequest("Mã tầng không được để trống.");
             }
 
             return Ok(tang);
@@ -42,6 +42,9 @@ namespace backend.Controllers
         [HttpGet("getAllTangOfToa")]
         public async Task<ActionResult<IEnumerable<TangResponse>>> GetAllTangOfToa(string maToa)
         {
+            if (maToa == null)
+                return BadRequest("Mã tòa không được để trống.");
+
             var tangs = await _tangService.GetAllTangOfToaAsync(maToa);
 
             return Ok(tangs);
@@ -82,10 +85,14 @@ namespace backend.Controllers
         [HttpDelete("deleteTang")]
         public async Task<IActionResult> DeleteTang(string maTang)
         {
+            if(maTang == null)
+                return BadRequest("Mã tầng không được để trống.");
+
             bool isDeleted = await _tangService.DeleteTangAsync(maTang);
 
             if (!isDeleted)
-                return NotFound();
+                return NotFound("Xóa tầng không thành công.");
+
             return NoContent();
         }
     }

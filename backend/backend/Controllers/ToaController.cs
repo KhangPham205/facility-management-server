@@ -32,7 +32,7 @@ namespace backend.Controllers
 
             if (toa == null)
             {
-                return NotFound();
+                return BadRequest("Mã phòng không được để trống");
             }
 
             return Ok(toa);
@@ -81,7 +81,7 @@ namespace backend.Controllers
 
             if (!isDeleted)
             {
-                return NotFound();
+                return NotFound("Xóa tòa không thành công.";
             }
 
             return NoContent();
