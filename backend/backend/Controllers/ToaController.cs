@@ -81,7 +81,7 @@ namespace backend.Controllers
 
             if (!isDeleted)
             {
-                return NotFound("Xóa tòa không thành công.";
+                return NotFound("Xóa tòa không thành công.");
             }
 
             return NoContent();
