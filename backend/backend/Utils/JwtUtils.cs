@@ -1,4 +1,4 @@
-﻿using backend.Models.TaiKhoan;
+﻿using backend.Models.User;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,16 +16,16 @@ namespace backend.Utils
             _config = config;
         }
 
-        public string GenerateToken(TaiKhoan user)
+        public string GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.TenTK),
+                new Claim(ClaimTypes.NameIdentifier, user.Fullname),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.VaiTro.ToString())
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             var token = new JwtSecurityToken(

@@ -1,9 +1,9 @@
 ﻿using backend.Data;
 using backend.Middlewares;
-using backend.Models.TaiKhoan;
+using backend.Models.User;
 using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
-using backend.Services.AuthService;
+using backend.Services.Auth;
 using backend.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +22,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<DataApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<Microsoft.AspNetCore.Identity.IPasswordHasher<TaiKhoan>, Microsoft.AspNetCore.Identity.PasswordHasher<TaiKhoan>>();
+builder.Services.AddScoped<Microsoft.AspNetCore.Identity.IPasswordHasher<User>, Microsoft.AspNetCore.Identity.PasswordHasher<User>>();
 
 // JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -43,7 +43,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Register services
-builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<JwtUtils>();
 

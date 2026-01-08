@@ -1,31 +1,31 @@
 ﻿using backend.DTOs.Auth;
-using backend.Exceptions;
-using backend.Models.TaiKhoan;
+using backend.Exceptions; // Assuming you have custom exceptions
+using backend.Models;
+using backend.Models.User;
 using backend.Repositories.Interfaces;
 using backend.Utils;
-using Microsoft.AspNetCore.Identity;
 
-namespace backend.Services.AuthService
+namespace backend.Services.Auth
 {
     public class AuthService : IAuthService
     {
-        private readonly ITaiKhoanRepository _repo;
+        private readonly IUserRepository _repo;
         private readonly JwtUtils _jwt;
 
-        public AuthService(ITaiKhoanRepository repo, JwtUtils jwt)
+        public AuthService(IUserRepository repo, JwtUtils jwt)
         {
             _repo = repo;
             _jwt = jwt;
         }
 
-        public AuthResponse Login(LoginDTO loginDTO)
+        public AuthResponse Login(LoginDTO loginDto)
         {
-            var user = _repo.GetByEmail(loginDTO.Email);
+            var user = _repo.GetByEmail(loginDto.Email);
 
             if (user == null)
                 throw new NotFoundException("User not found.");
 
-            if (user == null || !PasswordHasher.Verify(loginDTO.MatKhau, user.MatKhau))
+            if (!PasswordHasher.Verify(loginDto.Password, user.Password))
                 throw new UnauthorizedException("Email or password is incorrect.");
 
             var token = _jwt.GenerateToken(user);
@@ -50,19 +50,19 @@ namespace backend.Services.AuthService
             if (_repo.GetByEmail(dto.Email) != null)
                 throw new Exception("Email already exists!");
 
-            var newAccount = new TaiKhoan
+            var newUser = new User
             {
-                TenTK = dto.TenTK,
+                UserId = Guid.NewGuid().ToString(), // Generating String ID as per DB schema
+                Fullname = dto.Fullname,
                 Email = dto.Email,
-                MatKhau = PasswordHasher.Hash(dto.MatKhau),
-                VaiTro = dto.VaiTro,
-                NgayTao = DateTime.UtcNow
+                Password = PasswordHasher.Hash(dto.Password),
+                Role = dto.Role,
+                CreatedAt = DateTime.UtcNow
             };
 
-            _repo.Add(newAccount);
+            _repo.Add(newUser);
             _repo.Save();
         }
-
 
         public AuthResponse RefreshToken(string refreshToken)
         {

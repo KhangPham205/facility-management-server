@@ -10,9 +10,9 @@ namespace backend.Middlewares
     public class JwtMiddleware : IMiddleware
     {
         private readonly IConfiguration _config;
-        private readonly ITaiKhoanRepository _repo;
+        private readonly IUserRepository _repo;
 
-        public JwtMiddleware(IConfiguration config, ITaiKhoanRepository repo)
+        public JwtMiddleware(IConfiguration config, IUserRepository repo)
         {
             _config = config;
             _repo = repo;

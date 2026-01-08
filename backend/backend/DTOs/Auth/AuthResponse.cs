@@ -1,4 +1,4 @@
-﻿using backend.Models.TaiKhoan;
+﻿using backend.Models.User;
 
 namespace backend.DTOs.Auth
 {
@@ -6,6 +6,6 @@ namespace backend.DTOs.Auth
     {
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
-        public TaiKhoan User { get; set; }
+        public User User { get; set; }
     }
 }

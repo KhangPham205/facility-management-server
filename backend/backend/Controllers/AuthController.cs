@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Auth;
-using backend.Models.TaiKhoan;
-using backend.Services.AuthService;
+using backend.Models.User;
+using backend.Services.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -9,52 +9,61 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _auth;
+        private readonly IAuthService _authService;
 
-        public AuthController(IAuthService auth)
+        public AuthController(IAuthService authService)
         {
-            _auth = auth;
+            _authService = authService;
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDTO dto)
+        [ProducesResponseType(typeof(AuthResponse), 200)]
+        [ProducesResponseType(401)]
+        public ActionResult<AuthResponse> Login(LoginDTO dto)
         {
-            var token = _auth.Login(dto);
-            return Ok(new { token });
-        }
-
-        [HttpPost("register")]
-        public IActionResult Register(RegisterDTO dto)
-        {
-            _auth.Register(dto);
-            return Ok("Registered successfully");
-        }
-
-        [HttpGet("me")]
-        public IActionResult Me()
-        {
-            var user = HttpContext.Items["User"] as TaiKhoan;
-
-            if (user == null)
-                return Unauthorized("Invalid or missing token.");
-
-            return Ok(new
-            {
-                id = user.Id,
-                tenTK = user.TenTK,
-                email = user.Email,
-                vaiTro = user.VaiTro,
-                ngayTao = user.NgayTao
-            });
-        }
-
-        [HttpPost("refresh")]
-        public IActionResult Refresh([FromBody] RefreshTokenDTO dto)
-        {
-            var result = _auth.RefreshToken(dto.RefreshToken);
+            var result = _authService.Login(dto);
             return Ok(result);
         }
 
+        [HttpPost("register")]
+        [ProducesResponseType(typeof(MessageDTO), 200)]
+        [ProducesResponseType(400)]
+        public ActionResult<MessageDTO> Register(RegisterDTO dto)
+        {
+            _authService.Register(dto);
+            return Ok(new MessageDTO("Registered successfully"));
+        }
 
+        [HttpGet("me")]
+        [ProducesResponseType(typeof(UserDetailDTO), 200)]
+        [ProducesResponseType(401)]
+        public ActionResult<UserDetailDTO> Me()
+        {
+            // Lấy User từ HttpContext (đã được middleware gán vào)
+            var user = HttpContext.Items["User"] as User;
+
+            if (user == null)
+                return Unauthorized(new MessageDTO("Invalid or missing token."));
+
+            var userDetail = new UserDetailDTO
+            {
+                UserId = user.UserId,
+                Fullname = user.Fullname,
+                Email = user.Email,
+                Role = user.Role.ToString(),
+                CreatedAt = user.CreatedAt
+            };
+
+            return Ok(userDetail);
+        }
+
+        [HttpPost("refresh")]
+        [ProducesResponseType(typeof(AuthResponse), 200)]
+        [ProducesResponseType(400)]
+        public ActionResult<AuthResponse> Refresh([FromBody] RefreshTokenDTO dto)
+        {
+            var result = _authService.RefreshToken(dto.RefreshToken);
+            return Ok(result);
+        }
     }
 }

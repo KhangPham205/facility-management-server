@@ -1,12 +1,12 @@
-﻿using backend.Models.TaiKhoan;
+﻿using backend.Models.User;
 
 namespace backend.DTOs.Auth
 {
     public class RegisterDTO
     {
-        public string TenTK { get; set; }
+        public string Fullname { get; set; }
         public string Email { get; set; }
-        public string MatKhau { get; set; }
-        public VaiTro VaiTro { get; set; }
+        public string Password { get; set; }
+        public UserRole Role { get; set; }
     }
 }
