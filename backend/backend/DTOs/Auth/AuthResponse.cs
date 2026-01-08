@@ -1,4 +1,4 @@
-﻿using backend.Models.User;
+﻿using backend.Models;
 
 namespace backend.DTOs.Auth
 {

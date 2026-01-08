@@ -1,4 +1,4 @@
-﻿namespace backend.Models.User
+﻿namespace backend.Enums
 {
     public enum UserRole
     {

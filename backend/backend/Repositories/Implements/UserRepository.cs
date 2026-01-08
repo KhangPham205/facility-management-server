@@ -1,6 +1,5 @@
 ﻿using backend.Data;
 using backend.Models;
-using backend.Models.User;
 using backend.Repositories.Interfaces;
 
 namespace backend.Repositories.Implements

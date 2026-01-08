@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Auth;
-using backend.Models.User;
-using backend.Services.Auth;
+using backend.Models;
+using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers

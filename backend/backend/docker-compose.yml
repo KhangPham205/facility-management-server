@@ -5,9 +5,9 @@ services:
     restart: always
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Aa123456!"
+      MSSQL_SA_PASSWORD: "Password123Root"
     ports:
-      - "1433:1433"
+      - "1435:1433"
     volumes:
       - sql_data:/var/opt/mssql
       - ./sql-init:/docker-entrypoint-initdb.d

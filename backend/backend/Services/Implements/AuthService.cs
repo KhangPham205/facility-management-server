@@ -1,11 +1,11 @@
 ﻿using backend.DTOs.Auth;
 using backend.Exceptions; // Assuming you have custom exceptions
 using backend.Models;
-using backend.Models.User;
 using backend.Repositories.Interfaces;
+using backend.Services.Interfaces;
 using backend.Utils;
 
-namespace backend.Services.Auth
+namespace backend.Services.Implements
 {
     public class AuthService : IAuthService
     {
@@ -48,7 +48,7 @@ namespace backend.Services.Auth
         public void Register(RegisterDTO dto)
         {
             if (_repo.GetByEmail(dto.Email) != null)
-                throw new Exception("Email already exists!");
+                throw new BadRequestException("Email already exists!");
 
             var newUser = new User
             {
@@ -69,10 +69,10 @@ namespace backend.Services.Auth
             var user = _repo.GetByRefreshToken(refreshToken);
 
             if (user == null)
-                throw new Exception("Invalid refresh token.");
+                throw new BadRequestException("Invalid refresh token.");
 
             if (user.RefreshTokenExpiryTime < DateTime.UtcNow)
-                throw new Exception("Refresh token expired.");
+                throw new BadRequestException("Refresh token expired.");
 
             var newAccessToken = _jwt.GenerateToken(user);
             var newRefreshToken = _jwt.GenerateRefreshToken();

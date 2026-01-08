@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using backend.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace backend.Models.User
+namespace backend.Models
 {
     public class User
     {

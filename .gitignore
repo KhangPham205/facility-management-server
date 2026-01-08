@@ -54,3 +54,4 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 backend/backend/appsettings.Development.json
+backend/backend/Migrations

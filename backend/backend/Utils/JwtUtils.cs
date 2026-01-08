@@ -1,4 +1,4 @@
-﻿using backend.Models.User;
+﻿using backend.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -23,8 +23,9 @@ namespace backend.Utils
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Fullname),
+                new Claim("id", user.UserId), // Quan trọng: Lưu UserId để tìm kiếm nhanh
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Fullname),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
@@ -38,6 +39,7 @@ namespace backend.Utils
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
         public string GenerateRefreshToken()
         {
             var random = new byte[64];

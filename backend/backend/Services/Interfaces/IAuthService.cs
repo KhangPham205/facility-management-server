@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Auth;
 
-namespace backend.Services.Auth
+namespace backend.Services.Interfaces
 {
     public interface IAuthService
     {
