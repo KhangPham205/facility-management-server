@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Building.Request;
 using backend.DTOs.Building.Response;
-using backend.Services.BuildingService;
+using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers

@@ -3,8 +3,9 @@ using backend.DTOs.Building.Response;
 using backend.Mapping;
 using backend.Models;
 using backend.Repositories.Interfaces;
+using backend.Services.Interfaces;
 
-namespace backend.Services.BuildingService
+namespace backend.Services.Implements
 {
     public class BuildingService : IBuildingService
     {

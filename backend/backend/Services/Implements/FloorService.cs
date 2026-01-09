@@ -3,8 +3,9 @@ using backend.DTOs.Floor.Response;
 using backend.Mapping;
 using backend.Models;
 using backend.Repositories.Interfaces;
+using backend.Services.Interfaces;
 
-namespace backend.Services.FloorService
+namespace backend.Services.Implements
 {
     public class FloorService : IFloorService
     {

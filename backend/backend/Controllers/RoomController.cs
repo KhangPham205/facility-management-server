@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Room.Request;
 using backend.DTOs.Room.Response;
-using backend.Services.RoomService;
+using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers

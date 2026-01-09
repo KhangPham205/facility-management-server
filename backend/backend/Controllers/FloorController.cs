@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Floor.Request;
 using backend.DTOs.Floor.Response;
-using backend.Services.FloorService;
+using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers

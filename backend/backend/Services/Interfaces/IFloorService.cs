@@ -1,7 +1,7 @@
 ﻿using backend.DTOs.Floor.Request;
 using backend.DTOs.Floor.Response;
 
-namespace backend.Services.FloorService
+namespace backend.Services.Interfaces
 {
     public interface IFloorService
     {

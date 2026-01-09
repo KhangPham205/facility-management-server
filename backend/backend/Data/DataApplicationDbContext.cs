@@ -29,7 +29,6 @@ namespace backend.Data // (Check namespace của bạn)
                 .HasForeignKey(bd => bd.BorrowId);
         }
 
-        public DbSet<TaiKhoan> TaiKhoan { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Floor> Floors { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }

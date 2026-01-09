@@ -1,7 +1,7 @@
 ﻿using backend.DTOs.Building.Request;
 using backend.DTOs.Building.Response;
 
-namespace backend.Services.BuildingService
+namespace backend.Services.Interfaces
 {
     public interface IBuildingService
     {

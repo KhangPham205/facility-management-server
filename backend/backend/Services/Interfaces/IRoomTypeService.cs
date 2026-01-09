@@ -1,7 +1,7 @@
 using backend.DTOs.RoomType.Request;
 using backend.DTOs.RoomType.Response;
 
-namespace backend.Services.RoomTypeService
+namespace backend.Services.Interfaces
 {
     public interface IRoomTypeService
     {

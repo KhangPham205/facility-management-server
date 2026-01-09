@@ -2,8 +2,9 @@
 using backend.DTOs.Room.Response;
 using backend.Mapping;
 using backend.Repositories.Interfaces;
+using backend.Services.Interfaces;
 
-namespace backend.Services.RoomService
+namespace backend.Services.Implements
 {
     public class RoomService : IRoomService
     {
