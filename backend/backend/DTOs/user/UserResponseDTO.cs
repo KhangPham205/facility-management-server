@@ -1,12 +1,13 @@
 ﻿using backend.Enums;
 
-namespace backend.DTOs.Auth
+namespace backend.DTOs.user
 {
-    public class RegisterDTO
+    public class UserResponseDTO
     {
+        public string UserId { get; set; }
         public string Fullname { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public UserRole Role { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

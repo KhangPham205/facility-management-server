@@ -1,12 +1,10 @@
 ﻿using backend.Data;
 using backend.Middlewares;
-using backend.Models.TaiKhoan;
+using backend.Models;
 using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
-using backend.Services.AuthService;
-using backend.Services.RoomService;
-using backend.Services.FloorService;
-using backend.Services.BuildingService;
+using backend.Services.Implements;
+using backend.Services.Interfaces;
 using backend.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +24,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<DataApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<Microsoft.AspNetCore.Identity.IPasswordHasher<TaiKhoan>, Microsoft.AspNetCore.Identity.PasswordHasher<TaiKhoan>>();
+builder.Services.AddScoped<Microsoft.AspNetCore.Identity.IPasswordHasher<User>, Microsoft.AspNetCore.Identity.PasswordHasher<User>>();
 
 // JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -47,8 +45,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Register services
-builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<IBorrowService, BorrowService>();
 builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
@@ -100,6 +103,21 @@ builder.Services.AddSwaggerGen(option =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<DataApplicationDbContext>();
+        context.Database.Migrate();
+        Console.WriteLine("--> Database migrated successfully.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"--> Could not migrate database: {ex.Message}");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -109,10 +127,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseMiddleware<JwtMiddleware>();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.MapControllers();
 

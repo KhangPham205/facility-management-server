@@ -1,62 +1,37 @@
 ﻿using backend.Repositories.Interfaces;
-using backend.Utils;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace backend.Middlewares
 {
     public class JwtMiddleware : IMiddleware
     {
-        private readonly IConfiguration _config;
-        private readonly ITaiKhoanRepository _repo;
+        private readonly IUserRepository _repo;
 
-        public JwtMiddleware(IConfiguration config, ITaiKhoanRepository repo)
+        public JwtMiddleware(IUserRepository repo)
         {
-            _config = config;
             _repo = repo;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var identity = context.User.Identity as ClaimsIdentity;
 
-            if (token != null)
-                AttachUserToContext(context, token);
+            if (identity != null && identity.IsAuthenticated)
+            {
+                var emailClaim = identity.FindFirst(ClaimTypes.Email);
+
+                if (emailClaim != null)
+                {
+                    string email = emailClaim.Value;
+                    var user = _repo.GetByEmail(email);
+                    if (user != null)
+                    {
+                        context.Items["User"] = user;
+                    }
+                }
+            }
 
             await next(context);
-        }
-
-        private void AttachUserToContext(HttpContext context, string token)
-        {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
-
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = _config["Jwt:Issuer"],
-                    ValidAudience = _config["Jwt:Audience"],
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-
-                var email = jwtToken.Claims.First(c => c.Type == ClaimTypes.Email).Value;
-
-                var user = _repo.GetByEmail(email);
-                context.Items["User"] = user;
-            }
-            catch
-            {
-                // token invalid → không attach user
-            }
         }
     }
 }

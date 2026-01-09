@@ -51,6 +51,8 @@ CodeCoverage/
 # NUnit
 *.VisualState.xml
 *.vs
+*.idea
 TestResult.xml
 nunit-*.xml
 backend/backend/appsettings.Development.json
+backend/backend/Migrations

@@ -1,78 +1,77 @@
 ﻿using backend.DTOs.Auth;
 using backend.Exceptions;
-using backend.Models.TaiKhoan;
+using backend.Models;
 using backend.Repositories.Interfaces;
+using backend.Services.Interfaces;
 using backend.Utils;
-using Microsoft.AspNetCore.Identity;
 
-namespace backend.Services.AuthService
+namespace backend.Services.Implements
 {
     public class AuthService : IAuthService
     {
-        private readonly ITaiKhoanRepository _repo;
+        private readonly IUserRepository _repo;
         private readonly JwtUtils _jwt;
 
-        public AuthService(ITaiKhoanRepository repo, JwtUtils jwt)
+        public AuthService(IUserRepository repo, JwtUtils jwt)
         {
             _repo = repo;
             _jwt = jwt;
         }
 
-        public AuthResponse Login(LoginDTO loginDTO)
+        public AuthResponse Login(LoginDTO loginDto)
         {
-            var user = _repo.GetByEmail(loginDTO.Email);
+            var user = _repo.GetByEmail(loginDto.Email);
 
             if (user == null)
                 throw new NotFoundException("User not found.");
 
-            if (user == null || !PasswordHasher.Verify(loginDTO.MatKhau, user.MatKhau))
+            if (!PasswordHasher.Verify(loginDto.Password, user.Password))
                 throw new UnauthorizedException("Email or password is incorrect.");
 
-            var token = _jwt.GenerateToken(user);
+            var accessToken = _jwt.GenerateToken(user);
             var refreshToken = _jwt.GenerateRefreshToken();
 
-            // Save refresh token
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-
             _repo.Save();
 
             return new AuthResponse
             {
-                AccessToken = token,
+                AccessToken = accessToken,
                 RefreshToken = refreshToken,
-                User = user
+                user = MapToUserDetailDTO(user)
             };
         }
+
 
         public void Register(RegisterDTO dto)
         {
             if (_repo.GetByEmail(dto.Email) != null)
-                throw new Exception("Email already exists!");
+                throw new BadRequestException("Email already exists!");
 
-            var newAccount = new TaiKhoan
+            var newUser = new User
             {
-                TenTK = dto.TenTK,
+                UserId = Guid.NewGuid().ToString(), // Generating String ID as per DB schema
+                Fullname = dto.Fullname,
                 Email = dto.Email,
-                MatKhau = PasswordHasher.Hash(dto.MatKhau),
-                VaiTro = dto.VaiTro,
-                NgayTao = DateTime.UtcNow
+                Password = PasswordHasher.Hash(dto.Password),
+                Role = dto.Role,
+                CreatedAt = DateTime.UtcNow
             };
 
-            _repo.Add(newAccount);
+            _repo.Add(newUser);
             _repo.Save();
         }
-
 
         public AuthResponse RefreshToken(string refreshToken)
         {
             var user = _repo.GetByRefreshToken(refreshToken);
 
             if (user == null)
-                throw new Exception("Invalid refresh token.");
+                throw new BadRequestException("Invalid refresh token.");
 
             if (user.RefreshTokenExpiryTime < DateTime.UtcNow)
-                throw new Exception("Refresh token expired.");
+                throw new BadRequestException("Refresh token expired.");
 
             var newAccessToken = _jwt.GenerateToken(user);
             var newRefreshToken = _jwt.GenerateRefreshToken();
@@ -85,7 +84,20 @@ namespace backend.Services.AuthService
             {
                 AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken,
-                User = user
+                user = MapToUserDetailDTO(user)
+            };
+        }
+
+        // Helper method to map User to UserDetailDTO
+        private UserDetailDTO MapToUserDetailDTO(User user)
+        {
+            return new UserDetailDTO
+            {
+                UserId = user.UserId,
+                Fullname = user.Fullname,
+                Email = user.Email,
+                Role = user.Role.ToString(),
+                CreatedAt = user.CreatedAt
             };
         }
     }
