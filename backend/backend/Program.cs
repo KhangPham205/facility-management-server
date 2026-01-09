@@ -4,15 +4,16 @@ using backend.Models.TaiKhoan;
 using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
 using backend.Services.AuthService;
-using backend.Services.PhongService;
-using backend.Services.TangService;
-using backend.Services.ToaService;
+using backend.Services.RoomService;
+using backend.Services.FloorService;
+using backend.Services.BuildingService;
 using backend.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using backend.Services.RoomTypeService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,14 +51,17 @@ builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<JwtUtils>();
 
-builder.Services.AddScoped<IToaRepository, ToaRepository>();
-builder.Services.AddScoped<IToaService, ToaService>();
+builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
+builder.Services.AddScoped<IBuildingService, BuildingService>();
 
-builder.Services.AddScoped<ITangRepository, TangRepository>();
-builder.Services.AddScoped<ITangService, TangService>();
+builder.Services.AddScoped<IFloorRepository, FloorRepository>();
+builder.Services.AddScoped<IFloorService, FloorService>();
 
-builder.Services.AddScoped<IPhongRepository, PhongRepository>();
-builder.Services.AddScoped<IPhongService, PhongService>();
+builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
+builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
+
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomService, RoomService>();
 
 builder.Services.AddControllers();
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using backend.Models.TaiKhoan;
 using backend.Models;
-using backend.Models.Phong;
+
 
 namespace backend.Data
 {
@@ -12,9 +12,10 @@ namespace backend.Data
         {
         }
         public DbSet<TaiKhoan> TaiKhoan { get; set; }
-        public DbSet<Toa> Toa { get; set; }
-        public DbSet<Tang> Tang { get; set; }
-        public DbSet<Phong> Phong { get; set; }
+        public DbSet<Building> Buildings { get; set; }
+        public DbSet<Floor> Floors { get; set; }
+        public DbSet<RoomType> RoomTypes { get; set; }
+        public DbSet<Room> Rooms { get; set; }
         //public DbSet<ThoiKhoaBieu> ThoiKhoaBieu { get; set; }
         //public DbSet<ThietBi> ThietBi { get; set; }
         //public DbSet<PhieuNhap> PhieuNhap { get; set; }
