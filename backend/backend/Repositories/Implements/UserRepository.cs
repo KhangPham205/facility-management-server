@@ -1,6 +1,8 @@
 ﻿using backend.Data;
 using backend.Models;
 using backend.Repositories.Interfaces;
+using backend.vo;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories.Implements
 {
@@ -27,6 +29,43 @@ namespace backend.Repositories.Implements
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public async Task<PageVO<User>> GetUsersPagedAsync(int page, int size)
+        {
+            var totalElements = await _context.Users.CountAsync();
+
+            var skip = (page - 1) * size;
+
+            var content = await _context.Users
+                .OrderByDescending(u => u.CreatedAt)
+                .Skip(skip)
+                .Take(size)
+                .ToListAsync();
+
+            return new PageVO<User>(page, size, totalElements, content);
+        }
+
+        public async Task<User?> GetByIdAsync(string id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsByEmailAsync(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == email);
         }
     }
 }

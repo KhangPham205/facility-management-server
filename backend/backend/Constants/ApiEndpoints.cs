@@ -1,0 +1,75 @@
+﻿namespace backend.Constants
+{
+    public static class ApiEndpoints
+    {
+        //================================================================
+        //== Base API Paths
+        //================================================================
+        public const string ApiV1 = "api/v1";
+
+        //================================================================
+        //== API Controllers (Dùng cho [Route] ở cấp Class)
+        //================================================================
+
+        /**
+         * Authentication
+         * URI: api/v1/auth
+         */
+        public const string Auth = $"{ApiV1}/auth";
+
+        /**
+         * Quản lý người dùng
+         * URI: api/v1/users
+         */
+        public const string Users = $"{ApiV1}/users";
+
+        /**
+         * Quản lý thiết bị
+         * URI: api/v1/equipments
+         */
+        public const string Equipments = $"{ApiV1}/equipments";
+
+        /**
+         * Quản lý loại thiết bị (Categories)
+         * URI: api/v1/equipment-categories
+         */
+        public const string EquipmentCategories = $"{ApiV1}/equipment-categories";
+
+        /**
+         * Quản lý nguồn kinh phí
+         * URI: api/v1/fund-sources
+         */
+        public const string FundSources = $"{ApiV1}/fund-sources";
+
+        /**
+         * Quản lý phiếu mượn
+         * URI: api/v1/borrow-vouchers
+         */
+        public const string BorrowVouchers = $"{ApiV1}/borrow-vouchers";
+
+        /**
+         * Quản lý phiếu chuyển
+         * URI: api/v1/transfer-vouchers
+         */
+        public const string TransferVouchers = $"{ApiV1}/transfer-vouchers";
+
+        //================================================================
+        //== Whitelists cho Security (CORS / JWT Filter)
+        //================================================================
+
+        // Trong C#, mảng không thể là const, phải dùng static readonly
+        public static readonly string[] SwaggerWhitelist =
+        {
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/v3/api-docs/**"
+        };
+
+        public static readonly string[] PublicApiWhitelist =
+        {
+            $"/{Auth}/**",          // api/v1/auth/**
+            "/hub/**",              // SignalR / WebSocket (nếu có)
+            "/files/**"             // Static files
+        };
+    }
+}

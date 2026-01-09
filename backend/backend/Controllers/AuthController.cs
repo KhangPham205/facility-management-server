@@ -1,12 +1,13 @@
-﻿using backend.DTOs.Auth;
+﻿using backend.Constants;
+using backend.DTOs.Auth;
 using backend.Models;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+    [Route(ApiEndpoints.Auth)]
     [ApiController]
-    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;

@@ -1,13 +1,10 @@
 ﻿using backend.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Models
+namespace backend.DTOs.user
 {
-    public class User
+    public class CreateUserDTO
     {
-        [Key]
-        public string UserId { get; set; }
-
         [Required]
         public string Fullname { get; set; }
 
@@ -16,14 +13,9 @@ namespace backend.Models
         public string Email { get; set; }
 
         [Required]
+        //[MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
         public string Password { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
         public UserRole Role { get; set; }
-
-        public string? RefreshToken { get; set; }
-
-        public DateTime? RefreshTokenExpiryTime { get; set; }
     }
 }

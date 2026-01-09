@@ -1,5 +1,5 @@
 ﻿using backend.DTOs.Auth;
-using backend.Exceptions; // Assuming you have custom exceptions
+using backend.Exceptions;
 using backend.Models;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
@@ -28,22 +28,21 @@ namespace backend.Services.Implements
             if (!PasswordHasher.Verify(loginDto.Password, user.Password))
                 throw new UnauthorizedException("Email or password is incorrect.");
 
-            var token = _jwt.GenerateToken(user);
+            var accessToken = _jwt.GenerateToken(user);
             var refreshToken = _jwt.GenerateRefreshToken();
 
-            // Save refresh token
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-
             _repo.Save();
 
             return new AuthResponse
             {
-                AccessToken = token,
+                AccessToken = accessToken,
                 RefreshToken = refreshToken,
-                User = user
+                user = MapToUserDetailDTO(user)
             };
         }
+
 
         public void Register(RegisterDTO dto)
         {
@@ -85,7 +84,20 @@ namespace backend.Services.Implements
             {
                 AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken,
-                User = user
+                user = MapToUserDetailDTO(user)
+            };
+        }
+
+        // Helper method to map User to UserDetailDTO
+        private UserDetailDTO MapToUserDetailDTO(User user)
+        {
+            return new UserDetailDTO
+            {
+                UserId = user.UserId,
+                Fullname = user.Fullname,
+                Email = user.Email,
+                Role = user.Role.ToString(),
+                CreatedAt = user.CreatedAt
             };
         }
     }

@@ -6,6 +6,6 @@ namespace backend.DTOs.Auth
     {
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
-        public User User { get; set; }
+        public UserDetailDTO user { get; set; }
     }
 }
