@@ -1,4 +1,4 @@
-﻿using backend.DTOs.Equipment;
+﻿using backend.DTOs.Equipment.Request;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

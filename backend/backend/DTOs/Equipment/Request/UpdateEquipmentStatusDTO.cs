@@ -1,6 +1,6 @@
 ﻿using backend.Enums;
 
-namespace backend.DTOs.Equipment
+namespace backend.DTOs.Equipment.Request
 {
     public class UpdateEquipmentStatusDTO
     {
