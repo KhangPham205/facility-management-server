@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Models.Audit
+namespace backend.Models
 {
     [Table("InventoryAudits")]
     public class InventoryAudit
