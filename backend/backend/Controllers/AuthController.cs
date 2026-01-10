@@ -66,5 +66,38 @@ namespace backend.Controllers
             var result = _authService.RefreshToken(dto.RefreshToken);
             return Ok(result);
         }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO dto)
+        {
+            try
+            {
+                var otp = await _authService.ForgotPassword(dto.Email);
+
+                return Ok(new
+                {
+                    message = "Mã xác thực đã được gửi (Giả lập).",
+                    test_otp = otp
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
+        {
+            try
+            {
+                await _authService.ResetPassword(dto);
+                return Ok(new { message = "Đổi mật khẩu thành công. Vui lòng đăng nhập lại." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

@@ -25,5 +25,8 @@ namespace backend.Models
         public string? RefreshToken { get; set; }
 
         public DateTime? RefreshTokenExpiryTime { get; set; }
+
+        public string? ResetToken { get; set; } // Lưu mã OTP
+        public DateTime? ResetTokenExpiry { get; set; } // Thời gian hết hạn OTP
     }
 }
