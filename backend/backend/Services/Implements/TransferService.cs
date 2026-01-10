@@ -69,11 +69,7 @@ namespace backend.Services.Implements
             voucher.ApprovedBy = dto.ApproverId;
             voucher.ApprovedAt = DateTime.UtcNow;
 
-            if (!dto.IsApproved)
-            {
-                voucher.Status = VoucherStatus.Denied;
-            }
-            else
+            if (dto.Status == VoucherStatus.Accepted)
             {
                 var parts = voucher.Reason?.Split("| EquipmentId:");
                 var equipId = parts?.Length > 1 ? parts[1].Trim() : null;
