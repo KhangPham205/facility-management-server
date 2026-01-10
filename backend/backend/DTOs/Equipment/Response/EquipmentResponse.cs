@@ -1,4 +1,5 @@
-﻿using backend.Enums;
+﻿using Azure.Core.Pipeline;
+using backend.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs.Equipment.Response
@@ -19,5 +20,9 @@ namespace backend.DTOs.Equipment.Response
         public DateTime? WarrantyExpiryDate { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        // thông tin ngoài model (theo foreign keys)
+        public string EquipmentCategoryName {  get; set; }
+        public string RoomName {  get; set; }
     }
 }
