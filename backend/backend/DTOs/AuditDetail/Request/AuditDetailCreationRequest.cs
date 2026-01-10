@@ -1,17 +1,17 @@
-using System.Runtime.InteropServices;
+using System.ComponentModel.DataAnnotations;
 
-// In SDK-style projects such as this one, several assembly attributes that were historically
-// defined in this file are now automatically added during build and populated with
-// values defined in project properties. For details of which attributes are included
-// and how to customise this process see: https://aka.ms/assembly-info-properties
+namespace backend.DTOs.AuditDetail.Request
+{
+    public class AuditDetailCreationRequest
+    {
+        [Required]
+        public string EquipmentId { get; set; } = string.Empty;
 
+        [Required]
+        public string EquipmentName { get; set; } = string.Empty;
 
-// Setting ComVisible to false makes the types in this assembly not visible to COM
-// components.  If you need to access a type in this assembly from COM, set the ComVisible
-// attribute to true on that type.
+        public int BookQuantity { get; set; }
 
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM.
-
-[assembly: Guid("4b758672-0ed5-4765-822e-cf2b4509a433")]
+        public string? Note { get; set; }
+    }
+}

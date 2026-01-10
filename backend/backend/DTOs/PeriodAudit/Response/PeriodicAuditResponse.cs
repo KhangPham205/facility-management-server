@@ -8,5 +8,4 @@
         public DateTime EndDate { get; set; }
         public string ResponsiblePerson { get; set; } = string.Empty;
     }
-);
 }
