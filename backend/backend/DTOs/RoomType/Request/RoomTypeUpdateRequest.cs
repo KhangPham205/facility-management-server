@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using backend.Enums;
 
 namespace backend.DTOs.RoomType.Request
 {
@@ -6,7 +7,7 @@ namespace backend.DTOs.RoomType.Request
     {
         [Required]
         [StringLength(100)]
-        public string TypeName { get; set; }
+        public RoomTypeName TypeName { get; set; }
 
         [StringLength(500)]
         public string? Description { get; set; }
