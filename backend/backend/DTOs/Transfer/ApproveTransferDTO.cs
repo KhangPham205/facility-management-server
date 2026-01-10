@@ -2,8 +2,8 @@
 {
     public class ApproveTransferDTO
     {
-        public string ApproverId { get; set; } // ID người duyệt
-        public bool IsApproved { get; set; }   // True: Duyệt, False: Từ chối
+        public string ApproverId { get; set; }
+        public bool IsApproved { get; set; }
         public string? Note { get; set; }
     }
 }
