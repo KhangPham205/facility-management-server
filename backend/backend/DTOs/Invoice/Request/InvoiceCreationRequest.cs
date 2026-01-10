@@ -1,17 +1,19 @@
-using System.Runtime.InteropServices;
+using backend.Enums;
+using System.ComponentModel.DataAnnotations;
 
-// In SDK-style projects such as this one, several assembly attributes that were historically
-// defined in this file are now automatically added during build and populated with
-// values defined in project properties. For details of which attributes are included
-// and how to customise this process see: https://aka.ms/assembly-info-properties
+namespace backend.DTOs.Invoice.Request
+{
+    public class InvoiceCreationRequest
+    {
+        [Required]
+        public string VoucherDetailId { get; set; }
 
+        [Required]
+        [Range(0, 3)]
+        public FunctionType Type { get; set; }
 
-// Setting ComVisible to false makes the types in this assembly not visible to COM
-// components.  If you need to access a type in this assembly from COM, set the ComVisible
-// attribute to true on that type.
-
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM.
-
-[assembly: Guid("94a2a4e8-ebcc-4617-a192-61a5659fd339")]
+        [Required]
+        [Range(0, double.MaxValue)]
+        public decimal TotalAmount { get; set; }
+    }
+}
