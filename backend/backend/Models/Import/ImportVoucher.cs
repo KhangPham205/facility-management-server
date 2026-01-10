@@ -8,33 +8,36 @@ namespace backend.Models
     public class ImportVoucher
     {
         [Key]
-        public string importId { get; set; }
+        public string ImportId { get; set; }
 
         [Required]
-        public string supplierId { get; set; }
+        public string SupplierId { get; set; }
 
-        public string invoiceId { get; set; }
+        public string InvoiceId { get; set; }
 
         [Required]
-        public string createdBy { get; set; }
+        public string CreatedBy { get; set; }
 
-        public DateTime createdAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public string purpose { get; set; }
+        public string Purpose { get; set; }
 
-        public VoucherStatus status { get; set; } = VoucherStatus.Pending;
+        public VoucherStatus Status { get; set; } = VoucherStatus.Pending;
 
-        public string statusUpdatedBy { get; set; }
+        public string StatusUpdatedBy { get; set; }
 
-        public DateTime? statusUpdatedAt { get; set; }
+        public DateTime? StatusUpdatedAt { get; set; }
 
-        public string approvedBy { get; set; }
+        public string ApprovedBy { get; set; }
 
-        public DateTime? approvedAt { get; set; }
+        public DateTime? ApprovedAt { get; set; }
 
-        // Navigation Properties (Nếu bạn có các bảng liên quan)
+        // Navigation Properties
         // [ForeignKey("SupplierId")]
         // public virtual Supplier Supplier { get; set; }
+
+        [ForeignKey("invoiceId")]
+        public virtual Invoice Invoice { get; set; }
 
         // [ForeignKey("CreatedBy")]
         // public virtual User Creator { get; set; }
