@@ -1,4 +1,4 @@
-﻿using backend.DTOs.Equipment;
+﻿using backend.DTOs.Equipment.Request;
 using backend.Models;
 
 namespace backend.Services.Interfaces

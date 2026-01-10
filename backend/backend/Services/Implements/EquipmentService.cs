@@ -1,4 +1,4 @@
-﻿using backend.DTOs.Equipment;
+﻿using backend.DTOs.Equipment.Request;
 using backend.Exceptions;
 using backend.Models;
 using backend.Repositories.Interfaces;

@@ -1,4 +1,4 @@
-﻿namespace backend.DTOs.Equipment
+﻿namespace backend.DTOs.Equipment.Request
 {
     public class CreateCategoryDTO
     {
