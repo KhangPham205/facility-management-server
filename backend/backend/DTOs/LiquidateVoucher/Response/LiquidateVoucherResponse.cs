@@ -1,4 +1,4 @@
-using backend.Enums;
+﻿using backend.Enums;
 
 namespace backend.DTOs.LiquidateVoucher.Response
 {
@@ -13,5 +13,9 @@ namespace backend.DTOs.LiquidateVoucher.Response
         public VoucherStatus Status { get; set; } 
         public string StatusUpdatedBy { get; set; }
         public DateTime? StatusUpdatedAt { get; set; }
+
+        // thuộc tính ngoài base model
+        public string CreaterName { get; set; } // tên người tạo
+        public string StatusUpdater { get; set; } // tên người updated status
     }
 }
