@@ -1,6 +1,6 @@
 using backend.DTOs.RoomType.Request;
 using backend.DTOs.RoomType.Response;
-using backend.Models;
+using backend.Models.Area;
 
 namespace backend.Mapping
 {

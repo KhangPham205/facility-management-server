@@ -1,4 +1,5 @@
 ﻿using backend.Enums;
+using backend.Models.Area;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

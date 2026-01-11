@@ -1,4 +1,4 @@
-﻿using backend.Models;
+﻿using backend.Models.Area;
 
 namespace backend.Repositories.Interfaces
 {

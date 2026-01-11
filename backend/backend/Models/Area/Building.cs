@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 
-namespace backend.Models
+namespace backend.Models.Area
 {
     [Table("Buildings")] // Chỉ định tên bảng nếu cần
     public class Building
