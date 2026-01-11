@@ -21,5 +21,8 @@ namespace backend.Models
 
         [StringLength(255)]
         public string ResponsiblePerson { get; set; } = string.Empty;
+
+        
+        public virtual ICollection<InventoryAudit> InventoryAudits { get; set; }
     }
 }

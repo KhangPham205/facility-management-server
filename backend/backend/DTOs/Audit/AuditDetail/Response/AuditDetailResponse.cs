@@ -1,4 +1,4 @@
-namespace backend.DTOs.AuditDetail.Response
+namespace backend.DTOs.Audit.AuditDetail.Response
 {
     public class AuditDetailResponseDto
     {

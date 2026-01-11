@@ -33,9 +33,12 @@ namespace backend.Models
         public DateTime? StatusUpdatedAt { get; set; }
 
 
-        // foreign keys
+        // navigation properties
 
         [ForeignKey("PeriodId")]
         public virtual PeriodicAudit? PeriodicAudit { get; set; }
+
+        public virtual ICollection<InventoryAudit> InventoryAudits { get; set; }
+
     }
 }

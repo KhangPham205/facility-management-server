@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.InventoryAudit.Request
+namespace backend.DTOs.Audit.InventoryAudit.Request
 {
     public class InventoryAuditCreationRequest
     {
