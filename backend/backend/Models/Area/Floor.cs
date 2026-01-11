@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using backend.Models;
+using backend.Models.Area;
 
-namespace backend.Models
+namespace backend.Models.Area
 {
     [Table("Floors")]
     public class Floor

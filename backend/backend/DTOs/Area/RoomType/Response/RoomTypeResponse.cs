@@ -1,6 +1,6 @@
 using backend.Enums;
 
-namespace backend.DTOs.RoomType.Response
+namespace backend.DTOs.Area.RoomType.Response
 {
     public class RoomTypeResponse
     {

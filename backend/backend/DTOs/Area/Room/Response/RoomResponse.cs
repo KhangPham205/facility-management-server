@@ -1,4 +1,4 @@
-﻿namespace backend.DTOs.Room.Response
+﻿namespace backend.DTOs.Area.Room.Response
 {
     public class RoomResponse
     {
@@ -13,5 +13,6 @@
         // thuộc tính ngoài model
         public string FloorName { get; set; }
         public string BuildingName { get; set; }
+        public string RoomTypeName { get; set; }
     }
 }

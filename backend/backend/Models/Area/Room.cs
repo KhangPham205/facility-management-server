@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Models;
+namespace backend.Models.Area;
 
 [Table("Rooms")]
 public class Room
@@ -31,4 +31,6 @@ public class Room
 
     [ForeignKey("RoomTypeId")]
     public virtual RoomType RoomType { get; set; }
+
+    public virtual ICollection<TransferVoucher> TransferVouchers { get; set; }
 }

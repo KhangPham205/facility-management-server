@@ -1,4 +1,4 @@
-﻿namespace backend.DTOs.Floor.Response
+﻿namespace backend.DTOs.Area.Floor.Response
 {
     public class FloorResponse
     {

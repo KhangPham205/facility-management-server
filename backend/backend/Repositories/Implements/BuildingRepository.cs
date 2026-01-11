@@ -1,7 +1,7 @@
-﻿using backend.Models;
-using backend.Repositories.Interfaces;
+﻿using backend.Repositories.Interfaces;
 using backend.Data;
 using Microsoft.EntityFrameworkCore;
+using backend.Models.Area;
 
 namespace backend.Repositories.Implements
 {

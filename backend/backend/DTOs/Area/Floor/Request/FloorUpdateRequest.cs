@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.Floor.Request
+namespace backend.DTOs.Area.Floor.Request
 {
     public class FloorUpdateRequest
     {
