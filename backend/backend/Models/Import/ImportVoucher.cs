@@ -15,6 +15,8 @@ namespace backend.Models
 
         public string InvoiceId { get; set; }
 
+        public string VoucherDetailId { get; set; }
+
         [Required]
         public string CreatedBy { get; set; }
 
@@ -28,10 +30,6 @@ namespace backend.Models
 
         public DateTime? StatusUpdatedAt { get; set; }
 
-        public string ApprovedBy { get; set; }
-
-        public DateTime? ApprovedAt { get; set; }
-
         // Navigation Properties
         // [ForeignKey("SupplierId")]
         // public virtual Supplier Supplier { get; set; }
@@ -39,7 +37,7 @@ namespace backend.Models
         [ForeignKey("invoiceId")]
         public virtual Invoice Invoice { get; set; }
 
-        // [ForeignKey("CreatedBy")]
-        // public virtual User Creator { get; set; }
+        [ForeignKey("CreatedBy")]
+        public virtual User Creator { get; set; }
     }
 }
