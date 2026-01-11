@@ -47,10 +47,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
+builder.Services.AddScoped<ITransferRepository, TransferRepository>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddScoped<IBorrowService, BorrowService>();
+builder.Services.AddScoped<ITransferService, TransferService>();
+
 builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
