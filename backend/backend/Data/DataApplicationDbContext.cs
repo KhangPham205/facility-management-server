@@ -1,4 +1,6 @@
 using backend.Models;
+using backend.Models.Area;
+using backend.Models.EquipmentInfo;
 using Microsoft.EntityFrameworkCore;
 
 

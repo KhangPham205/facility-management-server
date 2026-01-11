@@ -1,5 +1,5 @@
-﻿using backend.DTOs.Room.Request;
-using backend.DTOs.Room.Response;
+﻿using backend.DTOs.Area.Room.Request;
+using backend.DTOs.Area.Room.Response;
 using backend.Mapping;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;

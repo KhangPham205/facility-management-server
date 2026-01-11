@@ -1,5 +1,5 @@
 ﻿using backend.DTOs.Equipment.Request;
-using backend.Models;
+using backend.Models.EquipmentInfo;
 
 namespace backend.Services.Interfaces
 {
