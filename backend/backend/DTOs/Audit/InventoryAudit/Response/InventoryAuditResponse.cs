@@ -1,6 +1,6 @@
 using backend.Enums;
 
-namespace backend.DTOs.InventoryAudit.Response
+namespace backend.DTOs.Audit.InventoryAudit.Response
 {
     public class InventoryAuditResponse
     {
