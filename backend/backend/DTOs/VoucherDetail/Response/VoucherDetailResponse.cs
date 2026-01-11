@@ -8,5 +8,8 @@
         public string EquipmentName { get; set; } 
         public int Quantity { get; set; } 
         public decimal UnitPrice { get; set; } 
+
+        // thuộc tính ngoài model
+        public string CategoryName { get; set; }
     }
 }

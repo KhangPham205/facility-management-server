@@ -1,4 +1,4 @@
-using backend.Enums;
+﻿using backend.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +15,7 @@ namespace backend.DTOs.Invoice.Response
         public decimal TotalAmount { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // thuộc tính ngoài model
     }
 }
