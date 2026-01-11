@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.AuditDetail.Request
+namespace backend.DTOs.Audit.AuditDetail.Request
 {
     public class AuditDetailUpdateRequest
     {

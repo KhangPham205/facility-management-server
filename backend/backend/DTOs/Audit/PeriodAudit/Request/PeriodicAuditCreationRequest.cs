@@ -1,7 +1,7 @@
 using backend.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.Audit.Request
+namespace backend.DTOs.Audit.PeriodAudit.Request
 {
     public class PeriodicAuditCreationRequest
     {

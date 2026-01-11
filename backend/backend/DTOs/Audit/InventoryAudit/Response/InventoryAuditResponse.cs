@@ -13,5 +13,11 @@ namespace backend.DTOs.InventoryAudit.Response
         public AuditStatus Status { get; set; } = AuditStatus.Waiting;
         public string StatusUpdatedBy { get; set; } = string.Empty;
         public DateTime? StatusUpdatedAt { get; set; }
+
+
+        public string CreaterName { get; set; } = string.Empty;
+        public string PeriodType { get; set; } = string.Empty;
+        public string StatusUpdater { get; set; } = string.Empty;
+
     }
 }
