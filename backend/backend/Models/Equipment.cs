@@ -19,12 +19,8 @@ namespace backend.Models
 
         [Required]
         public string CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public virtual EquipmentCategory? Category { get; set; }
 
         public string? RoomId { get; set; }
-        // [ForeignKey("RoomId")]
-        // public virtual Room? Room { get; set; }
 
         public EquipmentStatus Status { get; set; } = EquipmentStatus.Available;
 
@@ -35,5 +31,14 @@ namespace backend.Models
         public string? Description { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+
+        // Foreign key
+        [ForeignKey("CategoryId")]
+        public virtual EquipmentCategory? Category { get; set; }
+
+        [ForeignKey("RoomId")]
+        public virtual Room? Room { get; set; }
+
     }
 }

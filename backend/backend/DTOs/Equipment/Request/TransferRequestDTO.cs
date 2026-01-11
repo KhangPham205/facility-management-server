@@ -1,4 +1,4 @@
-﻿namespace backend.DTOs.Equipment
+﻿namespace backend.DTOs.Equipment.Request
 {
     public class TransferRequestDTO
     {
@@ -6,6 +6,6 @@
         public string SourceLocation { get; set; } // RoomId cũ
         public string DestinationLocation { get; set; } // RoomId mới
         public string? Reason { get; set; }
-        public List<String> EquipmentId { get; set; }
+        public List<string> EquipmentId { get; set; }
     }
 }

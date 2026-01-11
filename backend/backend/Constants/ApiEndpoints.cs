@@ -2,14 +2,8 @@
 {
     public static class ApiEndpoints
     {
-        //================================================================
-        //== Base API Paths
-        //================================================================
+        //Base API Paths
         public const string ApiV1 = "api/v1";
-
-        //================================================================
-        //== API Controllers (Dùng cho [Route] ở cấp Class)
-        //================================================================
 
         /**
          * Authentication
@@ -57,7 +51,6 @@
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================
 
-        // Trong C#, mảng không thể là const, phải dùng static readonly
         public static readonly string[] SwaggerWhitelist =
         {
             "/swagger-ui/**",

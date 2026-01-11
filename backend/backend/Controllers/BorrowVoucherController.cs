@@ -1,10 +1,11 @@
-﻿using backend.DTOs.Borrow;
+﻿using backend.Constants;
+using backend.DTOs.Borrow;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiEndpoints.BorrowVouchers)]
     [ApiController]
     public class BorrowVoucherController : ControllerBase
     {

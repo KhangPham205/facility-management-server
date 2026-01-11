@@ -87,6 +87,42 @@ namespace backend.Services.Implements
                 user = MapToUserDetailDTO(user)
             };
         }
+        public async Task<string> ForgotPassword(string email)
+        {
+            var user = _repo.GetByEmail(email);
+            if (user == null)
+                throw new NotFoundException("The email address does not exist in the system.");
+
+            // Tạo OTP ngẫu nhiên 6 số
+            var otp = new Random().Next(100000, 999999).ToString();
+
+            user.ResetToken = otp;
+            user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(5); // OTP hết hạn sau 5 phút
+
+            _repo.Save();
+
+            return otp;
+        }
+
+        public async Task ResetPassword(ResetPasswordDTO dto)
+        {
+            var user = _repo.GetByEmail(dto.Email);
+            if (user == null)
+                throw new NotFoundException("The user does not exist.");
+
+            if (user.ResetToken != dto.Otp)
+                throw new BadRequestException("The OTP code is incorrect.");
+
+            if (user.ResetTokenExpiry < DateTime.UtcNow)
+                throw new BadRequestException("The OTP code has expired. Please get a new code.");
+
+            user.Password = PasswordHasher.Hash(dto.NewPassword);
+
+            user.ResetToken = null;
+            user.ResetTokenExpiry = null;
+
+            _repo.Save();
+        }
 
         // Helper method to map User to UserDetailDTO
         private UserDetailDTO MapToUserDetailDTO(User user)

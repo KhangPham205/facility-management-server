@@ -1,11 +1,14 @@
-﻿using backend.DTOs.Equipment;
+
+using backend.Constants;
+using backend.DTOs.Equipment;
+using backend.DTOs.Equipment.Request;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiEndpoints.Equipments)]
     [ApiController]
     public class EquipmentController : ControllerBase
     {
