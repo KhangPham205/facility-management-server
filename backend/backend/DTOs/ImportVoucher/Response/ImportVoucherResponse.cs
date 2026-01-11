@@ -15,5 +15,11 @@ namespace backend.DTOs.ImportVoucher.Response
         public DateTime? StatusUpdatedAt { get; set; }
         public string ApprovedBy { get; set; }
         public DateTime? ApprovedAt { get; set; }
+
+        // thuộc tính ngoài model gốc
+        public string SupplierName {  get; set; }
+        public string CreaterName { get; set; } // tên người tạo
+        public string StatusUpdaterName { get; set; } // tên người updated status
+        public string ApproverName { get; set; } // tên người approved
     }
 }
