@@ -1,4 +1,4 @@
-﻿namespace backend.DTOs.Building.Response
+﻿namespace backend.DTOs.Area.Building.Response
 {
     public class BuildingResponse
     {

@@ -1,5 +1,5 @@
-﻿using backend.DTOs.Floor.Request;
-using backend.DTOs.Floor.Response;
+﻿using backend.DTOs.Area.Floor.Request;
+using backend.DTOs.Area.Floor.Response;
 using backend.Models.Area;
 
 namespace backend.Mapping

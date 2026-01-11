@@ -1,5 +1,5 @@
-﻿using backend.DTOs.Building.Request;
-using backend.DTOs.Building.Response;
+﻿using backend.DTOs.Area.Building.Request;
+using backend.DTOs.Area.Building.Response;
 using backend.Mapping;
 using backend.Models;
 using backend.Repositories.Interfaces;

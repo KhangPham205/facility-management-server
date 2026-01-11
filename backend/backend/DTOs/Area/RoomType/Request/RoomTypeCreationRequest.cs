@@ -1,9 +1,9 @@
-using System.ComponentModel.DataAnnotations;
 using backend.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.RoomType.Request
+namespace backend.DTOs.Area.RoomType.Request
 {
-   public class RoomTypeUpdateRequest
+    public class RoomTypeCreationRequest
     {
         [Required]
         [StringLength(100)]

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.Building.Request
+namespace backend.DTOs.Area.Building.Request
 {
     public class BuildingCreationRequest
     {

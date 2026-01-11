@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.Room.Request
+namespace backend.DTOs.Area.Room.Request
 {
     public class RoomUpdateRequest
     {
