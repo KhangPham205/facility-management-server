@@ -1,8 +1,10 @@
 using backend.Enums;
+using backend.Models.Maintenance;
+using backend.Models.Repair;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Models
+namespace backend.Models.BaseInvoidAndVoucher
 {
     [Table("Invoices")]
     public class Invoice
@@ -26,6 +28,11 @@ namespace backend.Models
 
         // foreign key
         [ForeignKey("VoucherDetailId")]
-        public virtual VoucherDetail VoucherDetail { get; set; }
+        public virtual VoucherDetail? VoucherDetail { get; set; }
+
+        public virtual ICollection<ImportVoucher>? ImportVouchers { get; set; }
+        public virtual ICollection<MaintenanceVoucher>? MaintenanceVouchers { get; set;}
+        public virtual ICollection<RepairVoucher>? RepairVouchers { get; set; }
+        public virtual ICollection<LiquidateVoucher>? LiquidateVouchers { get;set; }
     }
 }

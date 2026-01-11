@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using backend.Models.BaseInvoidAndVoucher;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models.EquipmentInfo
 {
