@@ -3,7 +3,7 @@ using backend.Models.Area;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Models
+namespace backend.Models.EquipmentInfo
 {
     public class Equipment
     {
@@ -41,5 +41,7 @@ namespace backend.Models
         [ForeignKey("RoomId")]
         public virtual Room? Room { get; set; }
 
+        public virtual ICollection<AuditDetail> AuditDetails { get; set; }
+        public virtual ICollection<VoucherDetail> VoucherDetails { get; set; }
     }
 }

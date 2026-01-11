@@ -1,6 +1,6 @@
 ﻿using backend.DTOs.Equipment.Request;
 using backend.Exceptions;
-using backend.Models;
+using backend.Models.EquipmentInfo;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace backend.Models
+namespace backend.Models.EquipmentInfo
 {
     public class EquipmentCategory
     {
@@ -13,7 +13,9 @@ namespace backend.Models
 
         public string? Description { get; set; }
 
-        // Quan hệ 1-Nhiều
+        // navigation properties
         public virtual ICollection<Equipment>? Equipments { get; set; }
+        //public virtual ICollection<Criteria>? Criterias { get; set; }
+        public virtual ICollection<VoucherDetail>? VoucherDetails { get; set; }
     }
 }

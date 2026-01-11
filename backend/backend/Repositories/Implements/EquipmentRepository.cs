@@ -1,5 +1,5 @@
 ﻿using backend.Data;
-using backend.Models;
+using backend.Models.EquipmentInfo;
 using backend.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
