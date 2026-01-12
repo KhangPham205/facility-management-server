@@ -9,8 +9,12 @@ using backend.DTOs.Equipment.Request;
 using backend.DTOs.Equipment.Response;
 using backend.DTOs.Floor.Request;
 using backend.DTOs.Floor.Response;
+using backend.DTOs.FundSource.Request;
+using backend.DTOs.FundSource.Response;
 using backend.DTOs.Import.Request;
 using backend.DTOs.Import.Response;
+using backend.DTOs.Invoice.Request;
+using backend.DTOs.Invoice.Response;
 using backend.DTOs.Liquidate.Request;
 using backend.DTOs.Liquidate.Response;
 using backend.DTOs.Maintenance.Request;
@@ -222,6 +226,24 @@ namespace backend.Mappings
 
             CreateMap<AuditDetail, AuditDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // ======================================================
+            // 11. FINANCE (Tài chính: FundSource & Invoice)
+            // ======================================================
+
+            // FundSource
+            CreateMap<CreateFundSourceRequest, FundSource>();
+            CreateMap<UpdateFundSourceRequest, FundSource>();
+            CreateMap<FundSource, FundSourceResponse>();
+
+            // Invoice
+            CreateMap<CreateInvoiceRequest, Invoice>();
+            CreateMap<UpdateInvoiceRequest, Invoice>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null)); // Chỉ update trường không null
+
+            CreateMap<Invoice, InvoiceResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()));
         }
     }
 }
