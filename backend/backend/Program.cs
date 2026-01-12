@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Plainquire.Filter.Mvc;
+using Plainquire.Filter;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,17 +46,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Register services
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
-//builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
-//builder.Services.AddScoped<ITransferRepository, TransferRepository>();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
-//builder.Services.AddScoped<IEquipmentService, EquipmentService>();
-//builder.Services.AddScoped<IBorrowService, BorrowService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//builder.Services.AddScoped<ITransferRepository, TransferRepository>();
 //builder.Services.AddScoped<ITransferService, TransferService>();
 
-builder.Services.AddSingleton<JwtUtils>();
+//builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+//builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+
+//builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
+//builder.Services.AddScoped<IBorrowService, BorrowService>();
+
 
 //builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
 //builder.Services.AddScoped<IBuildingService, BuildingService>();
@@ -67,6 +70,11 @@ builder.Services.AddSingleton<JwtUtils>();
 
 //builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //builder.Services.AddScoped<IRoomService, RoomService>();
+
+builder.Services.AddScoped<IFundSourceRepository, FundSourceRepository>();
+builder.Services.AddScoped<IFundSourceService, FundSourceService>();
+
+builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddControllers();
 
@@ -102,6 +110,8 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+builder.Services.AddControllers().AddFilterSupport();
 
 var app = builder.Build();
 
