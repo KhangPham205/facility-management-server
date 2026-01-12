@@ -24,9 +24,15 @@
 
 	<ItemGroup>
 
-	<Folder Include="DTOs\Equipment\Response\" />
-
 	<Folder Include="Migrations\" />
+
+	<Folder Include="Repositories\Implements\" />
+
+	<Folder Include="Repositories\Interfaces\" />
+
+	<Folder Include="Services\Implements\" />
+
+	<Folder Include="Services\Interfaces\" />
 
 	</ItemGroup>
 

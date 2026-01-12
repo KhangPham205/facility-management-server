@@ -1,4 +1,6 @@
-﻿namespace backend.DTOs.Building.Response
+﻿using backend.DTOs.Floor.Response;
+
+namespace backend.DTOs.Building.Response
 {
     public class BuildingResponse
     {
