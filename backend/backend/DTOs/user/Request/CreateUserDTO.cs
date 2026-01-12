@@ -1,7 +1,7 @@
 ﻿using backend.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.DTOs.user
+namespace backend.DTOs.user.Request
 {
     public class CreateUserDTO
     {

@@ -1,0 +1,227 @@
+﻿using AutoMapper;
+using backend.DTOs.Audit.Request;
+using backend.DTOs.Audit.Response;
+using backend.DTOs.Borrow.Request;
+using backend.DTOs.Borrow.Response;
+using backend.DTOs.Building.Request;
+using backend.DTOs.Building.Response;
+using backend.DTOs.Equipment.Request;
+using backend.DTOs.Equipment.Response;
+using backend.DTOs.Floor.Request;
+using backend.DTOs.Floor.Response;
+using backend.DTOs.Import.Request;
+using backend.DTOs.Import.Response;
+using backend.DTOs.Liquidate.Request;
+using backend.DTOs.Liquidate.Response;
+using backend.DTOs.Maintenance.Request;
+using backend.DTOs.Maintenance.Response;
+using backend.DTOs.Repair.Request;
+using backend.DTOs.Repair.Response;
+using backend.DTOs.Room.Request;
+using backend.DTOs.Room.Response;
+using backend.DTOs.Transfer.Request;
+using backend.DTOs.Transfer.Response;
+using backend.Models;
+using backend.Models.Area;
+using backend.Models.Borrow;
+using backend.Models.EquipmentInfo;
+using backend.Models.Finance;
+using backend.Models.Import;
+using backend.Models.Liquidate;
+using backend.Models.Maintenance;
+using backend.Models.Repair;
+using backend.Models.Transfer;
+using DTOs.ExternalUnit.Request;
+using DTOs.ExternalUnit.Response;
+
+namespace backend.Mappings
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            // ======================================================
+            // 1. FACILITY (Cơ sở vật chất: Tòa, Tầng, Phòng)
+            // ======================================================
+
+            // Building
+            CreateMap<CreateBuildingRequest, Building>();
+            CreateMap<UpdateBuildingRequest, Building>();
+            CreateMap<Building, BuildingResponse>();
+
+            // Floor
+            CreateMap<CreateFloorRequest, Floor>();
+            CreateMap<Floor, FloorResponse>()
+                .ForMember(dest => dest.BuildingName, opt => opt.MapFrom(src => src.Building.BuildingName));
+
+            // Room
+            CreateMap<CreateRoomRequest, Room>();
+            CreateMap<Room, RoomResponse>()
+                .ForMember(dest => dest.FloorName, opt => opt.MapFrom(src => src.Floor.FloorName))
+                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.TypeName));
+
+            // ======================================================
+            // 2. EQUIPMENT & CATEGORY
+            // ======================================================
+
+            CreateMap<CreateEquipmentRequest, Equipment>();
+            CreateMap<Equipment, EquipmentResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                // Lưu ý: LocationName phải xử lý trong Service vì LocationId là dynamic (Room hoặc Kho)
+                .ForMember(dest => dest.LocationName, opt => opt.Ignore());
+
+            // ======================================================
+            // 3. EXTERNAL UNIT (Nhà cung cấp)
+            // ======================================================
+
+            CreateMap<CreateExternalUnitRequest, ExternalUnit>();
+            CreateMap<ExternalUnit, ExternalUnitResponse>();
+
+            // ======================================================
+            // 4. IMPORT PROCESS (Quy trình Nhập)
+            // ======================================================
+
+            // -- Import Request --
+            CreateMap<CreateImportRequestRequest, ImportRequest>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<ImportRequestDetailDto, ImportRequestDetail>();
+
+            CreateMap<ImportRequest, ImportRequestResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+
+            CreateMap<ImportRequestDetail, ImportRequestDetailResponse>();
+
+            // -- Import Voucher --
+            CreateMap<CreateImportVoucherRequest, ImportVoucher>()
+                // Details cần xử lý tay trong Service vì logic nhập kho phức tạp (check tồn kho/tạo mới)
+                .ForMember(dest => dest.Details, opt => opt.Ignore());
+
+            CreateMap<ImportVoucher, ImportVoucherResponse>()
+                .ForMember(dest => dest.SupplierName, opt => opt.MapFrom(src => src.Supplier.UnitName))
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber)) 
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<ImportVoucherDetail, ImportVoucherDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // ======================================================
+            // 5. BORROW PROCESS (Quy trình Mượn)
+            // ======================================================
+
+            CreateMap<CreateBorrowRequest, BorrowVoucher>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<BorrowDetailDto, BorrowVoucherDetail>();
+
+            CreateMap<BorrowVoucher, BorrowVoucherResponse>()
+                .ForMember(dest => dest.BorrowerName, opt => opt.MapFrom(src => src.Borrower.Fullname));
+
+            CreateMap<BorrowVoucherDetail, BorrowVoucherDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // ======================================================
+            // 6. TRANSFER PROCESS (Quy trình Điều chuyển)
+            // ======================================================
+
+            CreateMap<CreateTransferRequestRequest, TransferRequest>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<TransferRequestDetailDto, TransferRequestDetail>();
+
+            CreateMap<TransferRequest, TransferRequestResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname))
+                // LocationName cần resolve trong Service
+                .ForMember(dest => dest.SourceLocationName, opt => opt.Ignore())
+                .ForMember(dest => dest.DestinationLocationName, opt => opt.Ignore());
+
+            CreateMap<TransferRequestDetail, TransferRequestDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // ======================================================
+            // 7. MAINTENANCE PROCESS (Bảo trì)
+            // ======================================================
+
+            // -- Request --
+            CreateMap<CreateMaintenanceRequestRequest, MaintenanceRequest>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<MaintenanceRequestDetailDto, MaintenanceRequestDetail>();
+
+            CreateMap<MaintenanceRequest, MaintenanceRequestResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+
+            CreateMap<MaintenanceRequestDetail, MaintenanceRequestDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // -- Voucher --
+            CreateMap<CreateMaintenanceVoucherRequest, MaintenanceVoucher>();
+
+            CreateMap<MaintenanceVoucher, MaintenanceVoucherResponse>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber));
+
+            // ======================================================
+            // 8. REPAIR PROCESS (Sửa chữa)
+            // ======================================================
+
+            // -- Request --
+            CreateMap<CreateRepairRequestRequest, RepairRequest>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<RepairRequestDetailDto, RepairRequestDetail>();
+
+            CreateMap<RepairRequest, RepairRequestResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+
+            CreateMap<RepairRequestDetail, RepairRequestDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // -- Voucher --
+            CreateMap<CreateRepairVoucherRequest, RepairVoucher>();
+
+            CreateMap<RepairVoucher, RepairVoucherResponse>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber))
+                .ForMember(dest => dest.ProviderName, opt => opt.MapFrom(src => src.Provider.UnitName));
+
+            // ======================================================
+            // 9. LIQUIDATE PROCESS (Thanh lý)
+            // ======================================================
+
+            // -- Request --
+            CreateMap<CreateLiquidateRequestRequest, LiquidateRequest>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<LiquidateRequestDetailDto, LiquidateRequestDetail>();
+
+            CreateMap<LiquidateRequest, LiquidateRequestResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+
+            CreateMap<LiquidateRequestDetail, LiquidateRequestDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // -- Voucher --
+            CreateMap<CreateLiquidateVoucherRequest, LiquidateVoucher>()
+                // Details cần map tay để xử lý logic trừ kho
+                .ForMember(dest => dest.Details, opt => opt.Ignore());
+
+            CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber));
+
+            CreateMap<LiquidateVoucherDetail, LiquidateVoucherDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+            // ======================================================
+            // 10. AUDIT PROCESS (Kiểm kê)
+            // ======================================================
+
+            CreateMap<CreateAuditPeriodRequest, PeriodicAudit>();
+
+            CreateMap<InventoryAudit, InventoryAuditResponse>()
+                // LocationName cần resolve
+                .ForMember(dest => dest.LocationName, opt => opt.Ignore());
+
+            CreateMap<AuditDetail, AuditDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+        }
+    }
+}

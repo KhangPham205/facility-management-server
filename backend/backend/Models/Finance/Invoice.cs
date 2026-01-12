@@ -8,6 +8,7 @@ namespace backend.Models.Finance
     public class Invoice
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string InvoiceId { get; set; }
         public string InvoiceNumber { get; set; }
         public FunctionType Type { get; set; }
@@ -16,7 +17,7 @@ namespace backend.Models.Finance
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? Note { get; set; }
 
-        [ForeignKey("CreatedBy")]
+        [ForeignKey(nameof(CreatedBy))]
         public User Creator { get; set; }
     }
 }

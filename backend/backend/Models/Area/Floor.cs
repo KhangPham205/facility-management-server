@@ -8,6 +8,7 @@ namespace backend.Models.Area
     public class Floor
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string FloorId { get; set; }
 
         [Required]
@@ -20,11 +21,9 @@ namespace backend.Models.Area
 
         public string? Note { get; set; }
 
-        // Mối quan hệ N-1 với Building
         [ForeignKey("BuildingId")]
-        public virtual Building Building { get; set; }
+        public Building Building { get; set; }
 
-        // Mối quan hệ 1-N với Room (theo sơ đồ)
-        public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+        public ICollection<Room> Rooms { get; set; } = new List<Room>();
     }
 }

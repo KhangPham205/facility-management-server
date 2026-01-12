@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Import
 {
+    [Table("ImportVoucherDetails")]
     public class ImportVoucherDetail
     {
         public string ImportId { get; set; }

@@ -3,9 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Import
 {
+    [Table("ImportRequestDetails")]
     public class ImportRequestDetail
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string DetailId { get; set; }
         public string RequestId { get; set; }
         public string EquipmentName { get; set; }

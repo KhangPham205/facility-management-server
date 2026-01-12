@@ -1,4 +1,5 @@
-﻿using backend.DTOs.user;
+﻿using backend.DTOs.user.Request;
+using backend.DTOs.user.Response;
 using backend.Models;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;

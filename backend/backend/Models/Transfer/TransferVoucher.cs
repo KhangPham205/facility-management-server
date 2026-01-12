@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Transfer
 {
+    [Table("TransferVouchers")]
     public class TransferVoucher
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string TransferId { get; set; }
 
         public string RequestId { get; set; }

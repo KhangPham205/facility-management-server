@@ -4,10 +4,11 @@ using System.Drawing;
 
 namespace backend.Models.Area
 {
-    [Table("Buildings")] // Chỉ định tên bảng nếu cần
+    [Table("Buildings")]
     public class Building
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string BuildingId { get; set; }
 
         [Required]
@@ -19,7 +20,6 @@ namespace backend.Models.Area
 
         public string? Note { get; set; }
 
-        // Relationship: 1 Building - Many Floors
-        public virtual ICollection<Floor> Floors { get; set; } = new List<Floor>();
+        public ICollection<Floor> Floors { get; set; } = new List<Floor>();
     }
 }

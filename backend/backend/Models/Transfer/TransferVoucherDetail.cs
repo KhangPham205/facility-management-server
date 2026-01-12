@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Transfer
 {
+    [Table("TransferVoucherDetails")]
     public class TransferVoucherDetail
     {
         // Composite Key

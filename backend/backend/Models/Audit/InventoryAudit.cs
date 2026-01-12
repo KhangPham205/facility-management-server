@@ -8,13 +8,13 @@ namespace backend.Models
     public class InventoryAudit
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string AuditId { get; set; }
 
         public string PeriodId { get; set; }
         [ForeignKey("PeriodId")]
         public PeriodicAudit PeriodicAudit { get; set; }
 
-        // Vị trí kiểm kê (Thường là kiểm kê theo Phòng)
         public string LocationId { get; set; }
         public LocationType LocationType { get; set; }
 

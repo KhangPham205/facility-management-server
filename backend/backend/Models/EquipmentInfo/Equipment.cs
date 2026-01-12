@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.EquipmentInfo
 {
+    [Table("Equipments")]
     public class Equipment
     {
         [Key]
@@ -24,7 +25,7 @@ namespace backend.Models.EquipmentInfo
         public DateTime? LastMaintenanceDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        [ForeignKey("CategoryId")]
+        [ForeignKey(nameof(CategoryId))]
         public EquipmentCategory Category { get; set; }
     }
 }

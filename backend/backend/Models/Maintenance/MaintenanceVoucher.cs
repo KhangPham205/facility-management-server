@@ -5,9 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Maintenance
 {
+    [Table("MaintenanceVouchers")]
     public class MaintenanceVoucher
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string VoucherId { get; set; }
 
         public string RequestId { get; set; }

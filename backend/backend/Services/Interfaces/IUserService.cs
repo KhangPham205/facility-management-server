@@ -1,4 +1,5 @@
-﻿using backend.DTOs.user;
+﻿using backend.DTOs.user.Request;
+using backend.DTOs.user.Response;
 using backend.vo;
 
 namespace backend.Services.Interfaces

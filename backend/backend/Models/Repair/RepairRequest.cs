@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Repair
 {
+    [Table("RepairRequests")]
     public class RepairRequest
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string RequestId { get; set; }
 
         public string CreatedBy { get; set; }

@@ -7,29 +7,25 @@ namespace backend.Models.Area;
 public class Room
 {
     [Key]
-    public string RoomId { get; set; } //
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public string RoomId { get; set; }
 
     [Required]
-    public string FloorId { get; set; } //
+    public string FloorId { get; set; }
 
     [Required]
-    public string RoomName { get; set; } //
+    public string RoomName { get; set; }
 
     [Required]
-    public string RoomTypeId { get; set; } //
+    public string RoomTypeId { get; set; }
 
-    public int Capacity { get; set; } //
+    public int Capacity { get; set; }
+    public string Status { get; set; }
+    public string? Note { get; set; }
 
-    public string Status { get; set; } //
-
-    public string? Note { get; set; } //
-
-    // Navigation Properties
     [ForeignKey("FloorId")]
-    public virtual Floor Floor { get; set; }
+    public Floor Floor { get; set; }
 
     [ForeignKey("RoomTypeId")]
-    public virtual RoomType RoomType { get; set; }
-
-    //public virtual ICollection<TransferVoucher> TransferVouchers { get; set; }
+    public RoomType RoomType { get; set; }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Maintenance
 {
+    [Table("MaintenanceRequestDetails")]
     public class MaintenanceRequestDetail
     {
         // Composite Key

@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Borrow
 {
+    [Table("BorrowVouchers")]
     public class BorrowVoucher
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string BorrowId { get; set; }
 
         public string BorrowerId { get; set; }

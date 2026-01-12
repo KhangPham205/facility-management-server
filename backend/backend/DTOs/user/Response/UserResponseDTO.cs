@@ -1,6 +1,6 @@
 ﻿using backend.Enums;
 
-namespace backend.DTOs.user
+namespace backend.DTOs.user.Response
 {
     public class UserResponseDTO
     {

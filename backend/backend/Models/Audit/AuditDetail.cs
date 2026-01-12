@@ -6,27 +6,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace backend.Models
 {
     [Table("AuditDetails")]
-    [PrimaryKey(nameof(AuditId), nameof(EquipmentId))] // Định nghĩa khóa chính tổ hợp
+    [PrimaryKey(nameof(AuditId), nameof(EquipmentId))]
     public class AuditDetail
     {
-        [Key]
-        public string DetailId { get; set; } // Bảng này nên có ID riêng để dễ quản lý sai lệch
-
         public string AuditId { get; set; }
-        [ForeignKey("AuditId")]
+        [ForeignKey(nameof(AuditId))]
         public InventoryAudit InventoryAudit { get; set; }
 
         public string EquipmentId { get; set; }
-        [ForeignKey("EquipmentId")]
+        [ForeignKey(nameof(EquipmentId))]
         public Equipment Equipment { get; set; }
 
-        public int BookQuantity { get; set; }   // Số lượng trên hệ thống
-        public int ActualQuantity { get; set; } // Số lượng đếm được
+        public int BookQuantity { get; set; }
+        public int ActualQuantity { get; set; }
 
-        // Difference = Actual - Book (Hệ thống tự tính hoặc lưu cứng)
         public int Difference { get; set; }
 
-        public string? Condition { get; set; } // Tình trạng thực tế (Tốt/Hỏng)
+        public string? Condition { get; set; }
         public string? Note { get; set; }
     }
 }

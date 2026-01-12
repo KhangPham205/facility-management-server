@@ -1,6 +1,7 @@
 ﻿using backend.Constants;
 using backend.DTOs.Auth;
-using backend.DTOs.user;
+using backend.DTOs.user.Request;
+using backend.DTOs.user.Response;
 using backend.Services.Interfaces;
 using backend.vo;
 using Microsoft.AspNetCore.Mvc;

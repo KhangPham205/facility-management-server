@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Liquidate
 {
+    [Table("LiquidateRequestDetails")]
     public class LiquidateRequestDetail
     {
         // Composite Key

@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Liquidate
 {
+    [Table("LiquidateVouchers")]
     public class LiquidateVoucher
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string LiquidateId { get; set; }
 
         public string RequestId { get; set; }

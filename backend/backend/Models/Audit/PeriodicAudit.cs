@@ -8,6 +8,7 @@ namespace backend.Models
     public class PeriodicAudit
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string PeriodId { get; set; }
         public string AuditName { get; set; } // VD: Kiểm kê Quý 1/2024
 
@@ -15,7 +16,7 @@ namespace backend.Models
         public DateTime EndDate { get; set; }
 
         public string ResponsiblePerson { get; set; }
-        [ForeignKey("ResponsiblePerson")]
+        [ForeignKey(nameof(ResponsiblePerson))]
         public User Manager { get; set; }
 
         public AuditStatus Status { get; set; }

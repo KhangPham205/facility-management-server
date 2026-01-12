@@ -3,9 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Finance
 {
+    [Table("ExternalUnits")]
     public class ExternalUnit
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string UnitId { get; set; }
         public string UnitName { get; set; }
         public string Address { get; set; }

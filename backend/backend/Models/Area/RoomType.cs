@@ -8,15 +8,14 @@ namespace backend.Models.Area;
 public class RoomType
 {
     [Key]
-    public string RoomTypeId { get; set; } // Khóa chính
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public string RoomTypeId { get; set; }
 
     [Required]
     [StringLength(100)]
-    public string TypeName { get; set; } // Tên loại phòng
+    public string TypeName { get; set; }
 
     [StringLength(500)]
-    public string? Description { get; set; } // Mô tả
-
-    // Quan hệ 1-N với Room
-    //public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+    public string? Description { get; set; }
+    public ICollection<Room> Rooms { get; set; } = new List<Room>();
 }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Transfer
 {
+    [Table("TransferRequestDetails")]
     public class TransferRequestDetail
     {
         // Composite Key
