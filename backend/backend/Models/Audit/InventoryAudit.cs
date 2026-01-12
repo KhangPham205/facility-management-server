@@ -8,37 +8,24 @@ namespace backend.Models
     public class InventoryAudit
     {
         [Key]
-        public string AuditId { get; set; } = string.Empty;
+        public string AuditId { get; set; }
 
-        [Required]
-        public string PeriodId { get; set; } = string.Empty;
-
-        [Required]
-        public string CreatedBy { get; set; } = string.Empty;
-
-        [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [Required]
-        [StringLength(255)]
-        public string AuditArea { get; set; } = string.Empty;
-
-        public string? Note { get; set; }
-
-        [Required]
-        public AuditStatus Status { get; set; } = AuditStatus.Waiting;
-
-        public string StatusUpdatedBy { get; set; } = string.Empty;
-
-        public DateTime? StatusUpdatedAt { get; set; }
-
-
-        // navigation properties
-
+        public string PeriodId { get; set; }
         [ForeignKey("PeriodId")]
-        public virtual PeriodicAudit? PeriodicAudit { get; set; }
+        public PeriodicAudit PeriodicAudit { get; set; }
 
-        public virtual ICollection<InventoryAudit> InventoryAudits { get; set; }
+        // Vị trí kiểm kê (Thường là kiểm kê theo Phòng)
+        public string LocationId { get; set; }
+        public LocationType LocationType { get; set; }
 
+        public string AuditorId { get; set; }
+        [ForeignKey("AuditorId")]
+        public User Auditor { get; set; }
+
+        public DateTime AuditDate { get; set; } = DateTime.Now;
+        public string? Note { get; set; }
+        public AuditStatus Status { get; set; }
+
+        public ICollection<AuditDetail> Details { get; set; }
     }
 }

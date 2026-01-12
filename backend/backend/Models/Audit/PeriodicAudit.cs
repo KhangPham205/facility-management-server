@@ -8,21 +8,18 @@ namespace backend.Models
     public class PeriodicAudit
     {
         [Key]
-        public string PeriodId { get; set; } = string.Empty;
+        public string PeriodId { get; set; }
+        public string AuditName { get; set; } // VD: Kiểm kê Quý 1/2024
 
-        [Required]
-        public AuditPeriodType AuditType { get; set; }
-
-        [Required]
         public DateTime StartDate { get; set; }
-
-        [Required]
         public DateTime EndDate { get; set; }
 
-        [StringLength(255)]
-        public string ResponsiblePerson { get; set; } = string.Empty;
+        public string ResponsiblePerson { get; set; }
+        [ForeignKey("ResponsiblePerson")]
+        public User Manager { get; set; }
 
-        
-        public virtual ICollection<InventoryAudit> InventoryAudits { get; set; }
+        public AuditStatus Status { get; set; }
+
+        public ICollection<InventoryAudit> InventoryAudits { get; set; }
     }
 }

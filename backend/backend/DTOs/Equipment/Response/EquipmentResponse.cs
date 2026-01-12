@@ -1,28 +1,20 @@
-﻿using Azure.Core.Pipeline;
-using backend.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using backend.Enums;
 
 namespace backend.DTOs.Equipment.Response
 {
     public class EquipmentResponse
     {
-        public string EquipmentId { get; set; } = Guid.NewGuid().ToString();
+        public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
-        public int Quantity { get; set; } = 1;
-        public bool IsPublic { get; set; } = false;
-        public string CategoryId { get; set; }
-        public string? RoomId { get; set; }
+        public string CategoryName { get; set; }
 
-        public EquipmentStatus Status { get; set; } = EquipmentStatus.Available;
+        public string LocationId { get; set; }
+        public string LocationName { get; set; }
+        public LocationType LocationType { get; set; }
 
-        // Thông tin bảo hành/bảo trì
-        public DateTime? LastMaintenanceDate { get; set; }
-        public DateTime? WarrantyExpiryDate { get; set; }
-        public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; }
-
-        // thông tin ngoài model (theo foreign keys)
-        public string EquipmentCategoryName {  get; set; }
-        public string RoomName {  get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public EquipmentStatus Status { get; set; }
+        public string Image { get; set; }
     }
 }

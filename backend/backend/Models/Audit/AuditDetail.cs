@@ -9,32 +9,24 @@ namespace backend.Models
     [PrimaryKey(nameof(AuditId), nameof(EquipmentId))] // Định nghĩa khóa chính tổ hợp
     public class AuditDetail
     {
-        [Required]
-        public string AuditId { get; set; } = string.Empty;
+        [Key]
+        public string DetailId { get; set; } // Bảng này nên có ID riêng để dễ quản lý sai lệch
 
-        [Required]
-        public string EquipmentId { get; set; } = string.Empty;
+        public string AuditId { get; set; }
+        [ForeignKey("AuditId")]
+        public InventoryAudit InventoryAudit { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string EquipmentName { get; set; } = string.Empty;
+        public string EquipmentId { get; set; }
+        [ForeignKey("EquipmentId")]
+        public Equipment Equipment { get; set; }
 
-        public int BookQuantity { get; set; }
+        public int BookQuantity { get; set; }   // Số lượng trên hệ thống
+        public int ActualQuantity { get; set; } // Số lượng đếm được
 
-        public int ActualQuantity { get; set; }
-
-        // trường tính toán: ActualQuantity - BookQuantity
+        // Difference = Actual - Book (Hệ thống tự tính hoặc lưu cứng)
         public int Difference { get; set; }
 
-        public string EquipmentCondition { get; set; } = string.Empty;
-
+        public string? Condition { get; set; } // Tình trạng thực tế (Tốt/Hỏng)
         public string? Note { get; set; }
-
-        // foreign keys
-        [ForeignKey("AuditId")]
-        public virtual InventoryAudit? InventoryAudit { get; set; }
-
-        [ForeignKey("EquipmentId")]
-        public virtual Equipment? Equipment { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using backend.Enums;
-using backend.Models.BaseInvoidAndVoucher;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,40 +7,22 @@ namespace backend.Models.Maintenance
     public class MaintenanceRequest
     {
         [Key]
-        //[Column("maintenance_request_id")]
-        public string MaintenanceRequestId { get; set; } = null!;
+        public string RequestId { get; set; }
 
-        //[Column("requester_id")]
-        public string CreatedBy { get; set; } = null!;
-
-        //[Column("requested_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        //[Column("equipment_id")]
-        public string VoucherDetailId { get; set; } = null!;
-
-        //[Column("reason")]
-        public string? Reason { get; set; }
-
-        //[Column("status")]
-        public ReqMaintenanceStatus Status { get; set; } = ReqMaintenanceStatus.Pending;
-
-        //[Column("status_updated_by")]
-        public string? StatusUpdatedBy { get; set; }
-
-        //[Column("status_updated_at")]
-        public DateTime? StatusUpdatedAt { get; set; }
-
-        // --- Navigation properties ---
+        public string CreatedBy { get; set; }
         [ForeignKey("CreatedBy")]
-        public virtual User Requester { get; set; } = null!;
+        public User Creator { get; set; }
 
-        [ForeignKey("VoucherDetailId")]
-        public virtual ICollection<VoucherDetail> VoucherDetail { get; set; } = new List<VoucherDetail>();
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string? Note { get; set; }
+        public VoucherStatus Status { get; set; }
 
-        [ForeignKey("StatusUpdatedBy")]
-        public virtual User? StatusUpdater { get; set; }
+        public string? ApprovedBy { get; set; }
+        [ForeignKey("ApprovedBy")]
+        public User? Approver { get; set; }
 
-        public virtual ICollection<MaintenanceVoucher> MaintenanceVouchers { get; set; } = new List<MaintenanceVoucher>();
+        public DateTime? ApprovedAt { get; set; }
+
+        public ICollection<MaintenanceRequestDetail> Details { get; set; }
     }
 }

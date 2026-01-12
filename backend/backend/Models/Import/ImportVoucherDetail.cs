@@ -1,0 +1,17 @@
+﻿using backend.Models.EquipmentInfo;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace backend.Models.Import
+{
+    public class ImportVoucherDetail
+    {
+        public string ImportId { get; set; }
+        public string EquipmentId { get; set; }
+        public int Quantity { get; set; }
+
+        [ForeignKey("ImportId")]
+        public ImportVoucher ImportVoucher { get; set; }
+        [ForeignKey("EquipmentId")]
+        public Equipment Equipment { get; set; }
+    }
+}

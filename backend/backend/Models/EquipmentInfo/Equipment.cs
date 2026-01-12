@@ -1,6 +1,4 @@
 ﻿using backend.Enums;
-using backend.Models.Area;
-using backend.Models.BaseInvoidAndVoucher;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,40 +7,24 @@ namespace backend.Models.EquipmentInfo
     public class Equipment
     {
         [Key]
-        public string EquipmentId { get; set; } = Guid.NewGuid().ToString();
-
-        [Required]
+        public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
-
-        [Required]
-        public int Quantity { get; set; } = 1;
-
-        public bool IsPublic { get; set; } = false;
-
-        [Required]
         public string CategoryId { get; set; }
 
-        public string? RoomId { get; set; }
+        public string LocationId { get; set; }
+        public LocationType LocationType { get; set; }
 
-        public EquipmentStatus Status { get; set; } = EquipmentStatus.Available;
-
-        // Thông tin bảo hành/bảo trì
-        public DateTime? LastMaintenanceDate { get; set; }
-        public DateTime? WarrantyExpiryDate { get; set; }
-
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public bool IsPublic { get; set; }
+        public EquipmentStatus Status { get; set; }
         public string? Description { get; set; }
+        public string? Image { get; set; }
+        public DateTime? WarrantyExpiryDate { get; set; }
+        public DateTime? LastMaintenanceDate { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-
-        // Foreign key
         [ForeignKey("CategoryId")]
-        public virtual EquipmentCategory? Category { get; set; }
-
-        [ForeignKey("RoomId")]
-        public virtual Room? Room { get; set; }
-
-        public virtual ICollection<AuditDetail> AuditDetails { get; set; }
-        public virtual ICollection<VoucherDetail> VoucherDetails { get; set; }
+        public EquipmentCategory Category { get; set; }
     }
 }

@@ -2,11 +2,12 @@
 {
     public enum EquipmentStatus
     {
-        Available = 0,      // Khả dụng (Sẵn sàng cho mượn)
-        Borrowed = 1,       // Đang cho mượn
-        UnderMaintenance = 2, // Đang bảo trì
-        Broken = 3,         // Hỏng (Cần sửa chữa)
-        Lost = 4,           // Thất lạc
-        Disposed = 5        // Đã thanh lý
+        Unassigned,     // Mới nhập, chưa xử lý
+        Available,      // Khả dụng (Sẵn sàng cho mượn)
+        Borrowed,       // Đang cho mượn
+        UnderMaintenance, // Đang bảo trì
+        Broken,         // Hỏng (Cần sửa chữa)
+        Lost,           // Thất lạc
+        Disposed        // Đã thanh lý
     }
 }

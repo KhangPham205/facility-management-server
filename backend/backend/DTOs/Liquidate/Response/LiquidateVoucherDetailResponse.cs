@@ -1,0 +1,9 @@
+﻿namespace backend.DTOs.Liquidate.Response
+{
+    public class LiquidateVoucherDetailResponse
+    {
+        public string EquipmentId { get; set; }
+        public string EquipmentName { get; set; }
+        public string Note { get; set; }
+    }
+}

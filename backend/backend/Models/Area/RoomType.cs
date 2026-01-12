@@ -12,11 +12,11 @@ public class RoomType
 
     [Required]
     [StringLength(100)]
-    public RoomTypeName TypeName { get; set; } // Tên loại phòng
+    public string TypeName { get; set; } // Tên loại phòng
 
     [StringLength(500)]
     public string? Description { get; set; } // Mô tả
 
     // Quan hệ 1-N với Room
-    public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+    //public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 }

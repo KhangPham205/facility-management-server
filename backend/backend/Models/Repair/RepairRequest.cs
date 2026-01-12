@@ -1,5 +1,4 @@
 ﻿using backend.Enums;
-using backend.Models.BaseInvoidAndVoucher;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,40 +7,22 @@ namespace backend.Models.Repair
     public class RepairRequest
     {
         [Key]
-        //[Column("report_id")]
-        public string ReportId { get; set; } = null!;
+        public string RequestId { get; set; }
 
-        //[Column("created_by")]
-        public string CreatedBy { get; set; } = null!;
-
-        //[Column("created_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        //[Column("voucher_detail_id")]
-        public string VoucherDetailId { get; set; } = null!;
-
-        //[Column("reason")]
-        public string? Reason { get; set; }
-
-        //[Column("status")]
-        public ReqMaintenanceStatus Status { get; set; }
-
-        //[Column("status_updated_by")]
-        public string? StatusUpdatedBy { get; set; }
-
-        //[Column("status_updated_at")]
-        public DateTime? StatusUpdatedAt { get; set; }
-
-        // --- Navigation properties ---
+        public string CreatedBy { get; set; }
         [ForeignKey("CreatedBy")]
-        public virtual User Creator { get; set; } = null!;
+        public User Creator { get; set; }
 
-        [ForeignKey("VoucherDetailId")]
-        public virtual ICollection<VoucherDetail> VoucherDetail { get; set; } = new List<VoucherDetail>();
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string? Note { get; set; }
+        public VoucherStatus Status { get; set; }
 
-        [ForeignKey("StatusUpdatedBy")]
-        public virtual User? StatusUpdater { get; set; }
+        public string? ApprovedBy { get; set; }
+        [ForeignKey("ApprovedBy")]
+        public User? Approver { get; set; }
 
-        public virtual ICollection<RepairVoucher> RepairVouchers { get; set; } = new List<RepairVoucher>();
+        public DateTime? ApprovedAt { get; set; }
+
+        public ICollection<RepairRequestDetail> Details { get; set; }
     }
 }

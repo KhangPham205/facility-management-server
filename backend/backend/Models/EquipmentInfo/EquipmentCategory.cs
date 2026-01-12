@@ -1,5 +1,4 @@
-﻿using backend.Models.BaseInvoidAndVoucher;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models.EquipmentInfo
 {
@@ -14,9 +13,6 @@ namespace backend.Models.EquipmentInfo
 
         public string? Description { get; set; }
 
-        // navigation properties
-        public virtual ICollection<Equipment>? Equipments { get; set; }
-        //public virtual ICollection<Criteria>? Criterias { get; set; }
-        public virtual ICollection<VoucherDetail>? VoucherDetails { get; set; }
+        public virtual ICollection<Criteria>? Criterias { get; set; }
     }
 }

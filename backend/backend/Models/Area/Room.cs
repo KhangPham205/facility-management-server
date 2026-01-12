@@ -20,7 +20,6 @@ public class Room
 
     public int Capacity { get; set; } //
 
-    [Required]
     public string Status { get; set; } //
 
     public string? Note { get; set; } //
@@ -32,5 +31,5 @@ public class Room
     [ForeignKey("RoomTypeId")]
     public virtual RoomType RoomType { get; set; }
 
-    public virtual ICollection<TransferVoucher> TransferVouchers { get; set; }
+    //public virtual ICollection<TransferVoucher> TransferVouchers { get; set; }
 }

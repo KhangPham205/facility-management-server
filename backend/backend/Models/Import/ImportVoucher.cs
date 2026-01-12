@@ -1,7 +1,7 @@
-﻿using backend.Enums;
+﻿using backend.Models.Finance;
+using backend.Models.Import;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using backend.Models.BaseInvoidAndVoucher;
 
 namespace backend.Models
 {
@@ -10,35 +10,20 @@ namespace backend.Models
     {
         [Key]
         public string ImportId { get; set; }
-
-        [Required]
+        public string RequestId { get; set; }
         public string SupplierId { get; set; }
-
-        public string InvoiceId { get; set; }
-
-        public string VoucherDetailId { get; set; }
-
-        [Required]
+        public string? InvoiceId { get; set; }
+        public string FundingSourceId { get; set; }
         public string CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [ForeignKey("RequestId")]
+        public ImportRequest Request { get; set; }
+        [ForeignKey("SupplierId")]
+        public ExternalUnit Supplier { get; set; }
+        [ForeignKey("FundingSourceId")]
+        public FundSource FundSource { get; set; }
 
-        public string Purpose { get; set; }
-
-        public VoucherStatus Status { get; set; } = VoucherStatus.Pending;
-
-        public string StatusUpdatedBy { get; set; }
-
-        public DateTime? StatusUpdatedAt { get; set; }
-
-        // Navigation Properties
-        // [ForeignKey("SupplierId")]
-        // public virtual Supplier Supplier { get; set; }
-
-        [ForeignKey("invoiceId")]
-        public virtual Invoice Invoice { get; set; }
-
-        [ForeignKey("CreatedBy")]
-        public virtual User Creator { get; set; }
+        public ICollection<ImportVoucherDetail> Details { get; set; }
     }
 }

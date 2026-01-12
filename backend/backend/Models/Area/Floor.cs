@@ -16,6 +16,8 @@ namespace backend.Models.Area
         [Required]
         public string FloorName { get; set; }
 
+        public int RoomCount { get; set; }
+
         public string? Note { get; set; }
 
         // Mối quan hệ N-1 với Building

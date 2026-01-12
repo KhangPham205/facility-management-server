@@ -1,5 +1,5 @@
 ﻿using backend.Enums;
-using backend.Models.BaseInvoidAndVoucher;
+using backend.Models.Finance;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,44 +8,29 @@ namespace backend.Models.Maintenance
     public class MaintenanceVoucher
     {
         [Key]
-        //[Column("maintenance_id")]
-        public string MaintenanceId { get; set; } = null!;
+        public string VoucherId { get; set; }
 
-        //[Column("maintenance_request_id")]
-        public string MaintenanceRequestId { get; set; } = null!;
+        public string RequestId { get; set; }
+        [ForeignKey("RequestId")]
+        public MaintenanceRequest Request { get; set; }
 
-        //[Column("invoice_id")]
         public string? InvoiceId { get; set; }
+        [ForeignKey("InvoiceId")]
+        public Invoice? Invoice { get; set; }
 
-        //[Column("voucher_detail_id")]
-        public string VoucherDetailId { get; set; } = null!;
+        public string? ProviderId { get; set; }
+        [ForeignKey("ProviderId")]
+        public ExternalUnit? Provider { get; set; }
 
-        //[Column("created_by")]
-        public string CreatedBy { get; set; } = null!;
+        public string CreatedBy { get; set; }
+        [ForeignKey("CreatedBy")]
+        public User Creator { get; set; }
 
-        //[Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        //[Column("status")]
         public MaintenanceStatus Status { get; set; }
 
-        //[Column("status_updated_by")]
-        public string? StatusUpdatedBy { get; set; }
-
-        //[Column("status_updated_at")]
-        public DateTime? StatusUpdatedAt { get; set; }
-
-        // --- Navigation properties ---
-        [ForeignKey("MaintenanceRequestId")]
-        public virtual MaintenanceRequest MaintenanceRequest { get; set; } = null!;
-
-        [ForeignKey("InvoiceId")]
-        public virtual Invoice? Invoice { get; set; }
-
-        [ForeignKey("CreatedBy")]
-        public virtual User Creator { get; set; } = null!;
-
-        [ForeignKey("StatusUpdatedBy")]
-        public virtual User? StatusUpdater { get; set; }
+        public decimal TotalCost { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
