@@ -43,7 +43,7 @@ namespace backend.Controllers
         public async Task<ActionResult<BuildingResponse>> GetById(string id)
         {
             var result = await _service.GetById(id);
-            if (result == null) return NotFound(new { message = "Không tìm thấy nguồn kinh phí." });
+            if (result == null) return NotFound(new { message = "Không tìm thấy tòa." });
             return Ok(result);
         }
 

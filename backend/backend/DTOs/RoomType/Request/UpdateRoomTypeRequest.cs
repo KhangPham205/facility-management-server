@@ -4,7 +4,6 @@ namespace backend.DTOs.RoomType.Request;
 
 public class UpdateRoomTypeRequest
 {
-    [Required]
     [StringLength(100)]
     public string? TypeName { get; set; }
 

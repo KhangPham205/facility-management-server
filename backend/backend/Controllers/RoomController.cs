@@ -43,7 +43,7 @@ namespace backend.Controllers
         public async Task<ActionResult<RoomResponse>> GetById(string id)
         {
             var result = await _service.GetById(id);
-            if (result == null) return NotFound(new { message = "Không tìm thấy nguồn kinh phí." });
+            if (result == null) return NotFound(new { message = "Không tìm thấy phòng." });
             return Ok(result);
         }
 
@@ -62,7 +62,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<RoomResponse>> Update(string id, [FromBody] CreateRoomRequest request)
+        public async Task<ActionResult<RoomResponse>> Update(string id, [FromBody] UpdateRoomRequest request)
         {
             try
             {

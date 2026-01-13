@@ -51,10 +51,10 @@ namespace backend.Services.Implements
             return _mapper.Map<RoomResponse>(entity);
         }
 
-        public async Task<RoomResponse> Update(string id, CreateRoomRequest request)
+        public async Task<RoomResponse> Update(string id, UpdateRoomRequest request)
         {
             var entity = await _repo.GetByIdAsync(id);
-            if (entity == null) throw new NotFoundException($"No building found with ID: {id}");
+            if (entity == null) throw new NotFoundException($"No room found with ID: {id}");
 
             _mapper.Map(request, entity);
 
@@ -65,7 +65,7 @@ namespace backend.Services.Implements
         public async Task Delete(string id)
         {
             var entity = await _repo.GetByIdAsync(id);
-            if (entity == null) throw new NotFoundException($"No building found with ID: {id}");
+            if (entity == null) throw new NotFoundException($"No room found with ID: {id}");
 
             await _repo.DeleteAsync(entity);
         }
