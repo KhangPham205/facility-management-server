@@ -9,6 +9,7 @@ namespace backend.Models.Transfer
         // Composite Key
         public string TransferId { get; set; }
         public string EquipmentId { get; set; }
+        public int Quantity { get; set; }
 
         [ForeignKey("TransferId")]
         public TransferVoucher TransferVoucher { get; set; }

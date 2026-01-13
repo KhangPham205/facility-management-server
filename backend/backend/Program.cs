@@ -49,8 +49,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-//builder.Services.AddScoped<ITransferRepository, TransferRepository>();
-//builder.Services.AddScoped<ITransferService, TransferService>();
+builder.Services.AddScoped<ITransferRequestRepository, TransferRequestRepository>();
+builder.Services.AddScoped<ITransferVoucherRepository, TransferVoucherRepository>();
+builder.Services.AddScoped<ITransferService, TransferService>();
 
 //builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 //builder.Services.AddScoped<IEquipmentService, EquipmentService>();

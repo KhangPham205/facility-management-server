@@ -142,6 +142,12 @@ namespace backend.Mappings
             CreateMap<TransferRequestDetail, TransferRequestDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
 
+
+            CreateMap<TransferVoucher, TransferVoucherResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+
+            CreateMap<TransferVoucherDetail, TransferVoucherDetailResponse>()
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
             // ======================================================
             // 7. MAINTENANCE PROCESS (Bảo trì)
             // ======================================================
