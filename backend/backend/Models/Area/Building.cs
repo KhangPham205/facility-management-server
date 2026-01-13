@@ -16,8 +16,10 @@ namespace backend.Models.Area
         public string BuildingName { get; set; }
 
         [Required]
+        [Range(0, 100)]
         public int FloorCount { get; set; }
 
+        [StringLength(500)]
         public string? Note { get; set; }
 
         public ICollection<Floor> Floors { get; set; } = new List<Floor>();

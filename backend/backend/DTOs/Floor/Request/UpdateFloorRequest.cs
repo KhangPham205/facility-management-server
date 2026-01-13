@@ -2,12 +2,10 @@
 
 namespace backend.DTOs.Floor.Request
 {
-    public class CreateFloorRequest
+    public class UpdateFloorRequest
     {
-        [Required]
         public string? BuildingId { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string? FloorName { get; set; }
 

@@ -14,13 +14,17 @@ public class Room
     public string FloorId { get; set; }
 
     [Required]
+    [StringLength(100)]
     public string RoomName { get; set; }
 
     [Required]
     public string RoomTypeId { get; set; }
 
+    [Range(0, int.MaxValue)]
     public int Capacity { get; set; }
     public string Status { get; set; }
+
+    [StringLength(500)]
     public string? Note { get; set; }
 
     [ForeignKey("FloorId")]

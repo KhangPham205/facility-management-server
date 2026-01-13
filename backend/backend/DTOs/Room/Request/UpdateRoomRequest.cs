@@ -2,16 +2,13 @@
 
 namespace backend.DTOs.Room.Request
 {
-    public class CreateRoomRequest
+    public class UpdateRoomRequest
     {
-        [Required]
         public string FloorId { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string RoomName { get; set; }
 
-        [Required]
         public string RoomTypeId { get; set; }
 
         [Range(0, int.MaxValue)]
