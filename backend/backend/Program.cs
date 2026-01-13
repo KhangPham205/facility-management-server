@@ -61,8 +61,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
 builder.Services.AddScoped<IBuildingService, BuildingService>();
 
-//builder.Services.AddScoped<IFloorRepository, FloorRepository>();
-//builder.Services.AddScoped<IFloorService, FloorService>();
+builder.Services.AddScoped<IFloorRepository, FloorRepository>();
+builder.Services.AddScoped<IFloorService, FloorService>();
 
 //builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
 //builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();

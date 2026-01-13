@@ -53,6 +53,12 @@
          */
         public const string Buildings = $"{ApiV1}/buildings";
 
+        /**
+         * Quản lý tầng
+         * URI: api/v1/floors
+         */
+        public const string Floors = $"{ApiV1}/floors";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================
