@@ -42,8 +42,11 @@ namespace backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FloorResponse>> GetById(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest(new { message = "Thiếu floor id"});
+
             var result = await _service.GetById(id);
-            if (result == null) return NotFound(new { message = "Không tìm thấy nguồn kinh phí." });
+            if (result == null) return NotFound(new { message = "Không tìm thấy tầng" });
             return Ok(result);
         }
 
@@ -62,7 +65,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<FloorResponse>> Update(string id, [FromBody] CreateFloorRequest request)
+        public async Task<ActionResult<FloorResponse>> Update(string id, [FromBody] UpdateFloorRequest request)
         {
             try
             {

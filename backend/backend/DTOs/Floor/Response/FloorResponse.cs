@@ -1,4 +1,6 @@
-﻿namespace backend.DTOs.Floor.Response
+﻿using backend.DTOs.Room.Response;
+
+namespace backend.DTOs.Floor.Response
 {
     public class FloorResponse
     {
@@ -8,5 +10,7 @@
         public string FloorName { get; set; }
         public int RoomCount { get; set; }
         public string? Note { get; set; }
+
+        public ICollection<RoomResponse> Rooms { get; set; }
     }
 }

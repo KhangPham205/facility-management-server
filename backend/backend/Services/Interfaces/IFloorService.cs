@@ -12,7 +12,7 @@ namespace backend.Services.Interfaces
         Task<PageVO<FloorResponse>> GetAll(EntityFilter<Floor> filter, EntitySort<Floor> sort, int page, int size);
         Task<FloorResponse?> GetById(string id);
         Task<FloorResponse> Create(CreateFloorRequest request);
-        Task<FloorResponse> Update(string id, CreateFloorRequest request);
+        Task<FloorResponse> Update(string id, UpdateFloorRequest request);
         Task Delete(string id);
     }
 }
