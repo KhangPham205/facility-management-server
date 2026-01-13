@@ -112,6 +112,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers().AddFilterSupport();
 
 var app = builder.Build();
