@@ -11,7 +11,7 @@ namespace backend.DTOs.Import.Response
         private string? ApprovedBy { get; set; }
         public DateTime? ApprovedAt { get; set; }
         private string? ApprovedByName { get; set; } // Tên người duyệt
-        public string? Reason { get; set; }
+        public string? Note { get; set; }
         public VoucherStatus Status { get; set; }
         public List<ImportRequestDetailResponse> Details { get; set; }
     }

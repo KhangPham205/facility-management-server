@@ -9,6 +9,7 @@ namespace backend.DTOs.Import.Request
         public string? ExistingEquipmentId { get; set; }
         public string EquipmentName { get; set; }
         public int Quantity { get; set; }
+        public string? Note { get; set; }
         public decimal UnitPrice { get; set; }
     }
 }

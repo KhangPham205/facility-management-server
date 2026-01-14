@@ -15,7 +15,7 @@ namespace backend.Models.Import
         [ForeignKey(nameof(CreatedBy))]
         public User Creator { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string? Reason { get; set; }
+        public string? Note { get; set; }
         public VoucherStatus Status { get; set; }
         public string? ApprovedBy { get; set; }
 

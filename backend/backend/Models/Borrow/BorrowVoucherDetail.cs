@@ -11,6 +11,7 @@ namespace backend.Models.Borrow
         public string EquipmentId { get; set; }
 
         public int Quantity { get; set; }
+        public string? Note { get; set; }
 
         [ForeignKey("BorrowId")]
         public BorrowVoucher BorrowVoucher { get; set; }

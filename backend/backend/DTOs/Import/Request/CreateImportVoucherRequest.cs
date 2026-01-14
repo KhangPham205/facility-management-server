@@ -6,8 +6,7 @@
         public string CreatedBy { get; set; }
 
         // Thông tin để tạo Invoice (Hóa đơn)
-        //public string InvoiceNumber { get; set; }
-        //public decimal TotalAmount { get; set; }
+        public string InvoiceId { get; set; }
 
         // Danh sách thiết bị nhập kho thực tế
         public List<ImportVoucherDetailDto> Details { get; set; } = new();

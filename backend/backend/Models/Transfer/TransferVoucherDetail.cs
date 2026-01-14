@@ -10,6 +10,7 @@ namespace backend.Models.Transfer
         public string TransferId { get; set; }
         public string EquipmentId { get; set; }
         public int Quantity { get; set; }
+        public string? Note { get; set; }
 
         [ForeignKey("TransferId")]
         public TransferVoucher TransferVoucher { get; set; }
