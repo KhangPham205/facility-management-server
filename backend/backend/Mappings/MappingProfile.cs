@@ -70,7 +70,7 @@ namespace backend.Mappings
 
             CreateMap<CreateEquipmentRequest, Equipment>();
             CreateMap<Equipment, EquipmentResponse>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.EquipmentCategoryName))
                 // Lưu ý: LocationName phải xử lý trong Service vì LocationId là dynamic (Room hoặc Kho)
                 .ForMember(dest => dest.LocationName, opt => opt.Ignore());
 
