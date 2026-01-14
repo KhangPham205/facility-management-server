@@ -8,10 +8,7 @@ namespace backend.DTOs.Import.Request
         // Nếu thiết bị mới tinh -> Để null, Backend sẽ tự tạo Equipment mới
         public string? ExistingEquipmentId { get; set; }
         public string EquipmentName { get; set; }
-        public string CategoryId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public string LocationId { get; set; }
-        public LocationType LocationType { get; set; }
     }
 }

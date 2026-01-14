@@ -13,9 +13,13 @@ namespace backend.Models.Finance
         public string InvoiceNumber { get; set; }
         public FunctionType Type { get; set; }
         public decimal TotalAmount { get; set; }
+        public string SupplierId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? Note { get; set; }
+
+        [ForeignKey(nameof(SupplierId))]
+        public ExternalUnit Supplier { get; set; }
 
         [ForeignKey(nameof(CreatedBy))]
         public User Creator { get; set; }

@@ -16,6 +16,8 @@ namespace backend.DTOs.Invoice.Request
         [Range(0, double.MaxValue)]
         public decimal TotalAmount { get; set; }
 
+        public string UnitId { get; set; }
+
         [Required]
         public string CreatedBy { get; set; }
 
