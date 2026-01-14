@@ -3,6 +3,7 @@
     public class UpdateBorrowRequest
     {
         public string BorrowId { get; set; } // Mã mượn
+        public string? Note { get; set; }
         public DateTime ReturnDate { get; set; } // Ngày thực tế trả
 
     }
