@@ -20,8 +20,6 @@ namespace backend.Models.Maintenance
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public MaintenanceStatus Status { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
 
         [ForeignKey("InvoiceId")]
         public Invoice? Invoice { get; set; }

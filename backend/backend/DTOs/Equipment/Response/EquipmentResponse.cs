@@ -13,7 +13,6 @@ namespace backend.DTOs.Equipment.Response
         public string LocationName { get; set; }
         public LocationType LocationType { get; set; }
 
-        public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public EquipmentStatus Status { get; set; }
         private string? Description { get; set; }
