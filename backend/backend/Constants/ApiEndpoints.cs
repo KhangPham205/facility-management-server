@@ -71,6 +71,12 @@
          */
         public const string RoomTypes = $"{ApiV1}/roomTypes";
 
+        /**
+         * Quản lý tiêu chí
+         * URI: api/v1/criteria
+         */
+        public const string Criterias = $"{ApiV1}/criterias";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================
