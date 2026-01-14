@@ -8,7 +8,6 @@ namespace backend.Models.Import
     {
         public string ImportId { get; set; }
         public string EquipmentId { get; set; }
-        public int Quantity { get; set; }
         public string? Note { get; set; }
 
         [ForeignKey("ImportId")]

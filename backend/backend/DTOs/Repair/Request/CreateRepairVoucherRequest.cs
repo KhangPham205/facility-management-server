@@ -8,5 +8,6 @@
         public string InvoiceNumber { get; set; }
         public decimal TotalAmount { get; set; }
         public string? ProviderId { get; set; }
+        public List<RepairRequestDetailDto> Details { get; set; }
     }
 }

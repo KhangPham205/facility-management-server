@@ -10,8 +10,6 @@ namespace backend.Models.Liquidate
         // Composite Key
         public string RequestId { get; set; }
         public string EquipmentId { get; set; }
-
-        public int Quantity { get; set; }
         public string? Note { get; set; }
 
         [ForeignKey("RequestId")]

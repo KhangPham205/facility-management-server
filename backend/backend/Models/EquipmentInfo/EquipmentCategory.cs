@@ -14,7 +14,7 @@ namespace backend.Models.EquipmentInfo
         [MaxLength(100)]
         public string CategoryName { get; set; }
 
-        public string? Description { get; set; }
+        public string? Note { get; set; }
 
         public ICollection<Criteria>? Criterias { get; set; }
     }

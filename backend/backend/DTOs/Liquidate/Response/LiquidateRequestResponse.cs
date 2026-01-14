@@ -11,7 +11,7 @@ namespace backend.DTOs.Liquidate.Response
         public string ApprovedBy { get; set; }
         public string ApprovedByName { get; set; }
         public DateTime? ApprovedAt { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
         public VoucherStatus Status { get; set; }
         public List<LiquidateRequestDetailResponse> Details { get; set; }
     }

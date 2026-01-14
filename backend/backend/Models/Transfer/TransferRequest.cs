@@ -25,7 +25,7 @@ namespace backend.Models.Transfer
         public string DestinationRoomId { get; set; }
         public LocationType DestinationLocationType { get; set; }
 
-        public string? Reason { get; set; }
+        public string? Note { get; set; }
         public VoucherStatus Status { get; set; }
 
         public string? ApprovedBy { get; set; }

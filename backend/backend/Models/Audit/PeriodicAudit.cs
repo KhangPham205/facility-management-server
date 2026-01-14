@@ -17,7 +17,7 @@ namespace backend.Models
 
         public string ResponsiblePerson { get; set; }
         [ForeignKey(nameof(ResponsiblePerson))]
-        public User Manager { get; set; }
+        public User? Manager { get; set; }
 
         public AuditStatus Status { get; set; }
 

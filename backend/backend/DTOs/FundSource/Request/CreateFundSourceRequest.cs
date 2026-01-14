@@ -12,6 +12,6 @@ namespace backend.DTOs.FundSource.Request
         [Range(0, double.MaxValue, ErrorMessage = "Số tiền phải lớn hơn hoặc bằng 0.")]
         public decimal Amount { get; set; }
 
-        public string? Description { get; set; }
+        public string? Note { get; set; }
     }
 }

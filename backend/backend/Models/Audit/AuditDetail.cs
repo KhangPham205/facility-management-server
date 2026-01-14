@@ -1,4 +1,5 @@
-﻿using backend.Models.EquipmentInfo;
+﻿using backend.Enums;
+using backend.Models.EquipmentInfo;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,12 +18,12 @@ namespace backend.Models
         [ForeignKey(nameof(EquipmentId))]
         public Equipment Equipment { get; set; }
 
-        public int BookQuantity { get; set; }
-        public int ActualQuantity { get; set; }
+        //public int BookQuantity { get; set; }
+        //public int ActualQuantity { get; set; }
 
-        public int Difference { get; set; }
+        //public int Difference { get; set; }
 
-        public string? Condition { get; set; }
+        public EquipmentStatus? Condition { get; set; }
         public string? Note { get; set; }
     }
 }
