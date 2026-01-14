@@ -96,6 +96,8 @@ namespace backend.Data // (Check namespace của bạn)
             // Repair
             modelBuilder.Entity<RepairRequestDetail>()
                 .HasKey(x => new { x.RequestId, x.EquipmentId });
+            modelBuilder.Entity<RepairVoucherDetail>()
+                .HasKey(x => new { x.RepairId, x.EquipmentId });
 
             // Liquidate
             modelBuilder.Entity<LiquidateRequest>()
