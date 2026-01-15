@@ -92,7 +92,11 @@ namespace backend.Services.Implements
                     RequestId = request.RequestId,
                     CreatedBy = request.CreatedBy,
                     SourceLocationId = transferRequest.SourceLocationId,
-                    DestinationRoomId = transferRequest.DestinationRoomId,
+                    SourceLocationType = transferRequest.SourceLocationType,
+
+                    DestinationLocationId = transferRequest.DestinationLocationId,
+                    DestinationLocationType = transferRequest.DestinationLocationType,
+
                     Details = new List<TransferVoucherDetail>()
                 };
 
@@ -101,20 +105,26 @@ namespace backend.Services.Implements
                     var voucherDetail = new TransferVoucherDetail
                     {
                         EquipmentId = reqDetail.EquipmentId,
-                        Quantity = reqDetail.Quantity
+                        Note = reqDetail.Note
                     };
                     voucher.Details.Add(voucherDetail);
 
                     var equipment = await _context.Equipments.FindAsync(reqDetail.EquipmentId);
                     if (equipment != null)
                     {
-                        equipment.LocationId = transferRequest.DestinationRoomId;
+                        equipment.LocationId = transferRequest.DestinationLocationId;
                         equipment.LocationType = transferRequest.DestinationLocationType;
+
+                        // Update trạng thái thiết bị
+                        equipment.Status = EquipmentStatus.Available;
+                    }
+                    else
+                    {
+                        throw new NotFoundException($"No device with ID found: {reqDetail.EquipmentId}");
                     }
                 }
 
                 await _voucherRepo.AddAsync(voucher);
-
                 await transaction.CommitAsync();
 
                 var completeVoucher = await _voucherRepo.GetByIdAsync(voucher.TransferId);
