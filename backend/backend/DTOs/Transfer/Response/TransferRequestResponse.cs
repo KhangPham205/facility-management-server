@@ -8,6 +8,9 @@ namespace backend.DTOs.Transfer.Response
         public string CreatedBy { get; set; }
         public string CreatedByName { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string ApprovedBy { get; set; }
+        public string ApprovedByName { get; set; }
+        public DateTime? ApprovedAt { get; set; }
         public string SourceLocationName { get; set; }
         public string DestinationLocationName { get; set; }
         public string Note { get; set; }

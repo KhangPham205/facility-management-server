@@ -134,7 +134,7 @@ namespace backend.Mappings
 
             CreateMap<TransferRequest, TransferRequestResponse>()
                 .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname))
-                // LocationName cần resolve trong Service
+                .ForMember(dest => dest.ApprovedByName, opt => opt.MapFrom(src => src.Approver != null ? src.Approver.Fullname : null))
                 .ForMember(dest => dest.SourceLocationName, opt => opt.Ignore())
                 .ForMember(dest => dest.DestinationLocationName, opt => opt.Ignore());
 
