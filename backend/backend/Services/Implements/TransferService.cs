@@ -44,6 +44,11 @@ namespace backend.Services.Implements
             var entity = _mapper.Map<TransferRequest>(request);
             entity.Status = VoucherStatus.Pending;
 
+            if (entity.Details == null || !entity.Details.Any())
+            {
+                throw new BadRequestException("The list of equipment to be transferred must not be left blank.");
+            }
+
             await _requestRepo.AddAsync(entity);
             return _mapper.Map<TransferRequestResponse>(entity);
         }
