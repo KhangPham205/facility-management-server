@@ -113,6 +113,12 @@
          */
         public const string InventoryAudits = $"{ApiV1}/inventory-audits";
 
+        /**
+         * Quản lý chi tiết phiếu kiểm kê
+         * URI: api/v1/audit-detail
+         */
+        public const string AuditDetails = $"{ApiV1}/audit-details";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================
