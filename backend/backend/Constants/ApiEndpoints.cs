@@ -77,6 +77,13 @@
          */
         public const string Criterias = $"{ApiV1}/criterias";
 
+
+        /**
+         * Quản lý phiếu yêu cầu nhập
+         * URI: api/v1/import-request
+         */
+        public const string ImportRequests = $"{ApiV1}/import-requests";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================
