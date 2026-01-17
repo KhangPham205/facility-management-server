@@ -83,7 +83,16 @@
          */
         public const string LiquidateRequests = $"{ApiV1}/liquidate-requests";
 
+         * Quản lý phiếu yêu cầu nhập
+         * URI: api/v1/import-request
+         */
+        public const string ImportRequests = $"{ApiV1}/import-requests";
 
+        /**
+         * Quản lý phiếu nhập
+         * URI: api/v1/import-voucher
+         */
+        public const string ImportVouchers = $"{ApiV1}/import-vouchers";
 
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
