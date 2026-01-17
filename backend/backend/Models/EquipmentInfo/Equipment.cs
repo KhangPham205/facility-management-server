@@ -15,12 +15,10 @@ namespace backend.Models.EquipmentInfo
         public string LocationId { get; set; }
         public LocationType LocationType { get; set; }
 
-        public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public bool IsPublic { get; set; }
         public EquipmentStatus Status { get; set; }
-        public string? Description { get; set; }
-        public string? Image { get; set; }
+        public string? Note { get; set; }
         public DateTime? WarrantyExpiryDate { get; set; }
         public DateTime? LastMaintenanceDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

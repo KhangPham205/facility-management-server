@@ -16,6 +16,6 @@ public class RoomType
     public string TypeName { get; set; }
 
     [StringLength(500)]
-    public string? Description { get; set; }
+    public string? Note { get; set; }
     public ICollection<Room> Rooms { get; set; } = new List<Room>();
 }

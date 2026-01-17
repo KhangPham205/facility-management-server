@@ -14,8 +14,9 @@ namespace backend.Models.EquipmentInfo
         [StringLength(100)]
         public string? EquipmentCategoryName { get; set; }
 
+
         [StringLength(500)]
-        public string? Description { get; set; }
+        public string? Note { get; set; }
 
         public ICollection<Criteria>? Criterias { get; set; }
         public ICollection<Equipment>? Equipments { get; set; }

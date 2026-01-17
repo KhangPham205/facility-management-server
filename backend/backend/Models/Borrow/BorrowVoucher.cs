@@ -12,23 +12,24 @@ namespace backend.Models.Borrow
         public string BorrowId { get; set; }
 
         public string BorrowerId { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string? Note { get; set; }
+        public BorrowStatus Status { get; set; }
+        public string? ApprovedBy { get; set; }
+        public DateTime? ApprovedAt { get; set; }
+        public DateTime? ReturnDate { get; set; } // Ngày trả thực tế
+
         [ForeignKey("BorrowerId")]
         public User Borrower { get; set; }
 
-        public string CreatedBy { get; set; }
         [ForeignKey("CreatedBy")]
         public User Creator { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string? Purpose { get; set; }
-        public BorrowStatus Status { get; set; }
-
-        public string? ApprovedBy { get; set; }
         [ForeignKey("ApprovedBy")]
         public User? Approver { get; set; }
-
-        public DateTime? ApprovedAt { get; set; }
-        public DateTime? ReturnDate { get; set; } // Ngày trả thực tế
 
         public ICollection<BorrowVoucherDetail> Details { get; set; }
     }

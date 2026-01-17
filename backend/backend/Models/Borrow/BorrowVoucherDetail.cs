@@ -9,8 +9,7 @@ namespace backend.Models.Borrow
         // Composite Key: Cấu hình trong DbContext
         public string BorrowId { get; set; }
         public string EquipmentId { get; set; }
-
-        public int Quantity { get; set; }
+        public string? Note { get; set; }
 
         [ForeignKey("BorrowId")]
         public BorrowVoucher BorrowVoucher { get; set; }

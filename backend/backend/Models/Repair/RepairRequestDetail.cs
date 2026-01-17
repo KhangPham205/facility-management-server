@@ -11,7 +11,7 @@ namespace backend.Models.Repair
         public string RequestId { get; set; }
         public string EquipmentId { get; set; }
 
-        public string? Description { get; set; }
+        public string? Note { get; set; }
         public string? Image { get; set; }
 
         [ForeignKey("RequestId")]

@@ -12,6 +12,6 @@ namespace backend.DTOs.FundSource.Request
         [Range(0, double.MaxValue)]
         public decimal Amount { get; set; }
 
-        public string? Description { get; set; }
+        public string? Note { get; set; }
     }
 }

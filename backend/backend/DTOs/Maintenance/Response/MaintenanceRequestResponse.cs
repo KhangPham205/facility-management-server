@@ -5,6 +5,7 @@ namespace backend.DTOs.Maintenance.Response
     public class MaintenanceRequestResponse
     {
         public string RequestId { get; set; }
+        public string CreatedBy { get; set; }
         public string CreatedByName { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Note { get; set; }

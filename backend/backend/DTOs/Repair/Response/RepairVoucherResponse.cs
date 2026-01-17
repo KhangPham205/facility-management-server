@@ -9,5 +9,6 @@ namespace backend.DTOs.Repair.Response
         public decimal TotalAmount { get; set; }
         public MaintenanceStatus Status { get; set; }
         public string ProviderName { get; set; }
+        public List<RepairRequestDetailResponse> Details { get; set; }
     }
 }

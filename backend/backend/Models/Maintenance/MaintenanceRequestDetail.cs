@@ -11,7 +11,7 @@ namespace backend.Models.Maintenance
         public string RequestId { get; set; }
         public string EquipmentId { get; set; }
 
-        public string? Description { get; set; } // Mô tả hư hỏng
+        public string? Note { get; set; } // Mô tả hư hỏng
         public string? Image { get; set; }
 
         [ForeignKey("RequestId")]

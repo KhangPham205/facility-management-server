@@ -12,7 +12,7 @@ namespace backend.DTOs.Transfer.Request
         public string DestinationRoomId { get; set; }
         public LocationType DestinationLocationType { get; set; }
 
-        public string? Reason { get; set; }
+        public string? Note { get; set; }
         public List<TransferRequestDetailDto> Details { get; set; } = new();
     }
 }

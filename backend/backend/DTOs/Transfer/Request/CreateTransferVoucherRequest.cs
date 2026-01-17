@@ -4,7 +4,6 @@
     {
         public string RequestId { get; set; }
         public string CreatedBy { get; set; }
-
-        // Thông tin này lấy từ Request
+        public List<TransferRequestDetailDto> Details { get; set; }
     }
 }

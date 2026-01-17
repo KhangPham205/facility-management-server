@@ -10,7 +10,7 @@ namespace backend.Models.Repair
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string VoucherId { get; set; }
+        public string RepairId { get; set; }
 
         public string RequestId { get; set; }
         [ForeignKey("RequestId")]
@@ -30,5 +30,7 @@ namespace backend.Models.Repair
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public MaintenanceStatus Status { get; set; }
+
+        public ICollection<RepairVoucherDetail> Details { get; set; }
     }
 }

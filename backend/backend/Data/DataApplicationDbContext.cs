@@ -50,6 +50,7 @@ namespace backend.Data // (Check namespace của bạn)
         public DbSet<MaintenanceRequest> MaintenanceRequests { get; set; }
         public DbSet<MaintenanceRequestDetail> MaintenanceRequestDetails { get; set; }
         public DbSet<MaintenanceVoucher> MaintenanceVouchers { get; set; }
+        public DbSet<MaintenanceVoucherDetail> MaintenanceVoucherDetails { get; set; }
 
         public DbSet<RepairRequest> RepairRequests { get; set; }
         public DbSet<RepairRequestDetail> RepairRequestDetails { get; set; }
@@ -89,10 +90,14 @@ namespace backend.Data // (Check namespace của bạn)
             // Maintenance
             modelBuilder.Entity<MaintenanceRequestDetail>()
                 .HasKey(x => new { x.RequestId, x.EquipmentId });
+            modelBuilder.Entity<MaintenanceVoucherDetail>()
+                .HasKey(x => new { x.VoucherId, x.EquipmentId });
 
             // Repair
             modelBuilder.Entity<RepairRequestDetail>()
                 .HasKey(x => new { x.RequestId, x.EquipmentId });
+            modelBuilder.Entity<RepairVoucherDetail>()
+                .HasKey(x => new { x.RepairId, x.EquipmentId });
 
             // Liquidate
             modelBuilder.Entity<LiquidateRequest>()

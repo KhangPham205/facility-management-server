@@ -12,6 +12,7 @@ namespace backend.Models.Import
         public string RequestId { get; set; }
         public string EquipmentName { get; set; }
         public int Quantity { get; set; }
+        public string? Note { get; set; }
 
         [ForeignKey("RequestId")]
         public ImportRequest Request { get; set; }

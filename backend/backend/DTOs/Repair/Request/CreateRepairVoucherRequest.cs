@@ -4,9 +4,7 @@
     {
         public string RequestId { get; set; }
         public string CreatedBy { get; set; }
-
-        public string InvoiceNumber { get; set; }
-        public decimal TotalAmount { get; set; }
-        public string? ProviderId { get; set; }
+        public string InvoiceId { get; set; }
+        public List<RepairRequestDetailDto> Details { get; set; }
     }
 }

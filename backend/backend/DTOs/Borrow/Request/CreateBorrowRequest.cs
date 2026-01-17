@@ -2,7 +2,7 @@
 {
     public class CreateBorrowRequest
     {
-        public string? Purpose { get; set; }
+        public string? Note { get; set; }
         public DateTime? ReturnDate { get; set; } // Ngày dự kiến trả
         public List<BorrowDetailDto> Details { get; set; }
     }

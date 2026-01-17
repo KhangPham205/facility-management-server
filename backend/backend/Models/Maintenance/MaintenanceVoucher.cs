@@ -17,22 +17,15 @@ namespace backend.Models.Maintenance
         public MaintenanceRequest Request { get; set; }
 
         public string? InvoiceId { get; set; }
-        [ForeignKey("InvoiceId")]
-        public Invoice? Invoice { get; set; }
-
-        public string? ProviderId { get; set; }
-        [ForeignKey("ProviderId")]
-        public ExternalUnit? Provider { get; set; }
-
         public string CreatedBy { get; set; }
-        [ForeignKey("CreatedBy")]
-        public User Creator { get; set; }
-
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public MaintenanceStatus Status { get; set; }
 
-        public decimal TotalCost { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        [ForeignKey("InvoiceId")]
+        public Invoice? Invoice { get; set; }
+        [ForeignKey("CreatedBy")]
+        public User Creator { get; set; }
+
+        public ICollection<MaintenanceVoucherDetail> Details { get; set; }
     }
 }

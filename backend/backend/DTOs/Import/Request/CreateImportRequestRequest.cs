@@ -3,7 +3,7 @@
     public class CreateImportRequestRequest
     {
         public string CreatedBy { get; set; }
-        public string? Reason { get; set; }
+        public string? Note { get; set; }
         public List<ImportRequestDetailDto> Details { get; set; } = new List<ImportRequestDetailDto>();
     }
 }
