@@ -1,8 +1,13 @@
-﻿namespace backend.DTOs.Import.Request
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace backend.DTOs.Import.Request
 {
     public class CreateImportVoucherRequest
     {
+        [Required]
         public string RequestId { get; set; } // Link tới request đã duyệt
+
+        [Required]
         public string CreatedBy { get; set; }
 
         // Thông tin để tạo Invoice (Hóa đơn)

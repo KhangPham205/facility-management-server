@@ -11,10 +11,19 @@ namespace backend.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
         public string ImportId { get; set; }
+
+        [Required]
         public string RequestId { get; set; }
+
         public string? InvoiceId { get; set; }
+
+        [Required]
         public string CreatedBy { get; set; }
-        public DateTime CreatedAt { get; set; }
+
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+
 
         [ForeignKey(nameof(CreatedBy))]
         public User Creator { get; set; }
