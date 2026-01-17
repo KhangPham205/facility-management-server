@@ -1,4 +1,5 @@
 ﻿using backend.Models.EquipmentInfo;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Liquidate
@@ -7,11 +8,18 @@ namespace backend.Models.Liquidate
     public class LiquidateVoucherDetail
     {
         // Composite Key
+        [Required]
         public string LiquidateId { get; set; }
+
+        [Required]
         public string EquipmentId { get; set; }
 
+        [StringLength(500)]
         public string? Note { get; set; }
-        public decimal LiquidatePrice { get; set; } // Giá thanh lý thực tế
+
+        [Required]
+        public decimal LiquidatePrice { get; set; } = 0;// Giá thanh lý thực tế
+
 
         [ForeignKey("LiquidateId")]
         public LiquidateVoucher LiquidateVoucher { get; set; }

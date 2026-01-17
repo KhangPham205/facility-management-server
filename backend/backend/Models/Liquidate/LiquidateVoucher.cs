@@ -10,10 +10,19 @@ namespace backend.Models.Liquidate
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string LiquidateId { get; set; }
+
+        [Required]
         public string RequestId { get; set; }
+
+        [Required]
         public string CreatedBy { get; set; }
+
+        [Required]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         public string? InvoiceId { get; set; }
+
+
 
         [ForeignKey("CreatedBy")]
         public User Creator { get; set; }

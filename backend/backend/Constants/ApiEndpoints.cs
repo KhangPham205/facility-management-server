@@ -83,6 +83,13 @@
          */
         public const string LiquidateRequests = $"{ApiV1}/liquidate-requests";
 
+        /**
+         * Quản lý phiếu thanh lý
+         * URI: api/v1/liquidate-vouchers
+         */
+        public const string LiquidateVouchers = $"{ApiV1}/liquidate-vouchers";
+
+        /**
          * Quản lý phiếu yêu cầu nhập
          * URI: api/v1/import-request
          */
