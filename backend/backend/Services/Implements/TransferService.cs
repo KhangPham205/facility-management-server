@@ -101,7 +101,6 @@ namespace backend.Services.Implements
                     var voucherDetail = new TransferVoucherDetail
                     {
                         EquipmentId = reqDetail.EquipmentId,
-                        Quantity = reqDetail.Quantity
                     };
                     voucher.Details.Add(voucherDetail);
 

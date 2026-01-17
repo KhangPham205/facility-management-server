@@ -9,6 +9,6 @@ namespace backend.DTOs.EquipmentCategory.Request
         public string? EquipmentCategoryName { get; set; }
 
         [StringLength(500)]
-        public string? Description { get; set; }
+        public string? Note { get; set; }
     }
 }

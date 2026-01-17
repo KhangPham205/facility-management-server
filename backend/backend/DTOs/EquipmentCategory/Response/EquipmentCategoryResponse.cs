@@ -11,7 +11,7 @@ namespace backend.DTOs.EquipmentCategory.Response
 
         public string? EquipmentCategoryName { get; set; }
 
-        public string? Description { get; set; }
+        public string? Note { get; set; }
 
         public ICollection<CriteriaResponse>? Criterias { get; set; }
         public ICollection<EquipmentResponse>? Equipments { get; set; }
