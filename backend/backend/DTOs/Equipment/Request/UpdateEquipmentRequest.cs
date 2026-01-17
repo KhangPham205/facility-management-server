@@ -1,9 +1,10 @@
 ﻿using backend.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace backend.DTOs.Equipment.Request
 {
-    public class CreateEquipmentRequest
+    public class UpdateEquipmentRequest
     {
         [StringLength(100)]
         public string? EquipmentName { get; set; }

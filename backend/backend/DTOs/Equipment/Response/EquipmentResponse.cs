@@ -15,8 +15,11 @@ namespace backend.DTOs.Equipment.Response
 
         public decimal UnitPrice { get; set; }
         public EquipmentStatus Status { get; set; }
-        private string? Description { get; set; }
+        private string? Note { get; set; }
+
         public DateTime? WarrantyExpiryDate { get; set; }
+        public DateTime? LastMaintenanceDate { get; set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }
