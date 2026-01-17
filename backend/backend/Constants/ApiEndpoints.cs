@@ -107,6 +107,12 @@
          */
         public const string PeriodicAudits = $"{ApiV1}/periodic-audits";
 
+        /**
+         * Quản lý phiếu kiểm kê
+         * URI: api/v1/inventory-audit
+         */
+        public const string InventoryAudits = $"{ApiV1}/inventory-audits";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================

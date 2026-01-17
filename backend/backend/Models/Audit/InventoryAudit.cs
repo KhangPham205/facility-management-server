@@ -12,19 +12,28 @@ namespace backend.Models.Audit
         public string AuditId { get; set; }
 
         public string PeriodId { get; set; }
-        [ForeignKey("PeriodId")]
-        public PeriodicAudit PeriodicAudit { get; set; }
 
         public string LocationId { get; set; }
+
         public LocationType LocationType { get; set; }
 
-        public string AuditorId { get; set; }
-        [ForeignKey("AuditorId")]
+        [Required]
         public User Auditor { get; set; }
 
         public DateTime AuditDate { get; set; } = DateTime.Now;
+
+        [StringLength(500)]
         public string? Note { get; set; }
+
         public AuditStatus Status { get; set; }
+
+
+
+        [ForeignKey("PeriodId")]
+        public PeriodicAudit PeriodicAudit { get; set; }
+
+        public string AuditorId { get; set; }
+        [ForeignKey("AuditorId")]
 
         public ICollection<AuditDetail> Details { get; set; }
     }
