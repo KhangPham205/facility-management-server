@@ -77,6 +77,14 @@
          */
         public const string Criterias = $"{ApiV1}/criterias";
 
+        /**
+         * Quản lý yêu cầu thanh lý
+         * URI: api/v1/liquidate-requests
+         */
+        public const string LiquidateRequests = $"{ApiV1}/liquidate-requests";
+
+
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================
