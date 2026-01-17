@@ -35,6 +35,7 @@ using backend.Models.Liquidate;
 using backend.Models.Maintenance;
 using backend.Models.Repair;
 using backend.Models.Transfer;
+using backend.Models.Audit;
 using DTOs.ExternalUnit.Request;
 using DTOs.ExternalUnit.Response;
 
@@ -223,7 +224,7 @@ namespace backend.Mappings
             // 10. AUDIT PROCESS (Kiểm kê)
             // ======================================================
 
-            CreateMap<CreateAuditPeriodRequest, PeriodicAudit>();
+            CreateMap<CreatePeriodicAuditRequest, PeriodicAudit>();
 
             CreateMap<InventoryAudit, InventoryAuditResponse>()
                 // LocationName cần resolve

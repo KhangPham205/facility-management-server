@@ -101,6 +101,12 @@
          */
         public const string ImportVouchers = $"{ApiV1}/import-vouchers";
 
+        /**
+         * Quản lý kiểm kê đinh kỳ
+         * URI: api/v1/periodic-audit
+         */
+        public const string PeriodicAudits = $"{ApiV1}/periodic-audits";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================

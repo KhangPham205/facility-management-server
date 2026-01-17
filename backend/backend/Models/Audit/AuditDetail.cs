@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Models
+namespace backend.Models.Audit
 {
     [Table("AuditDetails")]
     [PrimaryKey(nameof(AuditId), nameof(EquipmentId))]
