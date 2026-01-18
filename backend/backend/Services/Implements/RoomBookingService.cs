@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using backend.DTOs.Area.Booking.Request;
-using backend.DTOs.Area.Booking.Response;
 using backend.DTOs.Booking.Request;
 using backend.DTOs.Booking.Response;
 using backend.Enums;

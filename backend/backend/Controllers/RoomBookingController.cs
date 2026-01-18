@@ -1,6 +1,4 @@
 ﻿using backend.Constants;
-using backend.DTOs.Area.Booking.Request;
-using backend.DTOs.Area.Booking.Response;
 using backend.DTOs.Booking.Request;
 using backend.DTOs.Booking.Response;
 using backend.Models.Area;
