@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<GlobalExceptionMiddleware>();
 builder.Services.AddTransient<JwtMiddleware>();
+builder.Services.AddHttpContextAccessor();
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
