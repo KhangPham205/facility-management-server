@@ -7,6 +7,8 @@ using backend.DTOs.Building.Request;
 using backend.DTOs.Building.Response;
 using backend.DTOs.Equipment.Request;
 using backend.DTOs.Equipment.Response;
+using backend.DTOs.EquipmentCategory.Request;
+using backend.DTOs.EquipmentCategory.Response;
 using backend.DTOs.Floor.Request;
 using backend.DTOs.Floor.Response;
 using backend.DTOs.FundSource.Request;
@@ -23,10 +25,13 @@ using backend.DTOs.Repair.Request;
 using backend.DTOs.Repair.Response;
 using backend.DTOs.Room.Request;
 using backend.DTOs.Room.Response;
+using backend.DTOs.RoomType.Request;
+using backend.DTOs.RoomType.Response;
 using backend.DTOs.Transfer.Request;
 using backend.DTOs.Transfer.Response;
 using backend.Models;
 using backend.Models.Area;
+using backend.Models.Audit;
 using backend.Models.Borrow;
 using backend.Models.EquipmentInfo;
 using backend.Models.Finance;
@@ -35,7 +40,6 @@ using backend.Models.Liquidate;
 using backend.Models.Maintenance;
 using backend.Models.Repair;
 using backend.Models.Transfer;
-using backend.Models.Audit;
 using DTOs.ExternalUnit.Request;
 using DTOs.ExternalUnit.Response;
 
@@ -56,24 +60,35 @@ namespace backend.Mappings
 
             // Floor
             CreateMap<CreateFloorRequest, Floor>();
+            CreateMap<UpdateFloorRequest, Floor>();
             CreateMap<Floor, FloorResponse>()
                 .ForMember(dest => dest.BuildingName, opt => opt.MapFrom(src => src.Building.BuildingName));
 
             // Room
             CreateMap<CreateRoomRequest, Room>();
+            CreateMap<UpdateRoomRequest, Room>();
             CreateMap<Room, RoomResponse>()
                 .ForMember(dest => dest.FloorName, opt => opt.MapFrom(src => src.Floor.FloorName))
                 .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.RoomType.TypeName));
+
+            CreateMap<CreateRoomTypeRequest, RoomType>();
+            CreateMap<UpdateRoomTypeRequest, RoomType>();
+            CreateMap<RoomType, RoomTypeResponse>();
 
             // ======================================================
             // 2. EQUIPMENT & CATEGORY
             // ======================================================
 
             CreateMap<CreateEquipmentRequest, Equipment>();
+            CreateMap<UpdateEquipmentRequest, Equipment>();
             CreateMap<Equipment, EquipmentResponse>()
                 .ForMember(dest => dest.EquipmentCategoryName, opt => opt.MapFrom(src => src.Category.EquipmentCategoryName))
                 // Lưu ý: LocationName phải xử lý trong Service vì LocationId là dynamic (Room hoặc Kho)
                 .ForMember(dest => dest.LocationName, opt => opt.Ignore());
+
+            CreateMap<CreateEquipmentCategoryRequest, EquipmentCategory>();
+            CreateMap<UpdateEquipmentCategoryRequest, EquipmentCategory>();
+            CreateMap<EquipmentCategory, EquipmentCategoryResponse>();
 
             // ======================================================
             // 3. EXTERNAL UNIT (Nhà cung cấp)
