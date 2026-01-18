@@ -14,6 +14,7 @@ namespace backend.Models.Import
         public string RequestId { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string EquipmentName { get; set; }
 
         public int Quantity { get; set; } = 1;

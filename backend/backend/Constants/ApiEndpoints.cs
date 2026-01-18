@@ -96,6 +96,12 @@
         public const string ImportRequests = $"{ApiV1}/import-requests";
 
         /**
+         * Quản lý chi tiết phiếu yêu cầu nhập
+         * URI: api/v1/import-request-detail
+         */
+        public const string ImportRequestDetails = $"{ApiV1}/import-request-detail";
+
+        /**
          * Quản lý phiếu nhập
          * URI: api/v1/import-voucher
          */
