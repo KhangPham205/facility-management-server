@@ -1,6 +1,7 @@
 using backend.Data;
 using backend.Enums;
 using backend.Models;
+using backend.Models.Finance;
 using backend.Models.Import;
 using backend.Repositories.Interfaces;
 using backend.vo;
@@ -21,7 +22,11 @@ namespace backend.Repositories.Implements
 
         public async Task<ImportVoucher?> GetByIdAsync(string id)
         {
-            return await _context.ImportVouchers.FindAsync(id);
+            return await _context.ImportVouchers
+                .Include(i=>i.Creator)
+                .Include(i=>i.Invoice)
+                    .ThenInclude(invoice=>invoice.Unit)
+                .FirstOrDefaultAsync(i=>i.ImportId == id);
         }
 
         public async Task<PageVO<ImportVoucher>> GetPagedAsync(
@@ -30,13 +35,18 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.ImportVouchers.AsQueryable();
+            var query = _context.ImportVouchers.AsNoTracking().AsQueryable();
+
+            query = query
+                .Include(i => i.Creator)
+                .Include(i => i.Invoice)
+                    .ThenInclude(invoice => invoice.Unit);
 
             query = query.Where(filter);
 
-            query = query.OrderBy(sort);
-
             var totalElements = await query.CountAsync();
+
+            query = query.OrderBy(sort);
 
             var content = await query
                 .Skip((pageNumber - 1) * pageSize)

@@ -18,7 +18,7 @@ namespace backend.Models.Audit
         public LocationType LocationType { get; set; }
 
         [Required]
-        public User Auditor { get; set; }
+        public string AuditorId { get; set; }
 
         public DateTime AuditDate { get; set; } = DateTime.Now;
 
@@ -32,8 +32,8 @@ namespace backend.Models.Audit
         [ForeignKey("PeriodId")]
         public PeriodicAudit PeriodicAudit { get; set; }
 
-        public string AuditorId { get; set; }
         [ForeignKey("AuditorId")]
+        public User Auditor { get; set; }
 
         public ICollection<AuditDetail> Details { get; set; }
     }

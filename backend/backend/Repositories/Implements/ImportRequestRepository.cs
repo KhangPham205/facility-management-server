@@ -20,7 +20,10 @@ namespace backend.Repositories.Implements
 
         public async Task<ImportRequest?> GetByIdAsync(string id)
         {
-            return await _context.ImportRequests.FindAsync(id);
+            return await _context.ImportRequests
+                .Include(i=>i.Creator)
+                .Include(i=>i.Approver)
+                .FirstOrDefaultAsync(i=>i.RequestId == id);
         }
 
         public async Task<PageVO<ImportRequest>> GetPagedAsync(
@@ -31,11 +34,16 @@ namespace backend.Repositories.Implements
         {
             var query = _context.ImportRequests.AsQueryable();
 
+            query = query
+                .Include(i => i.Creator)
+                .Include(i => i.Approver);
+
             query = query.Where(filter);
+
+            var totalElements = await query.CountAsync();
 
             query = query.OrderBy(sort);
 
-            var totalElements = await query.CountAsync();
 
             var content = await query
                 .Skip((pageNumber - 1) * pageSize)

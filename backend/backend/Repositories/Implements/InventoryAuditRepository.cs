@@ -19,7 +19,10 @@ namespace backend.Repositories.Implements
 
         public async Task<InventoryAudit?> GetByIdAsync(string id)
         {
-            return await _context.InventoryAudits.FindAsync(id);
+            return await _context.InventoryAudits
+                .Include(i=>i.Auditor)
+                .Include(i=>i.PeriodicAudit)
+                .FirstOrDefaultAsync(i=>i.AuditId == id);
         }
 
         public async Task<PageVO<InventoryAudit>> GetPagedAsync(
@@ -29,6 +32,10 @@ namespace backend.Repositories.Implements
             int pageSize)
         {
             var query = _context.InventoryAudits.AsQueryable();
+
+            query = query
+                .Include(i => i.Auditor)
+                .Include(i => i.PeriodicAudit);
 
             query = query.Where(filter);
 

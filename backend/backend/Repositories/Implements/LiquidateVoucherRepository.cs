@@ -21,7 +21,11 @@ namespace backend.Repositories.Implements
 
         public async Task<LiquidateVoucher?> GetByIdAsync(string id)
         {
-            return await _context.LiquidateVouchers.FindAsync(id);
+            return await _context.LiquidateVouchers
+                .Include(l => l.Creator)
+                .Include(l => l.Invoice)
+                    .ThenInclude(i=>i.Unit)
+                .FirstOrDefaultAsync(l=>l.LiquidateId == id);
         }
 
         public async Task<PageVO<LiquidateVoucher>> GetPagedAsync(
@@ -30,13 +34,19 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.LiquidateVouchers.AsQueryable();
+            var query = _context.LiquidateVouchers.AsNoTracking().AsQueryable();
+
+            query = query
+                .Include(l => l.Creator)
+                .Include(l => l.Invoice)
+                    .ThenInclude(i => i.Unit);
 
             query = query.Where(filter);
 
+            var totalElements = await query.CountAsync();
+
             query = query.OrderBy(sort);
 
-            var totalElements = await query.CountAsync();
 
             var content = await query
                 .Skip((pageNumber - 1) * pageSize)

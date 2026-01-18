@@ -7,7 +7,7 @@ namespace backend.DTOs.Equipment.Response
         public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
         public string CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string? EquipmentCategoryName { get; set; }
 
         public string LocationId { get; set; }
         public string LocationName { get; set; }

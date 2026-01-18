@@ -20,7 +20,9 @@ namespace backend.Repositories.Implements
 
         public async Task<Equipment?> GetByIdAsync(string id)
         {
-            return await _context.Equipments.FindAsync(id);
+            return await _context.Equipments
+                .Include(e=>e.Category)
+                .FirstOrDefaultAsync(e=>e.EquipmentId == id);
         }
 
         public async Task<PageVO<Equipment>> GetPagedAsync(
@@ -29,7 +31,9 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.Equipments.AsQueryable();
+            var query = _context.Equipments.AsNoTracking().AsQueryable();
+
+            query = query.Include(e=>e.Category);
 
             query = query.Where(filter);
 
