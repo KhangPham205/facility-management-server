@@ -7,7 +7,7 @@ namespace backend.DTOs.Equipment.Response
         public string EquipmentId { get; set; }
         public string EquipmentName { get; set; }
         public string CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string? EquipmentCategoryName { get; set; }
 
         public string LocationId { get; set; }
         public string LocationName { get; set; }
@@ -15,8 +15,11 @@ namespace backend.DTOs.Equipment.Response
 
         public decimal UnitPrice { get; set; }
         public EquipmentStatus Status { get; set; }
-        private string? Description { get; set; }
+        private string? Note { get; set; }
+
         public DateTime? WarrantyExpiryDate { get; set; }
+        public DateTime? LastMaintenanceDate { get; set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }

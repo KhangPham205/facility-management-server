@@ -8,6 +8,7 @@ using backend.Models.Liquidate;
 using backend.Models.Maintenance;
 using backend.Models.Repair;
 using backend.Models.Transfer;
+using backend.Models.Audit;
 using Microsoft.EntityFrameworkCore;
 
 

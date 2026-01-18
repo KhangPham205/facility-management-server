@@ -1,8 +1,10 @@
-﻿namespace backend.DTOs.Liquidate.Request
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace backend.DTOs.Liquidate.Request
 {
     public class CreateLiquidateRequestRequest
     {
-        public string CreatedBy { get; set; }
+        [StringLength(500)]
         public string? Note { get; set; }
         public List<LiquidateRequestDetailDto> Details { get; set; } = new();
     }

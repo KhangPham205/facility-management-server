@@ -8,11 +8,16 @@ namespace backend.Models.EquipmentInfo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string CriteriaId { get; set; }
-        public string CategoryId { get; set; }
-        public string Content { get; set; }
+        public string? CriteriaId { get; set; }
+
+        [Required]
+        public string? CategoryId { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string? Content { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public EquipmentCategory Category { get; set; }
+        public EquipmentCategory? Category { get; set; }
     }
 }

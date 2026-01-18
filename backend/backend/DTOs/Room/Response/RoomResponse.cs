@@ -7,8 +7,9 @@
         public string FloorId { get; set; }
         public string FloorName { get; set; }
         public string RoomTypeId { get; set; }
-        public string RoomTypeName { get; set; }
+        public string TypeName { get; set; }
         public int Capacity { get; set; }
         public string? Status { get; set; }
+        public string? Note { get; set; }
     }
 }

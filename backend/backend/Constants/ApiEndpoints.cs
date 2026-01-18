@@ -77,6 +77,78 @@
          */
         public const string RoomTypes = $"{ApiV1}/roomTypes";
 
+        /**
+         * Quản lý tiêu chí
+         * URI: api/v1/criteria
+         */
+        public const string Criterias = $"{ApiV1}/criterias";
+
+        /**
+         * Quản lý yêu cầu thanh lý
+         * URI: api/v1/liquidate-requests
+         */
+        public const string LiquidateRequests = $"{ApiV1}/liquidate-requests";
+
+        /**
+         * Quản lý phiếu thanh lý
+         * URI: api/v1/liquidate-vouchers
+         */
+        public const string LiquidateVouchers = $"{ApiV1}/liquidate-vouchers";
+
+        /**
+         * Quản lý phiếu yêu cầu nhập
+         * URI: api/v1/import-request
+         */
+        public const string ImportRequests = $"{ApiV1}/import-requests";
+
+        /**
+         * Quản lý chi tiết phiếu yêu cầu nhập
+         * URI: api/v1/import-request-detail
+         */
+        public const string ImportRequestDetails = $"{ApiV1}/import-request-detail";
+
+        /**
+         * Quản lý chi tiết phiếu nhập
+         * URI: api/v1/import-voucher-detail
+         */
+        public const string ImportVoucherDetails = $"{ApiV1}/import-voucher-detail";
+
+        /**
+         * Quản lý chi tiết phiếu yêu cầu thanh lý
+         * URI: api/v1/liquidate-request-detail
+         */
+        public const string LiquidateRequestDetails = $"{ApiV1}/liquidate-request-detail";
+
+        /**
+         * Quản lý chi tiết phiếu thanh lý
+         * URI: api/v1/liquidate-voucher-detail
+         */
+        public const string LiquidateVoucherDetails = $"{ApiV1}/liquidate-voucher-detail";
+
+        /**
+         * Quản lý phiếu nhập
+         * URI: api/v1/import-voucher
+         */
+        public const string ImportVouchers = $"{ApiV1}/import-vouchers";
+
+        /**
+         * Quản lý kiểm kê đinh kỳ
+         * URI: api/v1/periodic-audit
+         */
+        public const string PeriodicAudits = $"{ApiV1}/periodic-audits";
+
+        /**
+         * Quản lý phiếu kiểm kê
+         * URI: api/v1/inventory-audit
+         */
+        public const string InventoryAudits = $"{ApiV1}/inventory-audits";
+
+        /**
+         * Quản lý chi tiết phiếu kiểm kê
+         * URI: api/v1/audit-detail
+         */
+        public const string AuditDetails = $"{ApiV1}/audit-details";
+
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
         //================================================================

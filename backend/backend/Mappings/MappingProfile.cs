@@ -8,6 +8,8 @@ using backend.DTOs.Building.Request;
 using backend.DTOs.Building.Response;
 using backend.DTOs.Equipment.Request;
 using backend.DTOs.Equipment.Response;
+using backend.DTOs.EquipmentCategory.Request;
+using backend.DTOs.EquipmentCategory.Response;
 using backend.DTOs.Floor.Request;
 using backend.DTOs.Floor.Response;
 using backend.DTOs.FundSource.Request;
@@ -24,10 +26,13 @@ using backend.DTOs.Repair.Request;
 using backend.DTOs.Repair.Response;
 using backend.DTOs.Room.Request;
 using backend.DTOs.Room.Response;
+using backend.DTOs.RoomType.Request;
+using backend.DTOs.RoomType.Response;
 using backend.DTOs.Transfer.Request;
 using backend.DTOs.Transfer.Response;
 using backend.Models;
 using backend.Models.Area;
+using backend.Models.Audit;
 using backend.Models.Borrow;
 using backend.Models.EquipmentInfo;
 using backend.Models.Finance;
@@ -56,14 +61,20 @@ namespace backend.Mappings
 
             // Floor
             CreateMap<CreateFloorRequest, Floor>();
+            CreateMap<UpdateFloorRequest, Floor>();
             CreateMap<Floor, FloorResponse>()
                 .ForMember(dest => dest.BuildingName, opt => opt.MapFrom(src => src.Building.BuildingName));
 
             // Room
             CreateMap<CreateRoomRequest, Room>();
+            CreateMap<UpdateRoomRequest, Room>();
             CreateMap<Room, RoomResponse>()
                 .ForMember(dest => dest.FloorName, opt => opt.MapFrom(src => src.Floor.FloorName))
-                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.TypeName));
+                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.RoomType.TypeName));
+
+            CreateMap<CreateRoomTypeRequest, RoomType>();
+            CreateMap<UpdateRoomTypeRequest, RoomType>();
+            CreateMap<RoomType, RoomTypeResponse>();
 
             // Area - Room Booking
             CreateMap<RoomBooking, RoomBookingResponse>()
@@ -76,10 +87,15 @@ namespace backend.Mappings
             // ======================================================
 
             CreateMap<CreateEquipmentRequest, Equipment>();
+            CreateMap<UpdateEquipmentRequest, Equipment>();
             CreateMap<Equipment, EquipmentResponse>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                .ForMember(dest => dest.EquipmentCategoryName, opt => opt.MapFrom(src => src.Category.EquipmentCategoryName))
                 // Lưu ý: LocationName phải xử lý trong Service vì LocationId là dynamic (Room hoặc Kho)
                 .ForMember(dest => dest.LocationName, opt => opt.Ignore());
+
+            CreateMap<CreateEquipmentCategoryRequest, EquipmentCategory>();
+            CreateMap<UpdateEquipmentCategoryRequest, EquipmentCategory>();
+            CreateMap<EquipmentCategory, EquipmentCategoryResponse>();
 
             // ======================================================
             // 3. EXTERNAL UNIT (Nhà cung cấp)
@@ -99,7 +115,7 @@ namespace backend.Mappings
             CreateMap<ImportRequestDetailDto, ImportRequestDetail>();
 
             CreateMap<ImportRequest, ImportRequestResponse>()
-                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+                .ForMember(dest => dest.CreatorFullName, opt => opt.MapFrom(src => src.Creator.Fullname));
 
             CreateMap<ImportRequestDetail, ImportRequestDetailResponse>();
 
@@ -111,6 +127,8 @@ namespace backend.Mappings
             CreateMap<ImportVoucher, ImportVoucherResponse>()
                 .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber)) 
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<ImportVoucherDetailDto, ImportVoucherDetail>();
 
             CreateMap<ImportVoucherDetail, ImportVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
@@ -215,7 +233,7 @@ namespace backend.Mappings
             CreateMap<LiquidateRequestDetailDto, LiquidateRequestDetail>();
 
             CreateMap<LiquidateRequest, LiquidateRequestResponse>()
-                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+                .ForMember(dest => dest.CreatorFullName, opt => opt.MapFrom(src => src.Creator.Fullname));
 
             CreateMap<LiquidateRequestDetail, LiquidateRequestDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
@@ -228,6 +246,8 @@ namespace backend.Mappings
             CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
                 .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber));
 
+            CreateMap<LiquidateVoucherDetailDto, LiquidateVoucherDetail>();
+
             CreateMap<LiquidateVoucherDetail, LiquidateVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
 
@@ -235,7 +255,7 @@ namespace backend.Mappings
             // 10. AUDIT PROCESS (Kiểm kê)
             // ======================================================
 
-            CreateMap<CreateAuditPeriodRequest, PeriodicAudit>();
+            CreateMap<CreatePeriodicAuditRequest, PeriodicAudit>();
 
             CreateMap<InventoryAudit, InventoryAuditResponse>()
                 // LocationName cần resolve
