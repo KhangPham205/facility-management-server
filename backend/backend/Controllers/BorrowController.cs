@@ -42,9 +42,7 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult<BorrowVoucherResponse>> Create([FromBody] CreateBorrowRequest request)
         {
-            var userId = _jwtUtils.GetCurrentUserId();
-
-            var result = await _service.Create(userId, request);
+            var result = await _service.Create(request);
             return CreatedAtAction(nameof(GetById), new { id = result.BorrowId }, result);
         }
 

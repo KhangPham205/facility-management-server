@@ -43,7 +43,7 @@ namespace backend.Services.Implements
             return _mapper.Map<BorrowVoucherResponse>(entity);
         }
 
-        public async Task<BorrowVoucherResponse> Create(string createdBy, CreateBorrowRequest request)
+        public async Task<BorrowVoucherResponse> Create(CreateBorrowRequest request)
         {
             var currentUserId = _jwtUtils.GetCurrentUserId();
 
@@ -67,7 +67,7 @@ namespace backend.Services.Implements
 
             var voucher = new BorrowVoucher
             {
-                CreatedBy = createdBy,
+                CreatedBy = currentUserId,
                 BorrowerId = request.BorrowerId,
                 Note = request.Note,
                 ReturnDate = request.ReturnDate, // Ngày dự kiến

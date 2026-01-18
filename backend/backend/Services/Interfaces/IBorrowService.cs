@@ -12,7 +12,7 @@ namespace backend.Services.Interfaces
         Task<PageVO<BorrowVoucherResponse>> GetAll(EntityFilter<BorrowVoucher> filter, EntitySort<BorrowVoucher> sort, int page, int size);
         Task<BorrowVoucherResponse> GetById(string id);
 
-        Task<BorrowVoucherResponse> Create(string createdBy, CreateBorrowRequest request);
+        Task<BorrowVoucherResponse> Create(CreateBorrowRequest request);
         Task<BorrowVoucherResponse> Approve(string id, ApproveBorrowRequest request);
         Task<BorrowVoucherResponse> Return(string id); // Trả toàn bộ
     }
