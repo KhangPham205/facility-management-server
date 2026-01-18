@@ -23,7 +23,9 @@ namespace backend.Models.Transfer
 
         // Lưu snapshot vị trí tại thời điểm chuyển để đối chiếu
         public string SourceLocationId { get; set; }
-        public string DestinationRoomId { get; set; }
+        public LocationType SourceLocationType { get; set; }
+        public string DestinationLocationId { get; set; }
+        public LocationType DestinationLocationType { get; set; }
 
         public ICollection<TransferVoucherDetail> Details { get; set; }
     }

@@ -22,7 +22,7 @@ namespace backend.Models.Transfer
         public LocationType SourceLocationType { get; set; }
 
         // Vị trí đích (Thường là Room cụ thể)
-        public string DestinationRoomId { get; set; }
+        public string DestinationLocationId { get; set; }
         public LocationType DestinationLocationType { get; set; }
 
         public string? Note { get; set; }

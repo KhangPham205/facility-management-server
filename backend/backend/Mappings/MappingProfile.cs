@@ -119,7 +119,12 @@ namespace backend.Mappings
             CreateMap<BorrowDetailDto, BorrowVoucherDetail>();
 
             CreateMap<BorrowVoucher, BorrowVoucherResponse>()
-                .ForMember(dest => dest.BorrowerName, opt => opt.MapFrom(src => src.Borrower.Fullname));
+                .ForMember(dest => dest.BorrowerName,
+                           opt => opt.MapFrom(src => src.Borrower.Fullname))
+                .ForMember(dest => dest.CreatedByName,
+                           opt => opt.MapFrom(src => src.Creator.Fullname))
+                .ForMember(dest => dest.ApprovedByName,
+                           opt => opt.MapFrom(src => src.Approver != null ? src.Approver.Fullname : null));
 
             CreateMap<BorrowVoucherDetail, BorrowVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
@@ -135,7 +140,7 @@ namespace backend.Mappings
 
             CreateMap<TransferRequest, TransferRequestResponse>()
                 .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname))
-                // LocationName cần resolve trong Service
+                .ForMember(dest => dest.ApprovedByName, opt => opt.MapFrom(src => src.Approver != null ? src.Approver.Fullname : null))
                 .ForMember(dest => dest.SourceLocationName, opt => opt.Ignore())
                 .ForMember(dest => dest.DestinationLocationName, opt => opt.Ignore());
 

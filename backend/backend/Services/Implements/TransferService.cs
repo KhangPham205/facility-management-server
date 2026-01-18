@@ -44,6 +44,11 @@ namespace backend.Services.Implements
             var entity = _mapper.Map<TransferRequest>(request);
             entity.Status = VoucherStatus.Pending;
 
+            if (entity.Details == null || !entity.Details.Any())
+            {
+                throw new BadRequestException("The list of equipment to be transferred must not be left blank.");
+            }
+
             await _requestRepo.AddAsync(entity);
             return _mapper.Map<TransferRequestResponse>(entity);
         }
@@ -92,7 +97,11 @@ namespace backend.Services.Implements
                     RequestId = request.RequestId,
                     CreatedBy = request.CreatedBy,
                     SourceLocationId = transferRequest.SourceLocationId,
-                    DestinationRoomId = transferRequest.DestinationRoomId,
+                    SourceLocationType = transferRequest.SourceLocationType,
+
+                    DestinationLocationId = transferRequest.DestinationLocationId,
+                    DestinationLocationType = transferRequest.DestinationLocationType,
+
                     Details = new List<TransferVoucherDetail>()
                 };
 
@@ -101,19 +110,26 @@ namespace backend.Services.Implements
                     var voucherDetail = new TransferVoucherDetail
                     {
                         EquipmentId = reqDetail.EquipmentId,
+                        Note = reqDetail.Note
                     };
                     voucher.Details.Add(voucherDetail);
 
                     var equipment = await _context.Equipments.FindAsync(reqDetail.EquipmentId);
                     if (equipment != null)
                     {
-                        equipment.LocationId = transferRequest.DestinationRoomId;
+                        equipment.LocationId = transferRequest.DestinationLocationId;
                         equipment.LocationType = transferRequest.DestinationLocationType;
+
+                        // Update trạng thái thiết bị
+                        equipment.Status = EquipmentStatus.Available;
+                    }
+                    else
+                    {
+                        throw new NotFoundException($"No device with ID found: {reqDetail.EquipmentId}");
                     }
                 }
 
                 await _voucherRepo.AddAsync(voucher);
-
                 await transaction.CommitAsync();
 
                 var completeVoucher = await _voucherRepo.GetByIdAsync(voucher.TransferId);
