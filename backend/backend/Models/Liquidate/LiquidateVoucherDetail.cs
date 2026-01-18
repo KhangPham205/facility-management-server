@@ -18,6 +18,7 @@ namespace backend.Models.Liquidate
         public string? Note { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal LiquidatePrice { get; set; } = 0;// Giá thanh lý thực tế
 
 
