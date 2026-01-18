@@ -46,6 +46,12 @@
          * URI: api/v1/transfer-vouchers
          */
         public const string TransferVouchers = $"{ApiV1}/transfer-vouchers";
+        
+        /**
+         * Quản lý bảo trì
+         * URI: api/v1/maintenance-vouchers
+         */
+        public const string MaintenanceVouchers = $"{ApiV1}/maintenance-vouchers";
 
         /**
          * Quản lý tòa
@@ -70,6 +76,12 @@
          * URI: api/v1/roomTypes
          */
         public const string RoomTypes = $"{ApiV1}/roomTypes";
+
+        /**
+         * Quản lý đối tác
+         * URI: api/v1/externalUnits
+         */
+        public const string ExternalUnits = $"{ApiV1}/externalUnits";
 
         //================================================================
         //== Whitelists cho Security (CORS / JWT Filter)
