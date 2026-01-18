@@ -73,12 +73,12 @@ namespace backend.Services.Implements
         }
         public async Task<MaintenanceVoucherResponse> CreateVoucher(CreateMaintenanceVoucherRequest request)
         {
-            var transferRequest = await _requestRepo.GetByIdAsync(request.RequestId);
-            if (transferRequest == null)
+            var maintenanceRequest = await _requestRepo.GetByIdAsync(request.RequestId);
+            if (maintenanceRequest == null)
             {
                 throw new Exception("No maintenance request found for the provided RequestId.");
             }
-            if (transferRequest.Status != Enums.VoucherStatus.Approved)
+            if (maintenanceRequest.Status != Enums.VoucherStatus.Approved)
             {
                 throw new Exception("Only approved maintenance requests can have vouchers created.");
             }
@@ -95,7 +95,7 @@ namespace backend.Services.Implements
                     CreatedBy = request.CreatedBy,
                     Details = new List<MaintenanceVoucherDetail>()
                 };
-                foreach (var detail in transferRequest.Details)
+                foreach (var detail in maintenanceRequest.Details)
                 {
                     var voucherDetail = new MaintenanceVoucherDetail
                     {

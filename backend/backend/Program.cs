@@ -54,6 +54,14 @@ builder.Services.AddScoped<ITransferRequestRepository, TransferRequestRepository
 builder.Services.AddScoped<ITransferVoucherRepository, TransferVoucherRepository>();
 builder.Services.AddScoped<ITransferService, TransferService>();
 
+builder.Services.AddScoped<IMaintenanceRequestRepository, MaintenanceRequestRepository>();
+builder.Services.AddScoped<IMaintenanceVoucherRepository, MaintenanceVoucherRepository>();
+builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
+
+builder.Services.AddScoped<IRepairRequestRepository, RepairRequestRepository>();
+builder.Services.AddScoped<IRepairVoucherRepository, RepairVoucherRepository>();
+builder.Services.AddScoped<IRepairService, RepairService>();
+
 //builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 //builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 

@@ -52,6 +52,12 @@
          * URI: api/v1/maintenance-vouchers
          */
         public const string MaintenanceVouchers = $"{ApiV1}/maintenance-vouchers";
+        
+        /**
+         * Quản lý sửa chữa
+         * URI: api/v1/repair-vouchers
+         */
+        public const string RepairVouchers = $"{ApiV1}/repair-vouchers";
 
         /**
          * Quản lý tòa
