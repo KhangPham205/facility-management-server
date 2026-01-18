@@ -42,6 +42,12 @@
         public const string BorrowVouchers = $"{ApiV1}/borrow-vouchers";
 
         /**
+         * Quản lý đặt phòng
+         * URI: api/v1/room-bookings
+         */
+        public const string RoomBookings = $"{ApiV1}/room-bookings";
+
+        /**
          * Quản lý phiếu chuyển
          * URI: api/v1/transfer-vouchers
          */

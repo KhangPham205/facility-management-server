@@ -75,6 +75,9 @@ builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IFundSourceRepository, FundSourceRepository>();
 builder.Services.AddScoped<IFundSourceService, FundSourceService>();
 
+builder.Services.AddScoped<IRoomBookingRepository, RoomBookingRepository>();
+builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
+
 builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddControllers();
