@@ -28,6 +28,6 @@ namespace backend.Models.Import
         [ForeignKey(nameof(ApprovedBy))]
         public User Approver { get; set; }
 
-        public ICollection<ImportRequestDetail> Details { get; set; }
+        public ICollection<ImportRequestDetail> Details { get; set; } = new List<ImportRequestDetail>();
     }
 }

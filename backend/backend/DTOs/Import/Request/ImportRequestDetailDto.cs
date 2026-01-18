@@ -5,9 +5,7 @@ namespace backend.DTOs.Import.Request
     public class ImportRequestDetailDto
     {
         [Required]
-        public string RequestId { get; set; }
-
-        [Required]
+        [StringLength(100)]
         public string EquipmentName { get; set; }
 
         public int Quantity { get; set; } = 1;

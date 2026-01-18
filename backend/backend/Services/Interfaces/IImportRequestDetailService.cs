@@ -8,13 +8,13 @@ using Plainquire.Sort;
 
 namespace backend.Services.Interfaces
 {
-    public interface IImportRequestService
+    public interface IImportRequestDetailService
     {
-        Task<PageVO<ImportRequestResponse>> GetAll(EntityFilter<ImportRequest> filter, EntitySort<ImportRequest> sort, int page, int size);
-        Task<ImportRequestResponse?> GetById(string id);
-        Task<ImportRequestResponse> Create(CreateImportRequestRequest request);
-        //Task<ImportRequestResponse> Update(string id, UpdateImportRequestRequest request);
-        Task UpdateStatus(string id, UpdateImportRequestStatusRequest request);
+        Task<PageVO<ImportRequestDetailResponse>> GetAll(EntityFilter<ImportRequestDetail> filter, EntitySort<ImportRequestDetail> sort, int page, int size);
+        Task<ImportRequestDetailResponse?> GetById(string id);
+        //Task<ImportRequestDetailResponse> Create(CreateImportRequestDetailRequest request);
+        //Task<ImportRequestDetailResponse> Update(string id, UpdateImportRequestDetailRequest request);
+        //Task UpdateStatus(string id, UpdateImportRequestDetailStatusRequest request);
         Task Delete(string id);
     }
 }
