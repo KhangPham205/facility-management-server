@@ -13,7 +13,7 @@ namespace backend.Repositories.Interfaces
         Task<PageVO<LiquidateRequest>> GetPagedAsync(EntityFilter<LiquidateRequest> filter, EntitySort<LiquidateRequest> sort, int pageNumber, int pageSize);
         Task AddAsync(LiquidateRequest importRequest);
         Task UpdateAsync(LiquidateRequest importRequest);
-        Task<bool> UpdateStatusAsync(string importRequestId, VoucherStatus newStatus);
+        Task<bool> UpdateStatusAsync(string importRequestId, string approverId, VoucherStatus newStatus);
         Task DeleteAsync(LiquidateRequest importRequest);
 
         Task<bool> ExistsAsync(string id);

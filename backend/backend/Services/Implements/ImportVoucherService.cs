@@ -10,6 +10,7 @@ using backend.Services.Interfaces;
 using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
+using backend.Utils;
 
 namespace backend.Services.Implements
 {
@@ -17,11 +18,13 @@ namespace backend.Services.Implements
     {
         private readonly IImportVoucherRepository _repo;
         private readonly IMapper _mapper;
+        private readonly JwtUtils _jwtUtils;
 
-        public ImportVoucherService(IImportVoucherRepository repo, IMapper mapper)
+        public ImportVoucherService(IImportVoucherRepository repo, IMapper mapper, JwtUtils jwt)
         {
             _repo = repo;
             _mapper = mapper;
+            _jwtUtils = jwt;
         }
 
         public async Task<PageVO<ImportVoucherResponse>> GetAll(EntityFilter<ImportVoucher> filter, EntitySort<ImportVoucher> sort, int page, int size)
@@ -48,6 +51,8 @@ namespace backend.Services.Implements
         public async Task<ImportVoucherResponse> Create(CreateImportVoucherRequest request)
         {
             var entity = _mapper.Map<ImportVoucher>(request);
+
+            entity.CreatedBy = _jwtUtils.GetCurrentUserId();
 
             await _repo.AddAsync(entity);
             return _mapper.Map<ImportVoucherResponse>(entity);

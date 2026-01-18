@@ -13,7 +13,7 @@ namespace backend.Repositories.Interfaces
         Task<PageVO<ImportRequest>> GetPagedAsync(EntityFilter<ImportRequest> filter, EntitySort<ImportRequest> sort, int pageNumber, int pageSize);
         Task AddAsync(ImportRequest importRequest);
         Task UpdateAsync(ImportRequest importRequest);
-        Task<bool> UpdateStatusAsync(string importRequestId, VoucherStatus newStatus);
+        Task<bool> UpdateStatusAsync(string importRequestId, string approverId, VoucherStatus newStatus);
         Task DeleteAsync(ImportRequest importRequest);
 
         Task<bool> ExistsAsync(string id);

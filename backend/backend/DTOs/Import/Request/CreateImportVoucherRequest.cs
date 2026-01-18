@@ -7,9 +7,6 @@ namespace backend.DTOs.Import.Request
         [Required]
         public string RequestId { get; set; } // Link tới request đã duyệt
 
-        [Required]
-        public string CreatedBy { get; set; }
-
         // Thông tin để tạo Invoice (Hóa đơn)
         public string InvoiceId { get; set; }
 

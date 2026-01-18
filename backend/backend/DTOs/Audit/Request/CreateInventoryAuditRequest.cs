@@ -13,7 +13,7 @@ namespace backend.DTOs.Audit.Request
         public LocationType LocationType { get; set; }
 
         [Required]
-        public User Auditor { get; set; }
+        public string AuditorId { get; set; }
 
         public DateTime AuditDate { get; set; }
 

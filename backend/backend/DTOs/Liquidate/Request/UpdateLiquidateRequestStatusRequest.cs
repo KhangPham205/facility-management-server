@@ -7,8 +7,5 @@ namespace backend.DTOs.Liquidate.Request
     {
         [Required]
         public VoucherStatus Status { get; set; }
-
-        [Required]
-        public string ApprovedBy { get; set; }
     }
 }

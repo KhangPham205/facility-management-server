@@ -6,6 +6,7 @@ using backend.Exceptions;
 using backend.Models.Import;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
+using backend.Utils;
 using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
@@ -16,11 +17,13 @@ namespace backend.Services.Implements
     {
         private readonly IImportRequestRepository _repo;
         private readonly IMapper _mapper;
+        private readonly JwtUtils _jwtUtils;
 
-        public ImportRequestService(IImportRequestRepository repo, IMapper mapper)
+        public ImportRequestService(IImportRequestRepository repo, IMapper mapper, JwtUtils jwtUtils)
         {
             _repo = repo;
             _mapper = mapper;
+            _jwtUtils = jwtUtils;
         }
 
         public async Task<PageVO<ImportRequestResponse>> GetAll(EntityFilter<ImportRequest> filter, EntitySort<ImportRequest> sort, int page, int size)
@@ -47,7 +50,7 @@ namespace backend.Services.Implements
         public async Task<ImportRequestResponse> Create(CreateImportRequestRequest request)
         {
             var entity = _mapper.Map<ImportRequest>(request);
-
+            entity.ApprovedBy = _jwtUtils.GetCurrentUserId();
             await _repo.AddAsync(entity);
             return _mapper.Map<ImportRequestResponse>(entity);
         }
@@ -65,7 +68,7 @@ namespace backend.Services.Implements
 
         public async Task UpdateStatus(string id, UpdateImportRequestStatusRequest request)
         {
-            var result = await _repo.UpdateStatusAsync(id, request.Status);
+            var result = await _repo.UpdateStatusAsync(id, _jwtUtils.GetCurrentUserId(), request.Status);
 
             if (!result)
             {

@@ -6,6 +6,7 @@ using backend.Exceptions;
 using backend.Models.Liquidate;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
+using backend.Utils;
 using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
@@ -16,11 +17,13 @@ namespace backend.Services.Implements
     {
         private readonly ILiquidateRequestRepository _repo;
         private readonly IMapper _mapper;
+        private readonly JwtUtils _jwtUtils;
 
-        public LiquidateRequestService(ILiquidateRequestRepository repo, IMapper mapper)
+        public LiquidateRequestService(ILiquidateRequestRepository repo, IMapper mapper, JwtUtils jwt)
         {
             _repo = repo;
             _mapper = mapper;
+            _jwtUtils = jwt;
         }
 
         public async Task<PageVO<LiquidateRequestResponse>> GetAll(EntityFilter<LiquidateRequest> filter, EntitySort<LiquidateRequest> sort, int page, int size)
@@ -48,6 +51,8 @@ namespace backend.Services.Implements
         {
             var entity = _mapper.Map<LiquidateRequest>(request);
 
+            entity.CreatedBy = _jwtUtils.GetCurrentUserId();
+
             await _repo.AddAsync(entity);
             return _mapper.Map<LiquidateRequestResponse>(entity);
         }
@@ -65,7 +70,7 @@ namespace backend.Services.Implements
 
         public async Task UpdateStatus(string id, UpdateLiquidateRequestStatusRequest request)
         {
-            var result = await _repo.UpdateStatusAsync(id, request.Status);
+            var result = await _repo.UpdateStatusAsync(id, _jwtUtils.GetCurrentUserId(), request.Status);
 
             if (!result)
             {

@@ -7,8 +7,5 @@ namespace backend.DTOs.Import.Request
     {
         [Required]
         public VoucherStatus Status { get; set; } // Approved / Rejected
-
-        [Required]
-        public string ApprovedBy { get; set; }
     }
 }

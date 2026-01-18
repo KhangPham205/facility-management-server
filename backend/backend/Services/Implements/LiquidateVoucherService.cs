@@ -10,6 +10,7 @@ using backend.Services.Interfaces;
 using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
+using backend.Utils;
 
 namespace backend.Services.Implements
 {
@@ -17,11 +18,13 @@ namespace backend.Services.Implements
     {
         private readonly ILiquidateVoucherRepository _repo;
         private readonly IMapper _mapper;
+        private readonly JwtUtils _jwtUtils;
 
-        public LiquidateVoucherService(ILiquidateVoucherRepository repo, IMapper mapper)
+        public LiquidateVoucherService(ILiquidateVoucherRepository repo, IMapper mapper, JwtUtils jwtUtils)
         {
             _repo = repo;
             _mapper = mapper;
+            _jwtUtils = jwtUtils;
         }
 
         public async Task<PageVO<LiquidateVoucherResponse>> GetAll(EntityFilter<LiquidateVoucher> filter, EntitySort<LiquidateVoucher> sort, int page, int size)
@@ -48,6 +51,8 @@ namespace backend.Services.Implements
         public async Task<LiquidateVoucherResponse> Create(CreateLiquidateVoucherRequest request)
         {
             var entity = _mapper.Map<LiquidateVoucher>(request);
+
+            entity.CreatedBy = _jwtUtils.GetCurrentUserId();
 
             await _repo.AddAsync(entity);
             return _mapper.Map<LiquidateVoucherResponse>(entity);

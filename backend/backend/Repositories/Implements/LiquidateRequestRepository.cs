@@ -65,12 +65,13 @@ namespace backend.Repositories.Implements
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateStatusAsync(string liquidateRequestId, VoucherStatus newStatus)
+        public async Task<bool> UpdateStatusAsync(string liquidateRequestId, string approverId, VoucherStatus newStatus)
         {
             var rowsAffected = await _context.LiquidateRequests
                 .Where(e => e.RequestId == liquidateRequestId)
                 .ExecuteUpdateAsync(setters => setters
                     .SetProperty(e => e.Status, newStatus)
+                    .SetProperty(e => e.ApprovedBy, approverId)
                 );
 
             return rowsAffected > 0;

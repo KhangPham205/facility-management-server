@@ -63,7 +63,7 @@ namespace backend.Mappings
             CreateMap<CreateRoomRequest, Room>();
             CreateMap<Room, RoomResponse>()
                 .ForMember(dest => dest.FloorName, opt => opt.MapFrom(src => src.Floor.FloorName))
-                .ForMember(dest => dest.RoomTypeName, opt => opt.MapFrom(src => src.RoomType.TypeName));
+                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.RoomType.TypeName));
 
             // ======================================================
             // 2. EQUIPMENT & CATEGORY
@@ -71,7 +71,7 @@ namespace backend.Mappings
 
             CreateMap<CreateEquipmentRequest, Equipment>();
             CreateMap<Equipment, EquipmentResponse>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.EquipmentCategoryName))
+                .ForMember(dest => dest.EquipmentCategoryName, opt => opt.MapFrom(src => src.Category.EquipmentCategoryName))
                 // Lưu ý: LocationName phải xử lý trong Service vì LocationId là dynamic (Room hoặc Kho)
                 .ForMember(dest => dest.LocationName, opt => opt.Ignore());
 
@@ -93,7 +93,7 @@ namespace backend.Mappings
             CreateMap<ImportRequestDetailDto, ImportRequestDetail>();
 
             CreateMap<ImportRequest, ImportRequestResponse>()
-                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+                .ForMember(dest => dest.CreatorFullName, opt => opt.MapFrom(src => src.Creator.Fullname));
 
             CreateMap<ImportRequestDetail, ImportRequestDetailResponse>();
 
@@ -209,7 +209,7 @@ namespace backend.Mappings
             CreateMap<LiquidateRequestDetailDto, LiquidateRequestDetail>();
 
             CreateMap<LiquidateRequest, LiquidateRequestResponse>()
-                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
+                .ForMember(dest => dest.CreatorFullName, opt => opt.MapFrom(src => src.Creator.Fullname));
 
             CreateMap<LiquidateRequestDetail, LiquidateRequestDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
