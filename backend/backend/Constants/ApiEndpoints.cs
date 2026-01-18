@@ -102,6 +102,24 @@
         public const string ImportRequestDetails = $"{ApiV1}/import-request-detail";
 
         /**
+         * Quản lý chi tiết phiếu nhập
+         * URI: api/v1/import-voucher-detail
+         */
+        public const string ImportVoucherDetails = $"{ApiV1}/import-voucher-detail";
+
+        /**
+         * Quản lý chi tiết phiếu yêu cầu thanh lý
+         * URI: api/v1/liquidate-request-detail
+         */
+        public const string LiquidateRequestDetails = $"{ApiV1}/liquidate-request-detail";
+
+        /**
+         * Quản lý chi tiết phiếu thanh lý
+         * URI: api/v1/liquidate-voucher-detail
+         */
+        public const string LiquidateVoucherDetails = $"{ApiV1}/liquidate-voucher-detail";
+
+        /**
          * Quản lý phiếu nhập
          * URI: api/v1/import-voucher
          */

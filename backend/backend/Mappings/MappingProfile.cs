@@ -239,6 +239,8 @@ namespace backend.Mappings
             CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
                 .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber));
 
+            CreateMap<LiquidateVoucherDetailDto, LiquidateVoucherDetail>();
+
             CreateMap<LiquidateVoucherDetail, LiquidateVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
 
