@@ -34,6 +34,6 @@ namespace backend.Models
         [ForeignKey(nameof(RequestId))]
         public ImportRequest Request { get; set; }
 
-        public ICollection<ImportVoucherDetail> Details { get; set; }
+        public ICollection<ImportVoucherDetail> Details { get; set; } = new List<ImportVoucherDetail>();
     }
 }

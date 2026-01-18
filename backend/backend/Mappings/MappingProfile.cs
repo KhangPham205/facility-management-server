@@ -121,6 +121,8 @@ namespace backend.Mappings
                 .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber)) 
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
 
+            CreateMap<ImportVoucherDetailDto, ImportVoucherDetail>();
+
             CreateMap<ImportVoucherDetail, ImportVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
 
