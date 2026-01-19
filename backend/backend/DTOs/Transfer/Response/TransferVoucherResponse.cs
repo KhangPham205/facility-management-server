@@ -9,10 +9,16 @@ namespace backend.DTOs.Transfer.Response
         public DateTime CreatedAt { get; set; }
         public string CreatedByName { get; set; }
         public string? CreatedBy { get; set; }
+
+        // Source
         public string SourceLocationId { get; set; }
         public LocationType SourceLocationType { get; set; }
-        public string DestinationRoomId { get; set; }
+        public string SourceLocationName { get; set; }
+
+        // Destination
+        public string DestinationLocationId { get; set; }
         public LocationType DestinationLocationType { get; set; }
+        public string DestinationLocationName { get; set; }
 
         public List<TransferVoucherDetailResponse> Details { get; set; }
     }

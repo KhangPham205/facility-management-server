@@ -8,6 +8,7 @@ using backend.Models.Transfer;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
 using backend.vo;
+using Microsoft.EntityFrameworkCore;
 using Plainquire.Filter;
 using Plainquire.Sort;
 
@@ -74,6 +75,9 @@ namespace backend.Services.Implements
         {
             var paged = await _voucherRepo.GetPagedAsync(filter, sort, page, size);
             var dtos = _mapper.Map<List<TransferVoucherResponse>>(paged.Content);
+
+            await PopulateLocationNames(dtos);
+
             return new PageVO<TransferVoucherResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
 
@@ -133,13 +137,82 @@ namespace backend.Services.Implements
                 await transaction.CommitAsync();
 
                 var completeVoucher = await _voucherRepo.GetByIdAsync(voucher.TransferId);
-                return _mapper.Map<TransferVoucherResponse>(completeVoucher);
+                var response = _mapper.Map<TransferVoucherResponse>(completeVoucher);
+
+                await PopulateLocationNames(new List<TransferVoucherResponse> { response });
+
+                return response;
             }
             catch
             {
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+
+
+        // HELPER METHOD: POPULATE LOCATION NAMES
+        private async Task PopulateLocationNames(List<TransferVoucherResponse> dtos)
+        {
+            if (dtos == null || !dtos.Any()) return;
+
+            var roomIds = dtos.Where(x => x.SourceLocationType == LocationType.Room).Select(x => x.SourceLocationId)
+                .Concat(dtos.Where(x => x.DestinationLocationType == LocationType.Room).Select(x => x.DestinationLocationId))
+                .Distinct().ToList();
+
+            var floorIds = dtos.Where(x => x.SourceLocationType == LocationType.Floor).Select(x => x.SourceLocationId)
+                .Concat(dtos.Where(x => x.DestinationLocationType == LocationType.Floor).Select(x => x.DestinationLocationId))
+                .Distinct().ToList();
+
+            var buildingIds = dtos.Where(x => x.SourceLocationType == LocationType.Building).Select(x => x.SourceLocationId)
+                .Concat(dtos.Where(x => x.DestinationLocationType == LocationType.Building).Select(x => x.DestinationLocationId))
+                .Distinct().ToList();
+
+            var rooms = new Dictionary<string, string>();
+            if (roomIds.Any())
+            {
+                rooms = await _context.Rooms
+                    .Where(r => roomIds.Contains(r.RoomId))
+                    .ToDictionaryAsync(r => r.RoomId, r => r.RoomName);
+            }
+
+            var floors = new Dictionary<string, string>();
+            if (floorIds.Any())
+            {
+                floors = await _context.Floors
+                    .Where(f => floorIds.Contains(f.FloorId))
+                    .ToDictionaryAsync(f => f.FloorId, f => f.FloorName);
+            }
+
+            var buildings = new Dictionary<string, string>();
+            if (buildingIds.Any())
+            {
+                buildings = await _context.Buildings
+                    .Where(b => buildingIds.Contains(b.BuildingId))
+                    .ToDictionaryAsync(b => b.BuildingId, b => b.BuildingName);
+            }
+
+            foreach (var dto in dtos)
+            {
+                dto.SourceLocationName = GetLocationName(dto.SourceLocationType, dto.SourceLocationId, rooms, floors, buildings);
+                dto.DestinationLocationName = GetLocationName(dto.DestinationLocationType, dto.DestinationLocationId, rooms, floors, buildings);
+            }
+        }
+
+        private string GetLocationName(
+            LocationType type,
+            string id,
+            Dictionary<string, string> rooms,
+            Dictionary<string, string> floors,
+            Dictionary<string, string> buildings)
+        {
+            return type switch
+            {
+                LocationType.Room => rooms.ContainsKey(id) ? rooms[id] : "Unknown Room",
+                LocationType.Floor => floors.ContainsKey(id) ? floors[id] : "Unknown Floor",
+                LocationType.Building => buildings.ContainsKey(id) ? buildings[id] : "Unknown Building",
+                _ => "Unknown Location"
+            };
         }
     }
 }
