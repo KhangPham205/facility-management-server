@@ -54,11 +54,25 @@ builder.Services.AddScoped<ITransferRequestRepository, TransferRequestRepository
 builder.Services.AddScoped<ITransferVoucherRepository, TransferVoucherRepository>();
 builder.Services.AddScoped<ITransferService, TransferService>();
 
-//builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
-//builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<IMaintenanceRequestRepository, MaintenanceRequestRepository>();
+builder.Services.AddScoped<IMaintenanceVoucherRepository, MaintenanceVoucherRepository>();
+builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
 
-//builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
-//builder.Services.AddScoped<IBorrowService, BorrowService>();
+builder.Services.AddScoped<IRepairRequestRepository, RepairRequestRepository>();
+builder.Services.AddScoped<IRepairVoucherRepository, RepairVoucherRepository>();
+builder.Services.AddScoped<IRepairService, RepairService>();
+
+builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+
+builder.Services.AddScoped<IEquipmentCategoryRepository, EquipmentCategoryRepository>();
+builder.Services.AddScoped<IEquipmentCategoryService, EquipmentCategoryService>();
+
+builder.Services.AddScoped<ICriteriaRepository, CriteriaRepository>();
+builder.Services.AddScoped<ICriteriaService, CriteriaService>();
+
+builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
+builder.Services.AddScoped<IBorrowService, BorrowService>();
 
 builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
 builder.Services.AddScoped<IBuildingService, BuildingService>();
@@ -74,6 +88,9 @@ builder.Services.AddScoped<IRoomService, RoomService>();
 
 builder.Services.AddScoped<IFundSourceRepository, FundSourceRepository>();
 builder.Services.AddScoped<IFundSourceService, FundSourceService>();
+
+builder.Services.AddScoped<IRoomBookingRepository, RoomBookingRepository>();
+builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
 
 builder.Services.AddSingleton<JwtUtils>();
 

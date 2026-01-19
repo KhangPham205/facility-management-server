@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using backend.DTOs.Audit.Request;
 using backend.DTOs.Audit.Response;
+using backend.DTOs.Booking.Response;
 using backend.DTOs.Borrow.Request;
 using backend.DTOs.Borrow.Response;
 using backend.DTOs.Building.Request;
@@ -74,6 +75,12 @@ namespace backend.Mappings
             CreateMap<CreateRoomTypeRequest, RoomType>();
             CreateMap<UpdateRoomTypeRequest, RoomType>();
             CreateMap<RoomType, RoomTypeResponse>();
+
+            // Area - Room Booking
+            CreateMap<RoomBooking, RoomBookingResponse>()
+                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.RoomName))
+                .ForMember(dest => dest.BorrowerName, opt => opt.MapFrom(src => src.Borrower.Fullname))
+                .ForMember(dest => dest.ApprovedByName, opt => opt.MapFrom(src => src.Approver != null ? src.Approver.Fullname : null));
 
             // ======================================================
             // 2. EQUIPMENT & CATEGORY

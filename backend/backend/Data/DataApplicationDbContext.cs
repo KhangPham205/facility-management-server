@@ -23,6 +23,7 @@ namespace backend.Data // (Check namespace của bạn)
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Floor> Floors { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<RoomBooking> RoomBookings { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<EquipmentCategory> EquipmentCategories { get; set; }
         public DbSet<Criteria> Criterias { get; set; }
