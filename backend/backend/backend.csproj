@@ -28,6 +28,10 @@
 
 	<ItemGroup>
 
+	<Folder Include="DTOs\Criteria\Response\" />
+
+	<Folder Include="DTOs\Criteria\Request\" />
+
 	<Folder Include="Migrations\" />
 
 	</ItemGroup>

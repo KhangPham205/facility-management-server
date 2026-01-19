@@ -160,6 +160,8 @@
          * URI: api/v1/audit-detail
          */
         public const string AuditDetails = $"{ApiV1}/audit-details";
+
+        /**
          * Quản lý đối tác
          * URI: api/v1/externalUnits
          */

@@ -62,8 +62,14 @@ builder.Services.AddScoped<IRepairRequestRepository, RepairRequestRepository>();
 builder.Services.AddScoped<IRepairVoucherRepository, RepairVoucherRepository>();
 builder.Services.AddScoped<IRepairService, RepairService>();
 
-//builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
-//builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+
+builder.Services.AddScoped<IEquipmentCategoryRepository, EquipmentCategoryRepository>();
+builder.Services.AddScoped<IEquipmentCategoryService, EquipmentCategoryService>();
+
+builder.Services.AddScoped<ICriteriaRepository, CriteriaRepository>();
+builder.Services.AddScoped<ICriteriaService, CriteriaService>();
 
 builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
 builder.Services.AddScoped<IBorrowService, BorrowService>();
