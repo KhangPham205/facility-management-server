@@ -12,6 +12,7 @@ namespace backend.Repositories.Interfaces
 
         Task<PageVO<Equipment>> GetPagedAsync(EntityFilter<Equipment> filter, EntitySort<Equipment> sort, int pageNumber, int pageSize);
         Task AddAsync(Equipment equipment);
+        Task AddRangeAsync(IEnumerable<Equipment> entities);
         Task UpdateAsync(Equipment equipment);
         Task<bool> UpdateStatusAsync(string equipmentId, EquipmentStatus newStatus);
         Task DeleteAsync(Equipment equipment);

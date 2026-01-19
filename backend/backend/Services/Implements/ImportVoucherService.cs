@@ -11,18 +11,21 @@ using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
 using backend.Utils;
+using backend.Models.EquipmentInfo;
 
 namespace backend.Services.Implements
 {
     public class ImportVoucherService : IImportVoucherService
     {
         private readonly IImportVoucherRepository _repo;
+        private readonly IEquipmentRepository _equipmentRepo;
         private readonly IMapper _mapper;
         private readonly JwtUtils _jwtUtils;
 
-        public ImportVoucherService(IImportVoucherRepository repo, IMapper mapper, JwtUtils jwt)
+        public ImportVoucherService(IImportVoucherRepository repo, IEquipmentRepository equipmentRepository, IMapper mapper, JwtUtils jwt)
         {
             _repo = repo;
+            _equipmentRepo = equipmentRepository;
             _mapper = mapper;
             _jwtUtils = jwt;
         }
@@ -50,11 +53,31 @@ namespace backend.Services.Implements
 
         public async Task<ImportVoucherResponse> Create(CreateImportVoucherRequest request)
         {
+            var allEquipments = new List<Equipment>();
+
             var entity = _mapper.Map<ImportVoucher>(request);
 
             entity.CreatedBy = _jwtUtils.GetCurrentUserId();
 
             await _repo.AddAsync(entity);
+
+            foreach (var detail in request.Details)
+            {
+                for (int i = 0; i < detail.Quantity; i++)
+                {
+                    allEquipments.Add(new Equipment
+                    {
+                        EquipmentName = detail.EquipmentName,
+                        Note = detail.Note,
+                    });
+                }
+            }
+
+            if (allEquipments.Any())
+            {
+                await _equipmentRepo.AddRangeAsync(allEquipments);
+            }
+
             return _mapper.Map<ImportVoucherResponse>(entity);
         }
 

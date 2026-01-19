@@ -54,6 +54,11 @@ namespace backend.Repositories.Implements
             await _context.Equipments.AddAsync(equipment);
             await _context.SaveChangesAsync();
         }
+        public async Task AddRangeAsync(IEnumerable<Equipment> equipments)
+        {
+            await _context.Equipments.AddRangeAsync(equipments);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task UpdateAsync(Equipment equipment)
         {

@@ -9,6 +9,8 @@ namespace backend.DTOs.Import.Request
         [StringLength(100)]
         public string EquipmentName { get; set; }
 
+        [Required]
+        public int Quantity { get; set; }
 
         [StringLength(500)]
         public string? Note { get; set; }
