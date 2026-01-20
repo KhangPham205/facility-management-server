@@ -2,9 +2,12 @@
 using backend.DTOs.Auth;
 using backend.DTOs.user.Request;
 using backend.DTOs.user.Response;
+using backend.Models;
 using backend.Services.Interfaces;
 using backend.vo;
 using Microsoft.AspNetCore.Mvc;
+using Plainquire.Filter;
+using Plainquire.Sort;
 
 namespace backend.Controllers
 {
@@ -20,11 +23,15 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PageVO<UserResponseDTO>>> GetUsers([FromQuery] int page = 1, [FromQuery] int size = 10)
+        public async Task<ActionResult<PageVO<UserResponseDTO>>> GetUsers(
+            [FromQuery] EntityFilter<User> filter,
+            [FromQuery] EntitySort<User> sort,
+            [FromQuery] int page = 1,
+            [FromQuery] int size = 10)
         {
             try
             {
-                var result = await _userService.GetUsers(page, size);
+                var result = await _userService.GetUsers(filter, sort, page, size);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -5,6 +5,8 @@ using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
 using backend.vo;
 using Microsoft.AspNetCore.Identity;
+using Plainquire.Filter;
+using Plainquire.Sort;
 
 namespace backend.Services.Implements
 {
@@ -17,9 +19,9 @@ namespace backend.Services.Implements
             _userRepo = userRepo;
         }
 
-        public async Task<PageVO<UserResponseDTO>> GetUsers(int page, int size)
+        public async Task<PageVO<UserResponseDTO>> GetUsers(EntityFilter<User> filter, EntitySort<User> sort, int page, int size)
         {
-            var pagedResult = await _userRepo.GetUsersPagedAsync(page, size);
+            var pagedResult = await _userRepo.GetUsersPagedAsync(filter, sort, page, size);
 
             var dtoList = pagedResult.Content.Select(u => new UserResponseDTO
             {

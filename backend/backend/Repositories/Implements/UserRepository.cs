@@ -3,6 +3,8 @@ using backend.Models;
 using backend.Repositories.Interfaces;
 using backend.vo;
 using Microsoft.EntityFrameworkCore;
+using Plainquire.Filter;
+using Plainquire.Sort;
 
 namespace backend.Repositories.Implements
 {
@@ -31,15 +33,16 @@ namespace backend.Repositories.Implements
             _context.SaveChanges();
         }
 
-        public async Task<PageVO<User>> GetUsersPagedAsync(int page, int size)
+        public async Task<PageVO<User>> GetUsersPagedAsync(EntityFilter<User> filter, EntitySort<User> sort, int page, int size)
         {
-            var totalElements = await _context.Users.CountAsync();
+            var query = _context.Users.AsQueryable();
+            query = query.Where(filter);
+            query = query.OrderBy(sort);
 
-            var skip = (page - 1) * size;
+            var totalElements = await query.CountAsync();
 
-            var content = await _context.Users
-                .OrderByDescending(u => u.CreatedAt)
-                .Skip(skip)
+            var content = await query
+                .Skip((page - 1) * size)
                 .Take(size)
                 .ToListAsync();
 
