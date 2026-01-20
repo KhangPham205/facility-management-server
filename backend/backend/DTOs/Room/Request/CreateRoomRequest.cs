@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using backend.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs.Room.Request
 {
@@ -17,7 +18,7 @@ namespace backend.DTOs.Room.Request
         [Range(0, int.MaxValue)]
         public int Capacity { get; set; }
 
-        public string Status { get; set; }
+        public BookingStatus Status { get; set; }
 
         [StringLength(500)]
         public string? Note { get; set; }

@@ -9,6 +9,7 @@ using backend.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Plainquire.Filter.Mvc;
 using Plainquire.Filter;
@@ -102,6 +103,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Facility API", Version = "v1" });
+
 
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
