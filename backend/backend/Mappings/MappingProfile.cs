@@ -256,11 +256,14 @@ namespace backend.Mappings
             // ======================================================
 
             CreateMap<CreatePeriodicAuditRequest, PeriodicAudit>();
+            CreateMap<PeriodicAudit, PeriodicAuditResponse>();
 
+            CreateMap<CreateInventoryAuditRequest, InventoryAudit>();
             CreateMap<InventoryAudit, InventoryAuditResponse>()
                 // LocationName cần resolve
                 .ForMember(dest => dest.LocationName, opt => opt.Ignore());
 
+            CreateMap<UpdateAuditDetailRequest, AuditDetail>();
             CreateMap<AuditDetail, AuditDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
 
