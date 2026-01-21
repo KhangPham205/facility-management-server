@@ -59,7 +59,7 @@ namespace backend.Services.Implements
                 CreatedAt = DateTime.UtcNow
             };
 
-            _repo.Add(newUser);
+            _repo.AddAsync(newUser);
             _repo.SaveChangesAsync();
         }
 

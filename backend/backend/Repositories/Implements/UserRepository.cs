@@ -22,9 +22,10 @@ namespace backend.Repositories.Implements
         public User? GetByRefreshToken(string refreshToken)
             => _context.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
 
-        public void Add(User entity)
+        public async Task AddAsync(User entity)
         {
             _context.Users.Add(entity);
+            await _context.SaveChangesAsync();
         }
         public async Task SaveChangesAsync()
         {

@@ -72,8 +72,7 @@ namespace backend.Services.Implements
                 Password = PasswordHasher.Hash(dto.Password)
             };
 
-            _userRepo.Add(user);
-            await _userRepo.SaveChangesAsync();
+            await _userRepo.AddAsync(user);
 
             return new UserResponseDTO
             {
