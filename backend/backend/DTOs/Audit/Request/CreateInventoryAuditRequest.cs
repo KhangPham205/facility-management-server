@@ -6,6 +6,9 @@ namespace backend.DTOs.Audit.Request
 {
     public class CreateInventoryAuditRequest
     {
+        [StringLength(100)]
+        public string AuditName { get; set; }
+
         public string PeriodId { get; set; }
 
         public string LocationId { get; set; }

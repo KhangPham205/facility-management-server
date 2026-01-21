@@ -6,7 +6,7 @@ namespace backend.DTOs.Audit.Request
     {
         [Required]
         [StringLength(100)]
-        public string AuditName { get; set; }
+        public string PeriodicAuditName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string ResponsiblePerson { get; set; }

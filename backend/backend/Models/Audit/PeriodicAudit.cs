@@ -13,7 +13,7 @@ namespace backend.Models.Audit
 
         [Required]
         [StringLength(100)]
-        public string AuditName { get; set; } // VD: Kiểm kê Quý 1/2024
+        public string PeriodicAuditName { get; set; } // VD: Kiểm kê Quý 1/2024
 
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; }

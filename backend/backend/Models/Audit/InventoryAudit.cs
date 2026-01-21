@@ -11,6 +11,9 @@ namespace backend.Models.Audit
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string AuditId { get; set; }
 
+        [StringLength(100)]
+        public string AuditName { get; set; }
+
         public string PeriodId { get; set; }
 
         public string LocationId { get; set; }
