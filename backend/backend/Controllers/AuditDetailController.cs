@@ -41,7 +41,7 @@ namespace backend.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<AuditDetailResponse>> GetById(string auditId, string equipmentId)
         {
             var result = await _service.GetById(auditId, equipmentId);
@@ -63,7 +63,7 @@ namespace backend.Controllers
         //    }
         //}
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ActionResult<AuditDetailResponse>> Update(string auditId, string equipmentId, [FromBody] UpdateAuditDetailRequest request)
         {
             try
@@ -81,7 +81,7 @@ namespace backend.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(string auditId, string equipmentId)
         {
             try
