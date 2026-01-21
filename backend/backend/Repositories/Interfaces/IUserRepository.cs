@@ -10,7 +10,7 @@ namespace backend.Repositories.Interfaces
         User? GetByEmail(string email);
         User? GetByRefreshToken(string refreshToken);
         void Add(User user);
-        void Save();
+        Task SaveChangesAsync();
         Task<PageVO<User>> GetUsersPagedAsync(EntityFilter<User> filter, EntitySort<User> sort, int page, int size);
         Task<User?> GetByIdAsync(string id);
         Task UpdateAsync(User user);

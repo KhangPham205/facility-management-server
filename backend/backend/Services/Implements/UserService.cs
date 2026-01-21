@@ -73,6 +73,7 @@ namespace backend.Services.Implements
             };
 
             _userRepo.Add(user);
+            await _userRepo.SaveChangesAsync();
 
             return new UserResponseDTO
             {

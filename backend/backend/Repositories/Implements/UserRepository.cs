@@ -16,7 +16,6 @@ namespace backend.Repositories.Implements
         {
             _context = context;
         }
-
         public User? GetByEmail(string email)
             => _context.Users.FirstOrDefault(u => u.Email == email);
 
@@ -27,12 +26,10 @@ namespace backend.Repositories.Implements
         {
             _context.Users.Add(entity);
         }
-
-        public void Save()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-
         public async Task<PageVO<User>> GetUsersPagedAsync(EntityFilter<User> filter, EntitySort<User> sort, int page, int size)
         {
             var query = _context.Users.AsQueryable();

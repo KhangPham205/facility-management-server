@@ -18,7 +18,7 @@ namespace backend.Services.Implements
             _jwt = jwt;
         }
 
-        public AuthResponse Login(LoginDTO loginDto)
+        public async Task<AuthResponse> Login(LoginDTO loginDto)
         {
             var user = _repo.GetByEmail(loginDto.Email);
 
@@ -33,7 +33,7 @@ namespace backend.Services.Implements
 
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-            _repo.Save();
+            await _repo.SaveChangesAsync();
 
             return new AuthResponse
             {
@@ -60,7 +60,7 @@ namespace backend.Services.Implements
             };
 
             _repo.Add(newUser);
-            _repo.Save();
+            _repo.SaveChangesAsync();
         }
 
         public AuthResponse RefreshToken(string refreshToken)
@@ -78,7 +78,7 @@ namespace backend.Services.Implements
 
             user.RefreshToken = newRefreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-            _repo.Save();
+            _repo.SaveChangesAsync();
 
             return new AuthResponse
             {
@@ -99,7 +99,7 @@ namespace backend.Services.Implements
             user.ResetToken = otp;
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(5); // OTP hết hạn sau 5 phút
 
-            _repo.Save();
+            await _repo.SaveChangesAsync();
 
             return otp;
         }
@@ -121,7 +121,7 @@ namespace backend.Services.Implements
             user.ResetToken = null;
             user.ResetTokenExpiry = null;
 
-            _repo.Save();
+            await _repo.SaveChangesAsync();
         }
 
         // Helper method to map User to UserDetailDTO
