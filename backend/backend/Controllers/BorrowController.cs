@@ -27,10 +27,10 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<PageVO<BorrowVoucherResponse>>> GetAll(
             [FromQuery] EntityFilter<BorrowVoucher> filter,
-            [FromQuery] EntitySort<BorrowVoucher> sort,
+            [FromQuery] EntitySort<BorrowVoucher> orderBy,
             [FromQuery] int page = 1, [FromQuery] int size = 10)
         {
-            return Ok(await _service.GetAll(filter, sort, page, size));
+            return Ok(await _service.GetAll(filter, orderBy, page, size));
         }
 
         [HttpGet("{id}")]

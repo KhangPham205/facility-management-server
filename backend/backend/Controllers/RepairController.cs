@@ -23,10 +23,11 @@ namespace backend.Controllers
         [HttpGet("requests")]
         public async Task<ActionResult<PageVO<RepairRequestResponse>>> GetRequests(
             [FromQuery] EntityFilter<RepairRequest> filter,
-            [FromQuery] EntitySort<RepairRequest> sort,
-            [FromQuery] int page = 1, [FromQuery] int size = 10)
+            [FromQuery] EntitySort<RepairRequest> orderBy,
+            [FromQuery] int page = 1, 
+            [FromQuery] int size = 10)
         {
-            return Ok(await _service.GetRequests(filter, sort, page, size));
+            return Ok(await _service.GetRequests(filter, orderBy, page, size));
         }
 
         [HttpPost("requests")]

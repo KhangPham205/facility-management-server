@@ -7,6 +7,7 @@ namespace backend.Models
 {
     [Table("Users")]
     [EntityFilter(Prefix = "")]
+    [EntitySortSet]
     public class User
     {
         [Key]

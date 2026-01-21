@@ -21,10 +21,11 @@ namespace backend.Controllers
         [HttpGet("requests")]
         public async Task<IActionResult> GetRequests(
             [FromQuery] EntityFilter<MaintenanceRequest> filter,
-            [FromQuery] EntitySort<MaintenanceRequest> sort,
-            [FromQuery] int page = 1, [FromQuery] int size = 10)
+            [FromQuery] EntitySort<MaintenanceRequest> orderBy,
+            [FromQuery] int page = 1, 
+            [FromQuery] int size = 10)
         {
-            var result = await _service.GetRequests(filter, sort, page, size);
+            var result = await _service.GetRequests(filter, orderBy, page, size);
             return Ok(result);
         }
 

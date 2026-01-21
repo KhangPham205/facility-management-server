@@ -24,10 +24,11 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<PageVO<RoomBookingResponse>>> GetAll(
             [FromQuery] EntityFilter<RoomBooking> filter,
-            [FromQuery] EntitySort<RoomBooking> sort,
-            [FromQuery] int page = 1, [FromQuery] int size = 10)
+            [FromQuery] EntitySort<RoomBooking> orderBy,
+            [FromQuery] int page = 1, 
+            [FromQuery] int size = 10)
         {
-            return Ok(await _service.GetAll(filter, sort, page, size));
+            return Ok(await _service.GetAll(filter, orderBy, page, size));
         }
 
         [HttpPost]

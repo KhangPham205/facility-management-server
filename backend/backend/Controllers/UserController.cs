@@ -25,13 +25,13 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<PageVO<UserResponseDTO>>> GetUsers(
             [FromQuery] EntityFilter<User> filter,
-            [FromQuery] EntitySort<User> sort,
+            [FromQuery] EntitySort<User> orderBy,
             [FromQuery] int page = 1,
             [FromQuery] int size = 10)
         {
             try
             {
-                var result = await _userService.GetUsers(filter, sort, page, size);
+                var result = await _userService.GetUsers(filter, orderBy, page, size);
                 return Ok(result);
             }
             catch (Exception ex)

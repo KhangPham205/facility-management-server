@@ -24,10 +24,11 @@ namespace backend.Controllers.Transfer
         [HttpGet]
         public async Task<ActionResult<PageVO<TransferRequestResponse>>> GetRequests(
             [FromQuery] EntityFilter<TransferRequest> filter,
-            [FromQuery] EntitySort<TransferRequest> sort,
-            [FromQuery] int page = 1, [FromQuery] int size = 10)
+            [FromQuery] EntitySort<TransferRequest> orderBy,
+            [FromQuery] int page = 1, 
+            [FromQuery] int size = 10)
         {
-            return Ok(await _service.GetRequests(filter, sort, page, size));
+            return Ok(await _service.GetRequests(filter, orderBy, page, size));
         }
 
         [HttpGet("{id}")]

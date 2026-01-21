@@ -26,13 +26,13 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<PageVO<ImportVoucherDetailResponse>>> GetAll(
             [FromQuery] EntityFilter<ImportVoucherDetail> filter,
-            [FromQuery] EntitySort<ImportVoucherDetail> sort, // Tự động map ?orderBy=Amount-desc
+            [FromQuery] EntitySort<ImportVoucherDetail> orderBy,
             [FromQuery] int page = 1,
             [FromQuery] int size = 10)
         {
             try
             {
-                var result = await _service.GetAll(filter, sort, page, size);
+                var result = await _service.GetAll(filter, orderBy, page, size);
                 return Ok(result);
             }
             catch (Exception ex)

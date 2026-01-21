@@ -26,13 +26,13 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<PageVO<LiquidateRequestResponse>>> GetAll(
             [FromQuery] EntityFilter<LiquidateRequest> filter,
-            [FromQuery] EntitySort<LiquidateRequest> sort, // Tự động map ?orderBy=Amount-desc
+            [FromQuery] EntitySort<LiquidateRequest> orderBy,
             [FromQuery] int page = 1,
             [FromQuery] int size = 10)
         {
             try
             {
-                var result = await _service.GetAll(filter, sort, page, size);
+                var result = await _service.GetAll(filter, orderBy, page, size);
                 return Ok(result);
             }
             catch (Exception ex)

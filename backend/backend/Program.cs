@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Plainquire.Filter;
 using Plainquire.Filter.Mvc;
 using Plainquire.Sort;
+using Plainquire.Sort.Mvc;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -169,7 +170,7 @@ builder.Services.AddSwaggerGen(option =>
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddControllers().AddFilterSupport();
+builder.Services.AddControllers().AddFilterSupport().AddSortSupport();
 
 builder.Services.AddCors(options =>
 {
