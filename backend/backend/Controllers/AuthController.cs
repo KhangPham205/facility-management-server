@@ -20,9 +20,10 @@ namespace backend.Controllers
         [HttpPost("login")]
         [ProducesResponseType(typeof(AuthResponse), 200)]
         [ProducesResponseType(401)]
-        public ActionResult<AuthResponse> Login(LoginDTO dto)
+        public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginDTO request)
         {
-            var result = _authService.Login(dto);
+            var result = await _authService.Login(request);
+
             return Ok(result);
         }
 
