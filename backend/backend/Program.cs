@@ -94,6 +94,39 @@ builder.Services.AddScoped<IFundSourceService, FundSourceService>();
 builder.Services.AddScoped<IRoomBookingRepository, RoomBookingRepository>();
 builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
 
+builder.Services.AddScoped<IImportRequestDetailRepository, ImportRequestDetailRepository>();
+builder.Services.AddScoped<IImportRequestDetailService, ImportRequestDetailService>();
+
+builder.Services.AddScoped<IImportRequestRepository, ImportRequestRepository>();
+builder.Services.AddScoped<IImportRequestService, ImportRequestService>();
+
+builder.Services.AddScoped<IImportVoucherDetailRepository, ImportVoucherDetailRepository>();
+builder.Services.AddScoped<IImportVoucherDetailService, ImportVoucherDetailService>();
+
+builder.Services.AddScoped<IImportVoucherRepository, ImportVoucherRepository>();
+builder.Services.AddScoped<IImportVoucherService, ImportVoucherService>();
+
+builder.Services.AddScoped<ILiquidateRequestDetailRepository, LiquidateRequestDetailRepository>();
+builder.Services.AddScoped<ILiquidateRequestDetailService, LiquidateRequestDetailService>();
+
+builder.Services.AddScoped<ILiquidateRequestRepository, LiquidateRequestRepository>();
+builder.Services.AddScoped<ILiquidateRequestService, LiquidateRequestService>();
+
+builder.Services.AddScoped<ILiquidateVoucherDetailRepository, LiquidateVoucherDetailRepository>();
+builder.Services.AddScoped<ILiquidateVoucherDetailService, LiquidateVoucherDetailService>();
+
+builder.Services.AddScoped<ILiquidateVoucherRepository, LiquidateVoucherRepository>();
+builder.Services.AddScoped<ILiquidateVoucherService, LiquidateVoucherService>();
+
+builder.Services.AddScoped<IAuditDetailRepository, AuditDetailRepository>();
+builder.Services.AddScoped<IAuditDetailService, AuditDetailService>();
+
+builder.Services.AddScoped<IInventoryAuditRepository, InventoryAuditRepository>();
+builder.Services.AddScoped<IInventoryAuditService, InventoryAuditService>();
+
+builder.Services.AddScoped<IPeriodicAuditRepository, PeriodicAuditRepository>();
+builder.Services.AddScoped<IPeriodicAuditService, PeriodicAuditService>();
+
 builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddControllers();
