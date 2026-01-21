@@ -11,6 +11,7 @@ namespace backend.Services.Interfaces
     {
         Task<PageVO<RoomBookingResponse>> GetAll(EntityFilter<RoomBooking> filter, EntitySort<RoomBooking> sort, int page, int size);
         Task<RoomBookingResponse> Create(CreateBookingRequest request);
+        Task<RoomBookingResponse> UpdateStatus(string id, UpdateBookingStatusRequest request);
         Task<RoomBookingResponse> Approve(string id, ApproveBookingRequest request);
         Task Cancel(string id); // Người dùng tự hủy
     }

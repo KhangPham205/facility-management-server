@@ -61,6 +61,19 @@ namespace backend.Services.Implements
             return _mapper.Map<RoomBookingResponse>(created);
         }
 
+        public async Task<RoomBookingResponse> UpdateStatus(string id, UpdateBookingStatusRequest request)
+        {
+            var booking = await _repo.GetByIdAsync(id);
+            if (booking == null) throw new Exception("Booking not found");
+                        
+            booking.Status = request.Status;
+            booking.Note = request.Note;
+
+            await _repo.UpdateAsync(booking);
+
+            return _mapper.Map<RoomBookingResponse>(booking);
+        }
+
         public async Task<RoomBookingResponse> Approve(string id, ApproveBookingRequest request)
         {
             var booking = await _repo.GetByIdAsync(id);

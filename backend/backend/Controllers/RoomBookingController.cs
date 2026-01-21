@@ -37,6 +37,20 @@ namespace backend.Controllers
             return Ok(result);
         }
 
+        [HttpPut("{id}/status")]
+        public async Task<ActionResult<RoomBookingResponse>> UpdateStatus(string id, [FromBody] UpdateBookingStatusRequest request)
+        {
+            try
+            {
+                var result = await _service.UpdateStatus(id, request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpPut("{id}/approve")]
         // [Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<RoomBookingResponse>> Approve(string id, [FromBody] ApproveBookingRequest request)
