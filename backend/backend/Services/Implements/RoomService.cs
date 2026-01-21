@@ -1,8 +1,10 @@
-using AutoMapper;
+﻿using AutoMapper;
 using backend.DTOs.Room.Request;
 using backend.DTOs.Room.Response;
+using backend.Enums;
 using backend.Exceptions;
 using backend.Models.Area;
+using backend.Repositories.Implements;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
 using backend.vo;
@@ -60,6 +62,23 @@ namespace backend.Services.Implements
 
             await _repo.UpdateAsync(entity);
             return _mapper.Map<RoomResponse>(entity);
+        }
+
+        public async Task<bool> UpdateRoomStatusAsync(string roomId, UpdateRoomStatusRequest request)
+        {
+            if (string.IsNullOrEmpty(roomId))
+            {
+                throw new ArgumentException("ID phòng không được để trống.");
+            }
+
+            var isUpdated = await _repo.UpdateStatusAsync(roomId, request.Status);
+
+            if (!isUpdated)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task Delete(string id)

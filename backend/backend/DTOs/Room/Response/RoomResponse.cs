@@ -11,7 +11,7 @@ namespace backend.DTOs.Room.Response
         public string RoomTypeId { get; set; }
         public string TypeName { get; set; }
         public int Capacity { get; set; }
-        public BookingStatus? Status { get; set; }
+        public RoomStatus? Status { get; set; }
         public string? Note { get; set; }
     }
 }
