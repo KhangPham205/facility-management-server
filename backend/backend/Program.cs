@@ -134,6 +134,17 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers().AddFilterSupport();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000") // Cho phép frontend này
+                  .AllowAnyHeader()                   // Cho phép mọi Header
+                  .AllowAnyMethod();                  // Cho phép GET, POST, PUT, DELETE...
+        });
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -156,6 +167,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("MyAllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 
