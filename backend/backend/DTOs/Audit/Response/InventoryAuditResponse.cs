@@ -8,10 +8,12 @@ namespace backend.DTOs.Audit.Response
     {
         public string AuditId { get; set; }
 
+        public string AuditName { get; set; }
+        
         public string PeriodId { get; set; }
 
         // periodic audit name
-        public string AuditName { get; set; }
+        public string PeriodicAuditName { get; set; }
 
         public string LocationId { get; set; }
 
