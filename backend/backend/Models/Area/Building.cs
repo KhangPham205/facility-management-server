@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Plainquire.Filter.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 
 namespace backend.Models.Area
 {
     [Table("Buildings")]
+    [EntityFilter(Prefix = "")]
     public class Building
     {
         [Key]

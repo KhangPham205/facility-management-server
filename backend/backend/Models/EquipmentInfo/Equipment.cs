@@ -1,12 +1,14 @@
 ﻿using backend.Enums;
 using backend.Models.Area;
 using Microsoft.Identity.Client;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.EquipmentInfo
 {
     [Table("Equipments")]
+    [EntityFilter(Prefix = "")]
     public class Equipment
     {
         [Key]

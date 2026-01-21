@@ -1,10 +1,12 @@
 ﻿using backend.Models.EquipmentInfo;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Import
 {
     [Table("ImportVoucherDetails")]
+    [EntityFilter(Prefix = "")]
     public class ImportVoucherDetail
     {
         [Required]

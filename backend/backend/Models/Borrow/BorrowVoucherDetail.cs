@@ -1,9 +1,11 @@
 ﻿using backend.Models.EquipmentInfo;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Borrow
 {
     [Table("BorrowVoucherDetails")]
+    [EntityFilter(Prefix = "")]
     public class BorrowVoucherDetail
     {
         // Composite Key: Cấu hình trong DbContext

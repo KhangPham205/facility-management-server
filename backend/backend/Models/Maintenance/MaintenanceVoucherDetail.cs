@@ -1,9 +1,11 @@
 ﻿using backend.Models.EquipmentInfo;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Maintenance
 {
     [Table("MaintenanceVoucherDetails")]
+    [EntityFilter(Prefix = "")]
     public class MaintenanceVoucherDetail
     {
         public string VoucherId { get; set; }

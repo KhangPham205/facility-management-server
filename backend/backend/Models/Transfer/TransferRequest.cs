@@ -1,10 +1,12 @@
 ﻿using backend.Enums;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Transfer
 {
     [Table("TransferRequests")]
+    [EntityFilter(Prefix = "")]
     public class TransferRequest
     {
         [Key]

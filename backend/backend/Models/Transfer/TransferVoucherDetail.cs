@@ -1,9 +1,11 @@
 ﻿using backend.Models.EquipmentInfo;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Transfer
 {
     [Table("TransferVoucherDetails")]
+    [EntityFilter(Prefix = "")]
     public class TransferVoucherDetail
     {
         // Composite Key

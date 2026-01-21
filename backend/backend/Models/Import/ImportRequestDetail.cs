@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Plainquire.Filter.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Import
 {
     [Table("ImportRequestDetails")]
+    [EntityFilter(Prefix = "")]
     public class ImportRequestDetail
     {
         [Key]

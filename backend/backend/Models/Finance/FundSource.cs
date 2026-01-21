@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Plainquire.Filter.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Finance
 {
     [Table("FundSources")]
+    [EntityFilter(Prefix = "")]
     public class FundSource
     {
         [Key]

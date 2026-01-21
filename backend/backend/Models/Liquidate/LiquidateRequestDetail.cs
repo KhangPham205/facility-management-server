@@ -1,11 +1,13 @@
 ﻿using backend.Models.EquipmentInfo;
 using Microsoft.EntityFrameworkCore;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Liquidate
 {
     [Table("LiquidateRequestDetails")]
+    [EntityFilter(Prefix = "")]
     public class LiquidateRequestDetail
     {
         // Composite Key

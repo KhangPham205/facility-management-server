@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Plainquire.Filter.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.EquipmentInfo
 {
     [Table("Criterias")]
+    [EntityFilter(Prefix = "")]
     public class Criteria
     {
         [Key]

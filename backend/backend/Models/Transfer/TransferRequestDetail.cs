@@ -1,10 +1,12 @@
 ﻿using backend.Models.EquipmentInfo;
 using Microsoft.EntityFrameworkCore;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Transfer
 {
     [Table("TransferRequestDetails")]
+    [EntityFilter(Prefix = "")]
     public class TransferRequestDetail
     {
         // Composite Key

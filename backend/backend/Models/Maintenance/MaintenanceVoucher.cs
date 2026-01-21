@@ -1,11 +1,13 @@
 ﻿using backend.Enums;
 using backend.Models.Finance;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Maintenance
 {
     [Table("MaintenanceVouchers")]
+    [EntityFilter(Prefix = "")]
     public class MaintenanceVoucher
     {
         [Key]

@@ -14,6 +14,7 @@ public class PlainquireFilterOperationFilter : IOperationFilter
 
         if (filterParam == null) return;
 
+        // Xóa các tham số cấu hình mặc định rườm rà của Plainquire
         var paramsToRemove = operation.Parameters
             .Where(p => p.Name.StartsWith("Configuration.") ||
                         p.Name.StartsWith("Interceptor.") ||
@@ -27,12 +28,13 @@ public class PlainquireFilterOperationFilter : IOperationFilter
 
         var entityType = filterParam.ParameterType.GetGenericArguments()[0];
 
+        // Lấy các property public để tạo input filter
         var properties = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
             .Where(p => p.CanWrite && (p.PropertyType == typeof(string) || p.PropertyType.IsValueType));
 
         foreach (var prop in properties)
         {
-            var paramName = char.ToLowerInvariant(prop.Name[0]) + prop.Name.Substring(1);
+            var paramName = prop.Name;
 
             if (!operation.Parameters.Any(p => p.Name.Equals(paramName, StringComparison.OrdinalIgnoreCase)))
             {
@@ -40,8 +42,8 @@ public class PlainquireFilterOperationFilter : IOperationFilter
                 {
                     Name = paramName,
                     In = ParameterLocation.Query,
-                    Description = $"Filter by {prop.Name} (e.g. 'contains=abc', '>10')",
-                    Schema = new OpenApiSchema { Type = "string" }, // Filter Plainquire luôn nhận string
+                    Description = $"Filter by {prop.Name}. Use ~ for contains (e.g. ~abc), >10 for numbers.",
+                    Schema = new OpenApiSchema { Type = "string" },
                     Required = false
                 });
             }

@@ -1,11 +1,13 @@
 ﻿using backend.Models.Finance;
 using backend.Models.Import;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models
 {
     [Table("ImportVouchers")]
+    [EntityFilter(Prefix = "")]
     public class ImportVoucher
     {
         [Key]

@@ -1,10 +1,12 @@
 ﻿using backend.Models.Finance;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Liquidate
 {
     [Table("LiquidateVouchers")]
+    [EntityFilter(Prefix = "")]
     public class LiquidateVoucher
     {
         [Key]

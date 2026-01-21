@@ -1,10 +1,12 @@
 ﻿using backend.Models.EquipmentInfo;
 using Microsoft.EntityFrameworkCore;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Maintenance
 {
     [Table("MaintenanceRequestDetails")]
+    [EntityFilter(Prefix = "")]
     public class MaintenanceRequestDetail
     {
         // Composite Key

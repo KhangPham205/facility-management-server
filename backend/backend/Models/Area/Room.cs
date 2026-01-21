@@ -1,10 +1,12 @@
 using backend.Enums;
+using Plainquire.Filter.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models.Area;
 
 [Table("Rooms")]
+[EntityFilter(Prefix = "")]
 public class Room
 {
     [Key]
