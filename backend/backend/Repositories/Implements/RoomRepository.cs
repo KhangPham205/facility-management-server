@@ -1,4 +1,5 @@
 using backend.Data;
+using backend.Enums;
 using backend.Models.Area;
 using backend.Repositories.Interfaces;
 using backend.vo;
@@ -62,6 +63,24 @@ namespace backend.Repositories.Implements
         {
             _context.Rooms.Update(room);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateStatusAsync(string roomId, RoomStatus newStatus)
+        {
+            int rowsAffected = await _context.Rooms
+                .Where(r => r.RoomId == roomId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(r => r.Status, newStatus));
+
+            return rowsAffected > 0;
+        }
+
+        public async Task<RoomStatus?> GetRoomStatusAsync(string roomId)
+        {
+            return await _context.Rooms
+                .Where(r => r.RoomId == roomId)
+                .Select(r => r.Status)
+                .FirstOrDefaultAsync();
         }
 
         public async Task DeleteAsync(Room room)

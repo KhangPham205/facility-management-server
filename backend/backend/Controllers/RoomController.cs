@@ -1,7 +1,9 @@
 ﻿using backend.Constants;
 using backend.DTOs.Room.Request;
 using backend.DTOs.Room.Response;
+using backend.Enums;
 using backend.Models.Area;
+using backend.Services.Implements;
 using backend.Services.Interfaces;
 using backend.vo;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +79,19 @@ namespace backend.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> UpdateStatus(string id, [FromBody] UpdateRoomStatusRequest request)
+        {
+            var result = await _service.UpdateRoomStatusAsync(id, request);
+
+            if (!result)
+            {
+                return NotFound(new { message = "Không tìm thấy phòng hoặc cập nhật thất bại." });
+            }
+
+            return Ok(new { message = "Cập nhật trạng thái thành công." });
         }
 
         [HttpDelete("{id}")]

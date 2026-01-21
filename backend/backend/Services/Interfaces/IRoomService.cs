@@ -1,5 +1,6 @@
 using backend.DTOs.Room.Request;
 using backend.DTOs.Room.Response;
+using backend.Enums;
 using backend.Models.Area;
 using backend.vo;
 using Plainquire.Filter;
@@ -13,6 +14,7 @@ namespace backend.Services.Interfaces
         Task<RoomResponse?> GetById(string id);
         Task<RoomResponse> Create(CreateRoomRequest request);
         Task<RoomResponse> Update(string id, UpdateRoomRequest request);
+        Task<bool> UpdateRoomStatusAsync(string roomId, UpdateRoomStatusRequest request);
         Task Delete(string id);
     }
 }

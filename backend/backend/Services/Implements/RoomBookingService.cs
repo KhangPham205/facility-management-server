@@ -16,12 +16,14 @@ namespace backend.Services.Implements
     public class RoomBookingService : IRoomBookingService
     {
         private readonly IRoomBookingRepository _repo;
+        private readonly IRoomRepository _roomRepo;
         private readonly IMapper _mapper;
         private readonly JwtUtils _jwtUtils;
 
-        public RoomBookingService(IRoomBookingRepository repo, JwtUtils jwtUtils, IMapper mapper)
+        public RoomBookingService(IRoomBookingRepository repo, IRoomRepository roomRepo, JwtUtils jwtUtils, IMapper mapper)
         {
             _repo = repo;
+            _roomRepo = roomRepo;
             _jwtUtils = jwtUtils;
             _mapper = mapper;
         }
@@ -86,11 +88,16 @@ namespace backend.Services.Implements
 
             if (request.IsApproved)
             {
+                if (await _roomRepo.GetRoomStatusAsync(booking.RoomId) != RoomStatus.available)
+                    throw new BadRequestException("This room cant be set to use now");
+
                 var isAvailable = await _repo.CheckAvailabilityAsync(booking.RoomId, booking.StartTime, booking.EndTime, booking.BookingId);
                 if (!isAvailable)
                     throw new BadRequestException("Scheduling conflict! This room has just been approved for another application in the same time slot.");
 
                 booking.Status = BookingStatus.Approved;
+
+                await _roomRepo.UpdateStatusAsync(booking.RoomId, RoomStatus.inUse); // chuyển trạng thái phognf sang inUse
             }
             else
             {
