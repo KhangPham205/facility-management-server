@@ -11,11 +11,13 @@ namespace backend.Services.Interfaces
     {
         // Request
         Task<PageVO<TransferRequestResponse>> GetRequests(EntityFilter<TransferRequest> filter, EntitySort<TransferRequest> sort, int page, int size);
+        Task<TransferRequestResponse> GetRequestById(string id);
         Task<TransferRequestResponse> CreateRequest(CreateTransferRequestRequest request);
         Task<TransferRequestResponse> ApproveRequest(string requestId, ApproveTransferRequest request);
 
         // Voucher
         Task<PageVO<TransferVoucherResponse>> GetVouchers(EntityFilter<TransferVoucher> filter, EntitySort<TransferVoucher> sort, int page, int size);
+        Task<TransferVoucherResponse> GetVoucherById(string id);
         Task<TransferVoucherResponse> CreateVoucher(CreateTransferVoucherRequest request);
     }
 }

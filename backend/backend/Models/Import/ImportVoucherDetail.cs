@@ -13,9 +13,6 @@ namespace backend.Models.Import
         [Required]
         public string EquipmentId { get; set; }
 
-        [Required]
-        public int Quantity { get; set; }
-
         [StringLength(500)]
         public string? Note { get; set; }
 

@@ -48,11 +48,17 @@
         public const string RoomBookings = $"{ApiV1}/room-bookings";
 
         /**
+         * Quản lý yêu cầu chuyển
+         * URI: api/v1/transfer-requests
+         */
+        public const string TransferRequests = "api/v1/transfer-requests";
+
+        /**
          * Quản lý phiếu chuyển
          * URI: api/v1/transfer-vouchers
          */
         public const string TransferVouchers = $"{ApiV1}/transfer-vouchers";
-        
+
         /**
          * Quản lý bảo trì
          * URI: api/v1/maintenance-vouchers
