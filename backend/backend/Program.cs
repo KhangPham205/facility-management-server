@@ -11,8 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
-using Plainquire.Filter.Mvc;
 using Plainquire.Filter;
+using Plainquire.Filter.Mvc;
+using Plainquire.Sort;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -138,6 +139,7 @@ builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Facility API", Version = "v1" });
 
+    option.OperationFilter<PlainquireFilterOperationFilter>();
 
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -164,6 +166,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers().AddFilterSupport();
