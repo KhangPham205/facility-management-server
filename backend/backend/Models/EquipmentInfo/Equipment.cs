@@ -10,6 +10,7 @@ namespace backend.Models.EquipmentInfo
     public class Equipment
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string EquipmentId { get; set; }
 
         [Required]
