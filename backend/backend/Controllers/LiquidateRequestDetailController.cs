@@ -42,12 +42,12 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<LiquidateRequestDetailResponse>> GetById(string id)
+        public async Task<ActionResult<LiquidateRequestDetailResponse>> GetById(string requestId, string equipmentId)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(requestId) && string.IsNullOrEmpty(equipmentId))
                 return BadRequest(new { message = "Thiếu equipment id"});
 
-            var result = await _service.GetById(id);
+            var result = await _service.GetById(requestId, equipmentId);
             if (result == null) return NotFound(new { message = "Không tìm thấy thiết bị" });
             return Ok(result);
         }
@@ -103,11 +103,11 @@ namespace backend.Controllers
         //}
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string requestId, string equipmentId)
         {
             try
             {
-                await _service.Delete(id);
+                await _service.Delete(requestId,equipmentId);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

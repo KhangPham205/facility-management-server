@@ -8,7 +8,7 @@ namespace backend.Repositories.Interfaces
 {
     public interface ILiquidateRequestDetailRepository
     {
-        Task<LiquidateRequestDetail?> GetByIdAsync(string id);
+        Task<LiquidateRequestDetail?> GetByIdAsync(string requestId, string equipmentId);
 
         Task<PageVO<LiquidateRequestDetail>> GetPagedAsync(EntityFilter<LiquidateRequestDetail> filter, EntitySort<LiquidateRequestDetail> sort, int pageNumber, int pageSize);
         Task AddAsync(LiquidateRequestDetail importRequestDetail);

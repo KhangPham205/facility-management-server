@@ -18,9 +18,11 @@ namespace backend.Repositories.Implements
             _context = context;
         }
 
-        public async Task<LiquidateRequestDetail?> GetByIdAsync(string id)
+        public async Task<LiquidateRequestDetail?> GetByIdAsync(string requestId, string equipmentId)
         {
-            return await _context.LiquidateRequestDetails.FindAsync(id);
+            return await _context.LiquidateRequestDetails
+                .Include(l => l.Equipment)
+                .FirstOrDefaultAsync(l => l.RequestId == requestId && l.EquipmentId == equipmentId);
         }
 
         public async Task<PageVO<LiquidateRequestDetail>> GetPagedAsync(
@@ -29,9 +31,11 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.LiquidateRequestDetails.AsQueryable();
+            var query = _context.LiquidateRequestDetails.AsNoTracking().AsQueryable();
 
-            query = query.Where(filter);
+            query = query
+                .Include(l=>l.Equipment)
+                .Where(filter);
 
             var totalElements = await query.CountAsync();
 

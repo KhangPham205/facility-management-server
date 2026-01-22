@@ -8,7 +8,7 @@ namespace backend.Repositories.Interfaces
 {
     public interface ILiquidateVoucherDetailRepository
     {
-        Task<LiquidateVoucherDetail?> GetByIdAsync(string id);
+        Task<LiquidateVoucherDetail?> GetByIdAsync(string voucherId, string equipmentId);
 
         Task<PageVO<LiquidateVoucherDetail>> GetPagedAsync(EntityFilter<LiquidateVoucherDetail> filter, EntitySort<LiquidateVoucherDetail> sort, int pageNumber, int pageSize);
         Task AddAsync(LiquidateVoucherDetail importVoucherDetail);
