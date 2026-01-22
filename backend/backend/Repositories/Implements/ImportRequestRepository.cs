@@ -74,6 +74,7 @@ namespace backend.Repositories.Implements
                 .ExecuteUpdateAsync(setters => setters
                     .SetProperty(e => e.Status, newStatus)
                     .SetProperty(e => e.ApprovedBy, approverId)
+                    .SetProperty(e => e.ApprovedAt, DateTime.Now)
                 );
 
             return rowsAffected > 0;
