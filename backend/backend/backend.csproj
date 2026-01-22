@@ -32,8 +32,6 @@
 
 	<Folder Include="DTOs\Criteria\Request\" />
 
-	<Folder Include="Migrations\" />
-
 	</ItemGroup>
 
 </Project>

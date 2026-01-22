@@ -34,6 +34,12 @@
          * URI: api/v1/fund-sources
          */
         public const string FundSources = $"{ApiV1}/fund-sources";
+        
+        /**
+         * Quản lý hóa đơn
+         * URI: api/v1/fund-sources
+         */
+        public const string Invoice = $"{ApiV1}/invoice";
 
         /**
          * Quản lý phiếu mượn

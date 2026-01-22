@@ -38,6 +38,12 @@ namespace backend.Services.Implements
             var dtos = _mapper.Map<List<RepairRequestResponse>>(paged.Content);
             return new PageVO<RepairRequestResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
+        public async Task<RepairRequestResponse> GetRequestById(string requestId)
+        {
+            var entity = await _requestRepo.GetByIdAsync(requestId);
+            if (entity == null) throw new Exception("No request found.");
+            return _mapper.Map<RepairRequestResponse>(entity);
+        }
         public async Task<RepairRequestResponse> CreateRequest(CreateRepairRequestRequest request)
         {
             var entity = _mapper.Map<RepairRequest>(request);
@@ -72,6 +78,12 @@ namespace backend.Services.Implements
             var paged = await _voucherRepo.GetPagedAsync(filter, sort, page, size);
             var dtos = _mapper.Map<List<RepairVoucherResponse>>(paged.Content);
             return new PageVO<RepairVoucherResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
+        }
+        public async Task<RepairVoucherResponse> GetVoucherById(string voucherId)
+        {
+            var entity = await _voucherRepo.GetByIdAsync(voucherId);
+            if (entity == null) throw new Exception("No voucher found.");
+            return _mapper.Map<RepairVoucherResponse>(entity);
         }
         public async Task<RepairVoucherResponse> CreateVoucher(CreateRepairVoucherRequest request)
         {

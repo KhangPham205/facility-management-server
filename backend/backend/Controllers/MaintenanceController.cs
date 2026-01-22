@@ -29,6 +29,17 @@ namespace backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("requests/{id}")]
+        public async Task<IActionResult> GetRequestById(string id)
+        {
+            try
+            {
+                var result = await _service.GetRequestById(id);
+                return Ok(result);
+            }
+            catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+        }
+
         [HttpPost("requests")]
         public async Task<IActionResult> CreateRequest([FromBody] CreateMaintenanceRequestRequest request)
         {
@@ -55,6 +66,17 @@ namespace backend.Controllers
         {
             var result = await _service.GetVouchers(filter, sort, page, size);
             return Ok(result);
+        }
+
+        [HttpGet("vouchers/{id}")]
+        public async Task<IActionResult> GetVoucherById(string id)
+        {
+            try
+            {
+                var result = await _service.GetVoucherById(id);
+                return Ok(result);
+            }
+            catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
         }
 
         [HttpPost("vouchers")]

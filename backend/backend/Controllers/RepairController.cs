@@ -30,6 +30,17 @@ namespace backend.Controllers
             return Ok(await _service.GetRequests(filter, orderBy, page, size));
         }
 
+        [HttpGet("requests/{id}")]
+        public async Task<ActionResult<RepairRequestResponse>> GetRequestById(string id)
+        {
+            try
+            {
+                var result = await _service.GetRequestById(id);
+                return Ok(result);
+            }
+            catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+        }
+
         [HttpPost("requests")]
         public async Task<ActionResult<RepairRequestResponse>> CreateRequest([FromBody] CreateRepairRequestRequest request)
         {
@@ -54,6 +65,17 @@ namespace backend.Controllers
             [FromQuery] int page = 1, [FromQuery] int size = 10)
         {
             return Ok(await _service.GetVouchers(filter, sort, page, size));
+        }
+
+        [HttpGet("vouchers/{id}")]
+        public async Task<ActionResult<RepairVoucherResponse>> GetVoucherById(string id)
+        {
+            try
+            {
+                var result = await _service.GetVoucherById(id);
+                return Ok(result);
+            }
+            catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
         }
 
         [HttpPost("vouchers")]

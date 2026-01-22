@@ -282,8 +282,7 @@ namespace backend.Mappings
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null)); // Chỉ update trường không null
 
             CreateMap<Invoice, InvoiceResponse>()
-                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname))
-                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()));
+                .ForMember(dest => dest.Unit, opt => opt.MapFrom(src => src.Unit));
         }
     }
 }

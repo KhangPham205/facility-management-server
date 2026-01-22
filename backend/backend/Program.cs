@@ -90,8 +90,14 @@ builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 
+builder.Services.AddScoped<IExternalUnitRepository, ExternalUnitRepository>();
+builder.Services.AddScoped<IExternalUnitService, ExternalUnitService>();
+
 builder.Services.AddScoped<IFundSourceRepository, FundSourceRepository>();
 builder.Services.AddScoped<IFundSourceService, FundSourceService>();
+
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 builder.Services.AddScoped<IRoomBookingRepository, RoomBookingRepository>();
 builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
