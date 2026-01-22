@@ -133,30 +133,25 @@ namespace backend.Mappings
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(srs => srs.Details));
 
             CreateMap<ImportVoucher, ImportVoucherResponse>()
-            // 1. Lấy TotalAmount từ Invoice
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src =>
                     src.Invoice != null ? src.Invoice.TotalAmount : 0))
-
-            // 2. Lấy InvoiceId (đề phòng trường hợp InvoiceId ở bảng chính null nhưng object Invoice có data)
                 .ForMember(dest => dest.InvoiceId, opt => opt.MapFrom(src =>
                     src.InvoiceId ?? (src.Invoice != null ? src.Invoice.InvoiceId : null)))
-
-            // 3. Lấy InvoiceNumber
                 .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src =>
                     src.Invoice != null ? src.Invoice.InvoiceNumber : null))
-
-            // 4. Lấy UnitId từ Invoice -> Unit
                 .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src =>
                     src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitId : null))
-
-            // 5. Lấy UnitName từ Invoice -> Unit
                 .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src =>
-                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitName : null));
-
+                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitName : null))
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src =>
+                    src.Creator != null ? src.Creator.Fullname : null));
+            
             CreateMap<ImportVoucherDetailDto, ImportVoucherDetail>();
 
             CreateMap<ImportVoucherDetail, ImportVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+
+
 
             // ======================================================
             // 5. BORROW PROCESS (Quy trình Mượn)
@@ -271,31 +266,28 @@ namespace backend.Mappings
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(srs => srs.Details));
 
             CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
-            // 1. Lấy TotalAmount từ Invoice
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src =>
                     src.Invoice != null ? src.Invoice.TotalAmount : 0))
-
-            // 2. Lấy InvoiceId (đề phòng trường hợp InvoiceId ở bảng chính null nhưng object Invoice có data)
                 .ForMember(dest => dest.InvoiceId, opt => opt.MapFrom(src =>
                     src.InvoiceId ?? (src.Invoice != null ? src.Invoice.InvoiceId : null)))
-
-            // 3. Lấy InvoiceNumber
                 .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src =>
                     src.Invoice != null ? src.Invoice.InvoiceNumber : null))
-
-            // 4. Lấy UnitId từ Invoice -> Unit
                 .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src =>
                     src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitId : null))
-
-            // 5. Lấy UnitName từ Invoice -> Unit
                 .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src =>
-                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitName : null));
+                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitName : null))
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src =>
+                    src.Creator != null ? src.Creator.Fullname : null));
 
             CreateMap<LiquidateVoucherDetailDto, LiquidateVoucherDetail>();
 
             CreateMap<LiquidateVoucherDetail, LiquidateVoucherDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src =>
                     src.Equipment != null ? src.Equipment.EquipmentName : null));
+
+            CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
+                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src =>
+                    src.Creator != null ? src.Creator.Fullname : null));
 
             // ======================================================
             // 10. AUDIT PROCESS (Kiểm kê)

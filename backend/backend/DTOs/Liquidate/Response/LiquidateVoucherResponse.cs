@@ -11,7 +11,7 @@
         public decimal TotalAmount { get; set; } // Tiền thu về
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public string CreatorFullName { get; set; }
+        public string CreatedByName { get; set; }
         public List<LiquidateVoucherDetailResponse> Details { get; set; }
     }
 }
