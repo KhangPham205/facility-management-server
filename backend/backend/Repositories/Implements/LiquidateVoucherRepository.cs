@@ -23,9 +23,9 @@ namespace backend.Repositories.Implements
         {
             return await _context.LiquidateVouchers
                 .Include(l => l.Creator)
-                .Include(i => i.Details)
+                .Include(i => i.Details).ThenInclude(d => d.Equipment)
                 .Include(l => l.Invoice)
-                    .ThenInclude(i=>i.Unit)
+                    .ThenInclude(i => i.Unit)
                 .FirstOrDefaultAsync(l=>l.LiquidateId == id);
         }
 
