@@ -52,7 +52,7 @@ namespace backend.Controllers
                 UserId = user.UserId,
                 Fullname = user.Fullname,
                 Email = user.Email,
-                Role = user.Role.ToString(),
+                Role = user.Role,
                 CreatedAt = user.CreatedAt
             };
 
