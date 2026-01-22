@@ -271,7 +271,7 @@ namespace backend.Mappings
             CreateMap<InventoryAudit, InventoryAuditResponse>()
                 // LocationName cần resolve
                 .ForMember(dest => dest.LocationName, opt => opt.Ignore());
-
+            CreateMap<CreateAuditDetailRequest, AuditDetail>();
             CreateMap<UpdateAuditDetailRequest, AuditDetail>();
             CreateMap<AuditDetail, AuditDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
