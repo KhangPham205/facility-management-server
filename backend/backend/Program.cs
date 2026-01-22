@@ -129,6 +129,8 @@ builder.Services.AddScoped<IInventoryAuditService, InventoryAuditService>();
 builder.Services.AddScoped<IPeriodicAuditRepository, PeriodicAuditRepository>();
 builder.Services.AddScoped<IPeriodicAuditService, PeriodicAuditService>();
 
+builder.Services.AddScoped<IAreaRepository, AreaRepository>();
+
 builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddControllers();
