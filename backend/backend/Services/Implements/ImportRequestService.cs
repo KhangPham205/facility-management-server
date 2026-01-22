@@ -50,7 +50,7 @@ namespace backend.Services.Implements
         public async Task<ImportRequestResponse> Create(CreateImportRequestRequest request)
         {
             var entity = _mapper.Map<ImportRequest>(request);
-            entity.ApprovedBy = _jwtUtils.GetCurrentUserId();
+            entity.CreatedBy = _jwtUtils.GetCurrentUserId();
             await _repo.AddAsync(entity);
             return _mapper.Map<ImportRequestResponse>(entity);
         }
