@@ -69,6 +69,9 @@ namespace backend.Data // (Check namespace của bạn)
         public DbSet<InventoryAudit> InventoryAudits { get; set; }
         public DbSet<AuditDetail> AuditDetails { get; set; }
 
+
+        // =================================== ON MODEL CREATING ===================================
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -131,6 +134,64 @@ namespace backend.Data // (Check namespace của bạn)
                     relationship.DeleteBehavior = DeleteBehavior.Restrict;
                 }
             }
+
+            /// ------------------------ AREA ------------------------------------
+            // Building xóa -> Floors bị xóa theo
+            modelBuilder.Entity<Floor>()
+                .HasOne(f => f.Building)
+                .WithMany(b => b.Floors)
+                .HasForeignKey(f => f.BuildingId)
+                .OnDelete(DeleteBehavior.Cascade); // Thiết lập Cascade Delete
+
+            // Floor xóa -> Rooms bị xóa theo
+            modelBuilder.Entity<Room>()
+                .HasOne(r => r.Floor)
+                .WithMany(f => f.Rooms)
+                .HasForeignKey(r => r.FloorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+        }
+        
+
+
+        // ============================= SAVE CHANGE ASYNC OVERRIDE =========================================
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            // Tìm các thay đổi liên quan đến Floor hoặc Room
+            var entries = ChangeTracker.Entries()
+                .Where(e => e.Entity is Floor || e.Entity is Room);
+
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            // cập nhật room count và floor count
+            if (entries.Any())
+            {
+                await UpdateCounts();
+            }
+
+            return result;
+        }
+
+
+
+
+
+        // =========================================== functions ========================================
+
+        // Cập nhật số phòng và số tầng
+        private async Task UpdateCounts()
+        {
+            // Cập nhật FloorCount cho Building
+            // Bạn có thể viết câu lệnh SQL trực tiếp để đạt hiệu năng cao
+            await Database.ExecuteSqlRawAsync(@"
+                UPDATE Buildings 
+                SET FloorCount = (SELECT COUNT(*) FROM Floors WHERE Floors.BuildingId = Buildings.BuildingId)");
+
+            // Cập nhật RoomCount cho Floor
+            await Database.ExecuteSqlRawAsync(@"
+                UPDATE Floors 
+                SET RoomCount = (SELECT COUNT(*) FROM Rooms WHERE Rooms.FloorId = Floors.FloorId)");
         }
     }
 }

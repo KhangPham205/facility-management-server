@@ -11,9 +11,6 @@ namespace backend.DTOs.Floor.Request
         [StringLength(100)]
         public string? FloorName { get; set; }
 
-        [Range(0, 100)]
-        public int RoomCount { get; set; }
-
         [StringLength(500)]
         public string? Note { get; set; }
     }
