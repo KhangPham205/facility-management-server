@@ -6,6 +6,7 @@ using backend.Exceptions;
 using backend.Models.Maintenance;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
+using backend.Utils;
 using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
@@ -18,16 +19,19 @@ namespace backend.Services.Implements
         private readonly IMaintenanceVoucherRepository _voucherRepo;
         private readonly DataApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly JwtUtils _jwtUtils;
         public MaintenanceService(
             IMaintenanceRequestRepository requestRepo,
             IMaintenanceVoucherRepository voucherRepo,
             DataApplicationDbContext context,
-            IMapper mapper)
+            IMapper mapper,
+            JwtUtils jwtUtils)
         {
             _requestRepo = requestRepo;
             _voucherRepo = voucherRepo;
             _context = context;
             _mapper = mapper;
+            _jwtUtils = jwtUtils;
         }
 
         public async Task<PageVO<MaintenanceRequestResponse>> GetRequests(EntityFilter<MaintenanceRequest> filter, EntitySort<MaintenanceRequest> sort, int page, int size)
@@ -71,6 +75,7 @@ namespace backend.Services.Implements
         public async Task CreateRequest(CreateMaintenanceRequestRequest request)
         {
             var entity = _mapper.Map<MaintenanceRequest>(request);
+            entity.CreatedBy = _jwtUtils.GetCurrentUserId();
             entity.Status = Enums.VoucherStatus.Pending;
 
             if (entity.Details == null || !entity.Details.Any())
@@ -90,7 +95,7 @@ namespace backend.Services.Implements
             }
 
             entity.Status = request.Status;
-            entity.ApprovedBy = request.ApprovedBy;
+            entity.ApprovedBy = _jwtUtils.GetCurrentUserId();
             entity.ApprovedAt = DateTime.Now;
 
             await _requestRepo.UpdateAsync(entity);
@@ -148,7 +153,7 @@ namespace backend.Services.Implements
                 var voucher = new MaintenanceVoucher
                 {
                     RequestId = request.RequestId,
-                    CreatedBy = request.CreatedBy,
+                    CreatedBy = _jwtUtils.GetCurrentUserId(),
                     Details = new List<MaintenanceVoucherDetail>()
                 };
                 foreach (var detail in maintenanceRequest.Details)
