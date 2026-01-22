@@ -16,6 +16,10 @@ namespace backend.Repositories.Implements
         {
             var query = _context.RepairVouchers
                 .Include(x => x.Creator)
+                .Include(x => x.Invoice)
+                .Include(x => x.Provider)
+                .Include(x => x.Details)
+                    .ThenInclude(d => d.Equipment)
                 .AsQueryable();
             query = query.Where(filter).OrderBy(sort);
             var total = await query.CountAsync();

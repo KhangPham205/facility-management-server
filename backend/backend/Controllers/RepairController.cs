@@ -61,10 +61,11 @@ namespace backend.Controllers
         [HttpGet("vouchers")]
         public async Task<ActionResult<PageVO<RepairVoucherResponse>>> GetVouchers(
             [FromQuery] EntityFilter<RepairVoucher> filter,
-            [FromQuery] EntitySort<RepairVoucher> sort,
-            [FromQuery] int page = 1, [FromQuery] int size = 10)
+            [FromQuery] EntitySort<RepairVoucher> orderBy,
+            [FromQuery] int page = 1, 
+            [FromQuery] int size = 10)
         {
-            return Ok(await _service.GetVouchers(filter, sort, page, size));
+            return Ok(await _service.GetVouchers(filter, orderBy, page, size));
         }
 
         [HttpGet("vouchers/{id}")]
