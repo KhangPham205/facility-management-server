@@ -137,6 +137,9 @@ builder.Services.AddScoped<IPeriodicAuditService, PeriodicAuditService>();
 
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 
+builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
+builder.Services.AddScoped<StatisticsService>();
+
 builder.Services.AddSingleton<JwtUtils>();
 
 builder.Services.AddControllers();

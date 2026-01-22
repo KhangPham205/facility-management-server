@@ -1,6 +1,12 @@
 ﻿using backend.Constants;
+using backend.DTOs.Invoice.Request;
+using backend.DTOs.Invoice.Response;
+using backend.Models.Finance;
 using backend.Services.Interfaces;
+using backend.vo;
 using Microsoft.AspNetCore.Mvc;
+using Plainquire.Filter;
+using Plainquire.Sort;
 
 namespace backend.Controllers
 {
@@ -15,9 +21,9 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(
-            [FromQuery] Plainquire.Filter.EntityFilter<backend.Models.Finance.Invoice> filter,
-            [FromQuery] Plainquire.Sort.EntitySort<backend.Models.Finance.Invoice> orderBy,
+        public async Task<ActionResult<PageVO<InvoiceResponse>>> GetAll(
+            [FromQuery] EntityFilter<Invoice> filter,
+            [FromQuery] EntitySort<Invoice> orderBy,
             [FromQuery] int page = 1,
             [FromQuery] int size = 10)
         {
@@ -33,7 +39,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<ActionResult<InvoiceResponse>> GetById(string id)
         {
             if (string.IsNullOrEmpty(id))
                 return BadRequest(new { message = "Missing invoice id" });
@@ -43,7 +49,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] backend.DTOs.Invoice.Request.CreateInvoiceRequest request)
+        public async Task<ActionResult<InvoiceResponse>> Create([FromBody] CreateInvoiceRequest request)
         {
             try
             {
