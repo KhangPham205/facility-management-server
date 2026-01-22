@@ -59,8 +59,7 @@ namespace backend.Services.Implements
 
             entity.CreatedBy = _jwtUtils.GetCurrentUserId();
 
-            await _repo.AddAsync(entity);
-
+            // equipment adding
             foreach (var detail in request.Details)
             {
                 for (int i = 0; i < detail.Quantity; i++)
@@ -72,11 +71,13 @@ namespace backend.Services.Implements
                     });
                 }
             }
-
             if (allEquipments.Any())
             {
                 await _equipmentRepo.AddRangeAsync(allEquipments);
             }
+
+
+            await _repo.AddAsync(entity);
 
             return _mapper.Map<ImportVoucherResponse>(entity);
         }
