@@ -121,8 +121,7 @@ namespace backend.Mappings
 
             CreateMap<ImportRequestDetailDto, ImportRequestDetail>();
 
-            CreateMap<ImportRequest, ImportRequestResponse>()
-                .ForMember(dest => dest.CreatorFullName, opt => opt.MapFrom(src => src.Creator.Fullname));
+            CreateMap<ImportRequest, ImportRequestResponse>();
 
             CreateMap<ImportRequestDetail, ImportRequestDetailResponse>();
 
@@ -239,8 +238,7 @@ namespace backend.Mappings
 
             CreateMap<LiquidateRequestDetailDto, LiquidateRequestDetail>();
 
-            CreateMap<LiquidateRequest, LiquidateRequestResponse>()
-                .ForMember(dest => dest.CreatorFullName, opt => opt.MapFrom(src => src.Creator.Fullname));
+            CreateMap<LiquidateRequest, LiquidateRequestResponse>();
 
             CreateMap<LiquidateRequestDetail, LiquidateRequestDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));

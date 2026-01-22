@@ -33,7 +33,7 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.ImportRequests.AsQueryable();
+            var query = _context.ImportRequests.AsNoTracking().AsQueryable();
 
             query = query
                 .Include(i => i.Creator)

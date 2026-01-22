@@ -72,14 +72,14 @@ namespace backend.Services.Implements
 
             if (!result)
             {
-                throw new NotFoundException($"No equipment found with ID: {id}");
+                throw new NotFoundException($"No import request found with ID: {id}");
             }
         }
 
         public async Task Delete(string id)
         {
             var entity = await _repo.GetByIdAsync(id);
-            if (entity == null) throw new NotFoundException($"No equipment found with ID: {id}");
+            if (entity == null) throw new NotFoundException($"No import request found with ID: {id}");
 
             await _repo.DeleteAsync(entity);
         }

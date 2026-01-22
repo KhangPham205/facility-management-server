@@ -1,4 +1,5 @@
 ﻿using backend.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs.Import.Response
 {
@@ -6,11 +7,9 @@ namespace backend.DTOs.Import.Response
     {
         public string RequestId { get; set; }
         public string? CreatedBy { get; set; }
-        public string? CreatorFullName { get; set; } // Tên người tạo
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? ApprovedBy { get; set; }
-        public DateTime? ApproverFullName { get; set; }
-        public string? ApprovedByName { get; set; } // Tên người duyệt
+        public DateTime? ApprovedAt { get; set; }
         public string? Note { get; set; }
         public VoucherStatus Status { get; set; }
         public List<ImportRequestDetailResponse> Details { get; set; }

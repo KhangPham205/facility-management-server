@@ -45,10 +45,10 @@ namespace backend.Controllers
         public async Task<ActionResult<ImportRequestResponse>> GetById(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return BadRequest(new { message = "Thiếu equipment id"});
+                return BadRequest(new { message = "Thiếu request id"});
 
             var result = await _service.GetById(id);
-            if (result == null) return NotFound(new { message = "Không tìm thấy thiết bị" });
+            if (result == null) return NotFound(new { message = "Không tìm thấy yêu cầu nhập" });
             return Ok(result);
         }
 
