@@ -39,7 +39,7 @@ namespace backend.Repositories.Implements
 
             query = query
                 .Include(l => l.Creator)
-                .Include(i => i.Details)
+                .Include(i => i.Details).ThenInclude(d => d.Equipment)
                 .Include(l => l.Invoice)
                     .ThenInclude(i => i.Unit);
 
