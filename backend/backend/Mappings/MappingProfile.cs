@@ -133,8 +133,25 @@ namespace backend.Mappings
                 .ForMember(dest => dest.Details, opt => opt.Ignore());
 
             CreateMap<ImportVoucher, ImportVoucherResponse>()
-                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber)) 
-                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+            // 1. Lấy TotalAmount từ Invoice
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src =>
+                    src.Invoice != null ? src.Invoice.TotalAmount : 0))
+
+            // 2. Lấy InvoiceId (đề phòng trường hợp InvoiceId ở bảng chính null nhưng object Invoice có data)
+                .ForMember(dest => dest.InvoiceId, opt => opt.MapFrom(src =>
+                    src.InvoiceId ?? (src.Invoice != null ? src.Invoice.InvoiceId : null)))
+
+            // 3. Lấy InvoiceNumber
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src =>
+                    src.Invoice != null ? src.Invoice.InvoiceNumber : null))
+
+            // 4. Lấy UnitId từ Invoice -> Unit
+                .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src =>
+                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitId : null))
+
+            // 5. Lấy UnitName từ Invoice -> Unit
+                .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src =>
+                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitName : null));
 
             CreateMap<ImportVoucherDetailDto, ImportVoucherDetail>();
 
