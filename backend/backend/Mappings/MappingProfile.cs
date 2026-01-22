@@ -198,7 +198,7 @@ namespace backend.Mappings
             CreateMap<MaintenanceRequest, MaintenanceRequestResponse>()
                 .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src => src.Creator.Fullname));
 
-            CreateMap<MaintenanceRequestDetail, MaintenanceRequestDetailResponse>()
+            CreateMap<MaintenanceRequestDetail, MaintenanceDetailResponse>()
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
 
             // -- Voucher --
