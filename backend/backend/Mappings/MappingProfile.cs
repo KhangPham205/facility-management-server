@@ -6,6 +6,8 @@ using backend.DTOs.Borrow.Request;
 using backend.DTOs.Borrow.Response;
 using backend.DTOs.Building.Request;
 using backend.DTOs.Building.Response;
+using backend.DTOs.Criteria.Request;
+using backend.DTOs.Criteria.Response;
 using backend.DTOs.Equipment.Request;
 using backend.DTOs.Equipment.Response;
 using backend.DTOs.EquipmentCategory.Request;
@@ -83,7 +85,7 @@ namespace backend.Mappings
                 .ForMember(dest => dest.ApprovedByName, opt => opt.MapFrom(src => src.Approver != null ? src.Approver.Fullname : null));
 
             // ======================================================
-            // 2. EQUIPMENT & CATEGORY
+            // 2. EQUIPMENT & CATEGORY & CRITERIA
             // ======================================================
 
             CreateMap<CreateEquipmentRequest, Equipment>();
@@ -96,6 +98,10 @@ namespace backend.Mappings
             CreateMap<CreateEquipmentCategoryRequest, EquipmentCategory>();
             CreateMap<UpdateEquipmentCategoryRequest, EquipmentCategory>();
             CreateMap<EquipmentCategory, EquipmentCategoryResponse>();
+
+            CreateMap<CreateCriteriaRequest, Criteria>();
+            CreateMap<UpdateCriteriaRequest, Criteria>();
+            CreateMap<Criteria,CriteriaResponse>();
 
             // ======================================================
             // 3. EXTERNAL UNIT (Nhà cung cấp)
