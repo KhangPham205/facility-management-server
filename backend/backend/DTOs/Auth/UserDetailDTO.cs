@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.Enums;
+using backend.Models;
 
 namespace backend.DTOs.Auth
 {
@@ -7,7 +8,7 @@ namespace backend.DTOs.Auth
         public string UserId { get; set; }
         public string Fullname { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }
+        public UserRole Role { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }
