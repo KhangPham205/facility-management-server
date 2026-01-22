@@ -2,9 +2,9 @@
 {
     public enum FunctionType
     { 
-        Import,         // Nhập
-        Maintenance,    // Bảo trì
-        Repair,         // Sửa chữa
-        Liquidate       // Thanh lý
+        Import = 0,         // Nhập
+        Maintenance = 1,    // Bảo trì
+        Repair = 2,         // Sửa chữa
+        Liquidate = 3      // Thanh lý
     }
 }

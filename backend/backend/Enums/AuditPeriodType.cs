@@ -2,9 +2,9 @@ namespace backend.Enums
 {
     public enum AuditPeriodType
     {
-        Monthly,
-        Quarterly,
-        Annually,
-        AdHoc
+        Monthly = 0,
+        Quarterly = 1,
+        Annually = 2,
+        AdHoc = 3
     }
 }

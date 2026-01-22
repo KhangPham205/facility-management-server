@@ -2,8 +2,8 @@
 {
     public enum ViolationType 
     { 
-        Late, 
-        Broken, 
-        Lost 
+        Late = 0, 
+        Broken = 1, 
+        Lost =2 
     }
 }

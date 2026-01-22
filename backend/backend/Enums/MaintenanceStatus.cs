@@ -2,8 +2,8 @@
 {
     public enum MaintenanceStatus
     {
-        Completed,
-        Failed,
-        Lost
+        Completed = 0,
+        Failed = 1,
+        Lost = 2
     }
 }

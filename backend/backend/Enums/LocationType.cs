@@ -2,8 +2,8 @@
 {
     public enum LocationType 
     { 
-        Building, 
-        Floor, 
-        Room 
+        Building = 0, 
+        Floor = 1, 
+        Room = 2
     }
 }

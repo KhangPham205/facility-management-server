@@ -15,8 +15,9 @@ namespace backend.Models.Import
 
         [Required]
         public string CreatedBy { get; set; }
+
         [Required]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [StringLength(500)]
         public string? Note { get; set; }

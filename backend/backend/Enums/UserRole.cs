@@ -2,10 +2,10 @@
 {
     public enum UserRole
     {
-        DepartmentHead,    // TP
-        FacilityManager,   // CSVC
-        Department,        // PB
-        Lecturer,          // GV
-        Student            // SV
+        DepartmentHead = 0,    // TP
+        FacilityManager = 1,   // CSVC
+        Department = 2,        // PB
+        Lecturer = 3,          // GV
+        Student = 4            // SV
     }
 }

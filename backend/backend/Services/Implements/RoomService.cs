@@ -61,7 +61,7 @@ namespace backend.Services.Implements
             _mapper.Map(request, entity);
 
             await _repo.UpdateAsync(entity);
-            return _mapper.Map<RoomResponse>(entity);
+            return _mapper.Map<RoomResponse>(await _repo.GetByIdAsync(id));
         }
 
         public async Task<bool> UpdateRoomStatusAsync(string roomId, UpdateRoomStatusRequest request)
