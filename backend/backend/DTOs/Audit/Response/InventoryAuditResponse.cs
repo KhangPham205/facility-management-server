@@ -19,7 +19,7 @@ namespace backend.DTOs.Audit.Response
 
         public LocationType LocationType { get; set; }
 
-        public string LocationName { get; set; }
+        public string? LocationName { get; set; }
 
         public string AuditorId { get; set; }
 

@@ -1,6 +1,8 @@
 using AutoMapper;
 using backend.DTOs.Audit.Request;
 using backend.DTOs.Audit.Response;
+using backend.DTOs.Equipment.Response;
+using backend.Enums;
 using backend.Exceptions;
 using backend.Models;
 using backend.Models.Audit;
@@ -15,11 +17,13 @@ namespace backend.Services.Implements
     public class InventoryAuditService : IInventoryAuditService
     {
         private readonly IInventoryAuditRepository _repo;
+        private readonly IAreaRepository _areaRepository;
         private readonly IMapper _mapper;
 
-        public InventoryAuditService(IInventoryAuditRepository repo, IMapper mapper)
+        public InventoryAuditService(IInventoryAuditRepository repo, IAreaRepository areaRepository, IMapper mapper)
         {
             _repo = repo;
+            _areaRepository = areaRepository;
             _mapper = mapper;
         }
 
@@ -29,6 +33,27 @@ namespace backend.Services.Implements
 
             var dtoList = _mapper.Map<List<InventoryAuditResponse>>(pagedResult.Content);
 
+            if (dtoList.Any())
+            {
+                var buildingIds = dtoList.Where(d => d.LocationType == LocationType.Building).Select(d => d.LocationId).Distinct().ToList();
+                var floorIds = dtoList.Where(d => d.LocationType == LocationType.Floor).Select(d => d.LocationId).Distinct().ToList();
+                var roomIds = dtoList.Where(d => d.LocationType == LocationType.Room).Select(d => d.LocationId).Distinct().ToList();
+
+                var buildingMap = await _areaRepository.GetNamesByIdsAsync(LocationType.Building, buildingIds);
+                var floorMap = await _areaRepository.GetNamesByIdsAsync(LocationType.Floor, floorIds);
+                var roomMap = await _areaRepository.GetNamesByIdsAsync(LocationType.Room, roomIds);
+
+                foreach (var d in dtoList)
+                {
+                    d.LocationName = d.LocationType switch
+                    {
+                        LocationType.Building => buildingMap.GetValueOrDefault(d.LocationId),
+                        LocationType.Floor => floorMap.GetValueOrDefault(d.LocationId),
+                        LocationType.Room => roomMap.GetValueOrDefault(d.LocationId),
+                        _ => "N/A"
+                    };
+                }
+            }
             return new PageVO<InventoryAuditResponse>(
                 pagedResult.Page,
                 pagedResult.Size,
@@ -41,7 +66,9 @@ namespace backend.Services.Implements
         {
             var entity = await _repo.GetByIdAsync(id);
             if (entity == null) return null;
-            return _mapper.Map<InventoryAuditResponse>(entity);
+            var response = _mapper.Map<InventoryAuditResponse>(entity);
+            response.LocationName = await _areaRepository.GetNameByIdAsync(response.LocationType, response.LocationId);
+            return response;
         }
 
         public async Task<InventoryAuditResponse> Create(CreateInventoryAuditRequest request)
