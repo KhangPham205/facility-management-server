@@ -22,6 +22,8 @@ namespace backend.Repositories.Implements
             var query = _context.BorrowVouchers
                 .Include(x => x.Borrower)
                 .Include(x => x.Creator)
+                .Include(x => x.Details)
+                    .ThenInclude(d => d.Equipment)
                 .AsQueryable();
 
             // Áp dụng Filter & Sort
