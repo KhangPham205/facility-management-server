@@ -21,7 +21,9 @@ namespace backend.Repositories.Implements
 
         public async Task<ImportVoucherDetail?> GetByIdAsync(string id)
         {
-            return await _context.ImportVoucherDetails.FindAsync(id);
+            return await _context.ImportVoucherDetails
+                .Include(i=>i.Equipment)
+                .FirstOrDefaultAsync(i=>i.EquipmentId == id);
         }
 
         public async Task<PageVO<ImportVoucherDetail>> GetPagedAsync(
@@ -30,9 +32,11 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.ImportVoucherDetails.AsQueryable();
+            var query = _context.ImportVoucherDetails.AsNoTracking().AsQueryable();
 
-            query = query.Where(filter);
+            query = query
+                .Include(i=>i.Equipment)
+                .Where(filter);
 
             var totalElements = await query.CountAsync();
 
