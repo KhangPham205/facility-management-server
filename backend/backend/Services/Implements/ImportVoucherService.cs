@@ -67,7 +67,7 @@ namespace backend.Services.Implements
                     {
                         EquipmentName = reqDetail.EquipmentName,
                         Note = reqDetail.Note,
-                        Status = EquipmentStatus.UnderMaintenance,
+                        Status = EquipmentStatus.Unassigned,
                     };
 
                     var newDetail = new ImportVoucherDetail
