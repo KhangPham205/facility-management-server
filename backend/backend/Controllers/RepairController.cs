@@ -24,7 +24,7 @@ namespace backend.Controllers
         public async Task<ActionResult<PageVO<RepairRequestResponse>>> GetRequests(
             [FromQuery] EntityFilter<RepairRequest> filter,
             [FromQuery] EntitySort<RepairRequest> orderBy,
-            [FromQuery] int page = 1, 
+            [FromQuery] int page = 1,
             [FromQuery] int size = 10)
         {
             return Ok(await _service.GetRequests(filter, orderBy, page, size));
@@ -44,16 +44,16 @@ namespace backend.Controllers
         [HttpPost("requests")]
         public async Task<ActionResult<RepairRequestResponse>> CreateRequest([FromBody] CreateRepairRequestRequest request)
         {
-            var result = await _service.CreateRequest(request);
-            return Ok();
+            await _service.CreateRequest(request);
+            return Ok("Repair request created successfully.");
         }
-        [HttpPut("requests/{id}/approve")]
+        [HttpPut("requests/{id}/update")]
         public async Task<ActionResult<RepairRequestResponse>> ApproveRequest(string id, [FromBody] UpdateRepairRequestStatusRequest request)
         {
             try
             {
-                var result = await _service.ApproveRequest(id, request);
-                return Ok(result);
+                await _service.ApproveRequest(id, request);
+                return Ok("Repair request updated successfully.");
             }
             catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
         }
@@ -83,8 +83,19 @@ namespace backend.Controllers
         {
             try
             {
-                var result = await _service.CreateVoucher(request);
-                return Ok(result);
+                await _service.CreateVoucher(request);
+                return Ok("Repair voucher created successfully.");
+            }
+            catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+        }
+
+        [HttpPut("vouchers/{id}/update")]
+        public async Task<ActionResult<RepairVoucherResponse>> UpdateVoucher(string id, [FromBody] UpdateRepairVoucherStatusRequest request)
+        {
+            try
+            {
+                await _service.UpdateVoucher(id, request);
+                return Ok("Repair voucher updated successfully.");
             }
             catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
         }

@@ -10,6 +10,7 @@ namespace backend.Repositories.Interfaces
         Task<PageVO<RepairVoucher>> GetPagedAsync(EntityFilter<RepairVoucher> filter, EntitySort<RepairVoucher> sort, int page, int size);
         Task<RepairVoucher?> GetByIdAsync(string id);
         Task AddAsync(RepairVoucher voucher);
+        Task UpdateAsync(RepairVoucher voucher);
         Task<bool> ExistsByRequestIdAsync(string requestId);
     }
 }

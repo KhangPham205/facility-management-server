@@ -22,7 +22,7 @@ namespace backend.Controllers
         public async Task<IActionResult> GetRequests(
             [FromQuery] EntityFilter<MaintenanceRequest> filter,
             [FromQuery] EntitySort<MaintenanceRequest> orderBy,
-            [FromQuery] int page = 1, 
+            [FromQuery] int page = 1,
             [FromQuery] int size = 10)
         {
             var result = await _service.GetRequests(filter, orderBy, page, size);
@@ -43,17 +43,17 @@ namespace backend.Controllers
         [HttpPost("requests")]
         public async Task<IActionResult> CreateRequest([FromBody] CreateMaintenanceRequestRequest request)
         {
-            var result = await _service.CreateRequest(request);
-            return Ok(result);
+            await _service.CreateRequest(request);
+            return Ok("Request created successfully");
         }
 
-        [HttpPut("requests/{id}/approve")]
+        [HttpPut("requests/{id}/update")]
         public async Task<IActionResult> ApproveRequest(string id, [FromBody] UpdateMaintenanceRequestStatusRequest request)
         {
             try
             {
-                var result = await _service.ApproveRequest(id, request);
-                return Ok(result);
+                await _service.ApproveRequest(id, request);
+                return Ok("Request updated successfully");
             }
             catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
         }
@@ -84,8 +84,18 @@ namespace backend.Controllers
         {
             try
             {
-                var result = await _service.CreateVoucher(request);
-                return Ok(result);
+                await _service.CreateVoucher(request);
+                return Ok("Voucher created successfully");
+            }
+            catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+        }
+        [HttpPut("vouchers/{id}/update")]
+        public async Task<IActionResult> UpdateVoucher(string id, [FromBody] UpdateMaintenanceVoucherStatusRequest request)
+        {
+            try
+            {
+                await _service.UpdateVoucher(id, request);
+                return Ok("Voucher updated successfully");
             }
             catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
         }

@@ -35,7 +35,20 @@ namespace backend.Services.Implements
         public async Task<PageVO<RepairRequestResponse>> GetRequests(EntityFilter<RepairRequest> filter, EntitySort<RepairRequest> sort, int page, int size)
         {
             var paged = await _requestRepo.GetPagedAsync(filter, sort, page, size);
-            var dtos = _mapper.Map<List<RepairRequestResponse>>(paged.Content);
+            var dtos = paged.Content.Select(request => new RepairRequestResponse
+            {
+                RequestId = request.RequestId,
+                CreatedByName = request.Creator != null ? request.Creator.Fullname : string.Empty,
+                CreatedAt = request.CreatedAt,
+                Note = request.Note ?? string.Empty,
+                Status = request.Status,
+                Details = request.Details.Select(detail => new RepairRequestDetailResponse
+                {
+                    EquipmentId = detail.EquipmentId,
+                    EquipmentName = detail.Equipment != null ? detail.Equipment.EquipmentName : string.Empty,
+                    Note = detail.Note
+                }).ToList()
+            }).ToList();
             return new PageVO<RepairRequestResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
         public async Task<RepairRequestResponse> GetRequestById(string requestId)
@@ -44,7 +57,7 @@ namespace backend.Services.Implements
             if (entity == null) throw new Exception("No request found.");
             return _mapper.Map<RepairRequestResponse>(entity);
         }
-        public async Task<RepairRequestResponse> CreateRequest(CreateRepairRequestRequest request)
+        public async Task CreateRequest(CreateRepairRequestRequest request)
         {
             var entity = _mapper.Map<RepairRequest>(request);
             entity.Status = VoucherStatus.Pending;
@@ -55,9 +68,8 @@ namespace backend.Services.Implements
             }
 
             await _requestRepo.AddAsync(entity);
-            return _mapper.Map<RepairRequestResponse>(entity);
         }
-        public async Task<RepairRequestResponse> ApproveRequest(string requestId, UpdateRepairRequestStatusRequest request)
+        public async Task ApproveRequest(string requestId, UpdateRepairRequestStatusRequest request)
         {
             var entity = await _requestRepo.GetByIdAsync(requestId);
             if (entity == null) throw new Exception("No request found.");
@@ -71,21 +83,46 @@ namespace backend.Services.Implements
             entity.ApprovedAt = DateTime.Now;
 
             await _requestRepo.UpdateAsync(entity);
-            return _mapper.Map<RepairRequestResponse>(entity);
         }
         public async Task<PageVO<RepairVoucherResponse>> GetVouchers(EntityFilter<RepairVoucher> filter, EntitySort<RepairVoucher> sort, int page, int size)
         {
             var paged = await _voucherRepo.GetPagedAsync(filter, sort, page, size);
-            var dtos = _mapper.Map<List<RepairVoucherResponse>>(paged.Content);
+            var dtos = paged.Content.Select(voucher => new RepairVoucherResponse
+            {
+                VoucherId = voucher.RepairId,
+                InvoiceNumber = voucher.Invoice != null ? voucher.Invoice.InvoiceNumber : string.Empty,
+                TotalAmount = voucher.Invoice != null ? voucher.Invoice.TotalAmount : 0,
+                Status = voucher.Status,
+                ProviderName = voucher.Provider != null ? voucher.Provider.UnitName : string.Empty,
+                Details = voucher.Details.Select(detail => new RepairRequestDetailResponse
+                {
+                    EquipmentId = detail.EquipmentId,
+                    EquipmentName = detail.Equipment != null ? detail.Equipment.EquipmentName : string.Empty,
+                    Note = detail.Note
+                }).ToList()
+            }).ToList();
             return new PageVO<RepairVoucherResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
         public async Task<RepairVoucherResponse> GetVoucherById(string voucherId)
         {
             var entity = await _voucherRepo.GetByIdAsync(voucherId);
             if (entity == null) throw new Exception("No voucher found.");
-            return _mapper.Map<RepairVoucherResponse>(entity);
+            return new RepairVoucherResponse
+            {
+                VoucherId = entity.RepairId,
+                InvoiceNumber = entity.Invoice != null ? entity.Invoice.InvoiceNumber : string.Empty,
+                TotalAmount = entity.Invoice != null ? entity.Invoice.TotalAmount : 0,
+                Status = entity.Status,
+                ProviderName = entity.Provider != null ? entity.Provider.UnitName : string.Empty,
+                Details = entity.Details.Select(detail => new RepairRequestDetailResponse
+                {
+                    EquipmentId = detail.EquipmentId,
+                    EquipmentName = detail.Equipment != null ? detail.Equipment.EquipmentName : string.Empty,
+                    Note = detail.Note
+                }).ToList()
+            };
         }
-        public async Task<RepairVoucherResponse> CreateVoucher(CreateRepairVoucherRequest request)
+        public async Task CreateVoucher(CreateRepairVoucherRequest request)
         {
             var repairRequest = await _requestRepo.GetByIdAsync(request.RequestId);
             if (repairRequest == null)
@@ -132,15 +169,19 @@ namespace backend.Services.Implements
                 }
                 await _voucherRepo.AddAsync(voucher);
                 await transaction.CommitAsync();
-
-                var completedVoucher = await _voucherRepo.GetByIdAsync(voucher.RepairId);
-                return _mapper.Map<RepairVoucherResponse>(completedVoucher);
             }
             catch
             {
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+        public async Task UpdateVoucher(string voucherId, UpdateRepairVoucherStatusRequest request)
+        {
+            var entity = await _voucherRepo.GetByIdAsync(voucherId);
+            if (entity == null) throw new Exception("No voucher found.");
+            entity.Status = request.Status;
+            await _voucherRepo.UpdateAsync(entity);
         }
     }
 }

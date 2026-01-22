@@ -33,16 +33,42 @@ namespace backend.Services.Implements
         public async Task<PageVO<MaintenanceRequestResponse>> GetRequests(EntityFilter<MaintenanceRequest> filter, EntitySort<MaintenanceRequest> sort, int page, int size)
         {
             var paged = await _requestRepo.GetPagedAsync(filter, sort, page, size);
-            var dtos = _mapper.Map<List<MaintenanceRequestResponse>>(paged.Content);
+            var dtos = paged.Content.Select(request => new MaintenanceRequestResponse
+            {
+                RequestId = request.RequestId,
+                CreatedBy = request.CreatedBy,
+                CreatedAt = request.CreatedAt,
+                Note = request.Note ?? "",
+                Status = request.Status,
+                Details = request.Details.Select(detail => new MaintenanceRequestDetailResponse
+                {
+                    EquipmentId = detail.EquipmentId,
+                    EquipmentName = detail.Equipment.EquipmentName,
+                    Description = detail.Note ?? ""
+                }).ToList(),
+            }).ToList();
             return new PageVO<MaintenanceRequestResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
         public async Task<MaintenanceRequestResponse> GetRequestById(string requestId)
         {
             var entity = await _requestRepo.GetByIdAsync(requestId);
             if (entity == null) throw new Exception("No request found.");
-            return _mapper.Map<MaintenanceRequestResponse>(entity);
+            return new MaintenanceRequestResponse
+            {
+                RequestId = entity.RequestId,
+                CreatedBy = entity.CreatedBy,
+                CreatedAt = entity.CreatedAt,
+                Note = entity.Note,
+                Status = entity.Status,
+                Details = entity.Details.Select(detail => new MaintenanceRequestDetailResponse
+                {
+                    EquipmentId = detail.EquipmentId,
+                    EquipmentName = detail.Equipment.EquipmentName,
+                    Description = detail.Note ?? ""
+                }).ToList(),
+            };
         }
-        public async Task<MaintenanceRequestResponse> CreateRequest(CreateMaintenanceRequestRequest request)
+        public async Task CreateRequest(CreateMaintenanceRequestRequest request)
         {
             var entity = _mapper.Map<MaintenanceRequest>(request);
             entity.Status = Enums.VoucherStatus.Pending;
@@ -53,9 +79,8 @@ namespace backend.Services.Implements
             }
 
             await _requestRepo.AddAsync(entity);
-            return _mapper.Map<MaintenanceRequestResponse>(entity);
         }
-        public async Task<MaintenanceRequestResponse> ApproveRequest(string requestId, UpdateMaintenanceRequestStatusRequest request)
+        public async Task ApproveRequest(string requestId, UpdateMaintenanceRequestStatusRequest request)
         {
             var entity = await _requestRepo.GetByIdAsync(requestId);
             if (entity == null) throw new Exception("No request found.");
@@ -69,21 +94,40 @@ namespace backend.Services.Implements
             entity.ApprovedAt = DateTime.Now;
 
             await _requestRepo.UpdateAsync(entity);
-            return _mapper.Map<MaintenanceRequestResponse>(entity);
         }
         public async Task<PageVO<MaintenanceVoucherResponse>> GetVouchers(EntityFilter<MaintenanceVoucher> filter, EntitySort<MaintenanceVoucher> sort, int page, int size)
         {
             var paged = await _voucherRepo.GetPagedAsync(filter, sort, page, size);
-            var dtos = _mapper.Map<List<MaintenanceVoucherResponse>>(paged.Content);
+            var dtos = paged.Content.Select(voucher => new MaintenanceVoucherResponse
+            {
+                VoucherId = voucher.VoucherId,
+                InvoiceId = voucher.InvoiceId ?? "",
+                InvoiceNumber = voucher.Invoice?.InvoiceNumber ?? "",
+                TotalAmount = voucher.Invoice != null ? voucher.Invoice.TotalAmount : 0,
+                CreatedAt = voucher.CreatedAt,
+                CreatedBy = voucher.CreatedBy,
+                CreatedByName = voucher.Creator?.Fullname ?? "",
+                Status = voucher.Status,
+            }).ToList();
             return new PageVO<MaintenanceVoucherResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
         public async Task<MaintenanceVoucherResponse> GetVoucherById(string voucherId)
         {
             var entity = await _voucherRepo.GetByIdAsync(voucherId);
             if (entity == null) throw new Exception("No voucher found.");
-            return _mapper.Map<MaintenanceVoucherResponse>(entity);
+            return new MaintenanceVoucherResponse
+            {
+                VoucherId = entity.VoucherId,
+                InvoiceId = entity.InvoiceId ?? "",
+                InvoiceNumber = entity.Invoice?.InvoiceNumber ?? "",
+                TotalAmount = entity.Invoice != null ? entity.Invoice.TotalAmount : 0,
+                CreatedAt = entity.CreatedAt,
+                CreatedBy = entity.CreatedBy,
+                CreatedByName = entity.Creator?.Fullname ?? "",
+                Status = entity.Status,
+            };
         }
-        public async Task<MaintenanceVoucherResponse> CreateVoucher(CreateMaintenanceVoucherRequest request)
+        public async Task CreateVoucher(CreateMaintenanceVoucherRequest request)
         {
             var maintenanceRequest = await _requestRepo.GetByIdAsync(request.RequestId);
             if (maintenanceRequest == null)
@@ -130,13 +174,19 @@ namespace backend.Services.Implements
                 await transaction.CommitAsync();
 
                 var completedVoucher = await _voucherRepo.GetByIdAsync(voucher.VoucherId);
-                return _mapper.Map<MaintenanceVoucherResponse>(completedVoucher);
             }
             catch
             {
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+        public async Task UpdateVoucher(string voucherId, UpdateMaintenanceVoucherStatusRequest request)
+        {
+            var entity = await _voucherRepo.GetByIdAsync(voucherId);
+            if (entity == null) throw new Exception("No voucher found.");
+            entity.Status = request.Status;
+            await _voucherRepo.UpdateAsync(entity);
         }
     }
 }

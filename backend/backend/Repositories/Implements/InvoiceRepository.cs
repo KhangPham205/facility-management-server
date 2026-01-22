@@ -17,7 +17,9 @@ namespace backend.Repositories.Implements
         }
         public async Task<PageVO<Invoice>> GetPagedAsync(EntityFilter<Invoice> filter, EntitySort<Invoice> sort, int page, int size)
         {
-            var query = _context.Invoices.AsQueryable();
+            var query = _context.Invoices
+                .Include(i => i.Unit)
+                .AsQueryable();
             // Apply filtering
             if (filter != null)
             {

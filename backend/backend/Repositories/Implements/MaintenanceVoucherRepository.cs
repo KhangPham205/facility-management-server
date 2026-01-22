@@ -34,6 +34,11 @@ namespace backend.Repositories.Implements
             await _context.MaintenanceVouchers.AddAsync(voucher);
             await _context.SaveChangesAsync();
         }
+        public async Task UpdateAsync(MaintenanceVoucher voucher)
+        {
+            _context.MaintenanceVouchers.Update(voucher);
+            await _context.SaveChangesAsync();
+        }
         public async Task<bool> ExistsByRequestIdAsync(string requestId)
         {
             return await _context.MaintenanceVouchers.AnyAsync(x => x.RequestId == requestId);
