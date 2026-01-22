@@ -40,9 +40,9 @@ namespace backend.Services.Implements
             );
         }
 
-        public async Task<LiquidateVoucherDetailResponse?> GetById(string id)
+        public async Task<LiquidateVoucherDetailResponse?> GetById(string voucherId, string equipmentId)
         {
-            var entity = await _repo.GetByIdAsync(id);
+            var entity = await _repo.GetByIdAsync(voucherId, equipmentId);
             if (entity == null) return null;
             return _mapper.Map<LiquidateVoucherDetailResponse>(entity);
         }
@@ -76,10 +76,10 @@ namespace backend.Services.Implements
         //    }
         //}
 
-        public async Task Delete(string id)
+        public async Task Delete(string voucherId, string equipmentId)
         {
-            var entity = await _repo.GetByIdAsync(id);
-            if (entity == null) throw new NotFoundException($"No equipment found with ID: {id}");
+            var entity = await _repo.GetByIdAsync(voucherId, equipmentId);
+            if (entity == null) throw new NotFoundException($"No liquidate detail found");
 
             await _repo.DeleteAsync(entity);
         }

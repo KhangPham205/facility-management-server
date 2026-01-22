@@ -19,7 +19,9 @@ namespace backend.Repositories.Implements
 
         public async Task<AuditDetail?> GetByIdAsync(string auditId, string equipmentId)
         {
-            return await _context.AuditDetails.FindAsync(auditId, equipmentId);
+            return await _context.AuditDetails
+                .Include(a => a.Equipment)
+                .FirstOrDefaultAsync(a => a.AuditId == auditId && a.EquipmentId == equipmentId);
         }
 
         public async Task<PageVO<AuditDetail>> GetPagedAsync(
@@ -31,7 +33,9 @@ namespace backend.Repositories.Implements
         {
             var query = _context.AuditDetails.AsQueryable();
 
-            query = query.Where(x => x.AuditId == auditId);
+            query = query
+                .Include(x=>x.Equipment)
+                .Where(x => x.AuditId == auditId);
 
             query = query.Where(filter);
 

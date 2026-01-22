@@ -253,7 +253,25 @@ namespace backend.Mappings
                 .ForMember(dest => dest.Details, opt => opt.Ignore());
 
             CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
-                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src => src.Invoice.InvoiceNumber));
+            // 1. Lấy TotalAmount từ Invoice
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src =>
+                    src.Invoice != null ? src.Invoice.TotalAmount : 0))
+
+            // 2. Lấy InvoiceId (đề phòng trường hợp InvoiceId ở bảng chính null nhưng object Invoice có data)
+                .ForMember(dest => dest.InvoiceId, opt => opt.MapFrom(src =>
+                    src.InvoiceId ?? (src.Invoice != null ? src.Invoice.InvoiceId : null)))
+
+            // 3. Lấy InvoiceNumber
+                .ForMember(dest => dest.InvoiceNumber, opt => opt.MapFrom(src =>
+                    src.Invoice != null ? src.Invoice.InvoiceNumber : null))
+
+            // 4. Lấy UnitId từ Invoice -> Unit
+                .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src =>
+                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitId : null))
+
+            // 5. Lấy UnitName từ Invoice -> Unit
+                .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src =>
+                    src.Invoice != null && src.Invoice.Unit != null ? src.Invoice.Unit.UnitName : null));
 
             CreateMap<LiquidateVoucherDetailDto, LiquidateVoucherDetail>();
 
@@ -270,11 +288,14 @@ namespace backend.Mappings
             CreateMap<CreateInventoryAuditRequest, InventoryAudit>();
             CreateMap<InventoryAudit, InventoryAuditResponse>()
                 // LocationName cần resolve
-                .ForMember(dest => dest.LocationName, opt => opt.Ignore());
+                .ForMember(dest => dest.LocationName, opt => opt.Ignore())
+                .ForMember(dest => dest.PeriodicAuditName, opt => opt.MapFrom(src =>
+                    src.PeriodicAudit != null ? src.PeriodicAudit.PeriodicAuditName : null));
             CreateMap<CreateAuditDetailRequest, AuditDetail>();
             CreateMap<UpdateAuditDetailRequest, AuditDetail>();
             CreateMap<AuditDetail, AuditDetailResponse>()
-                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src =>
+                    src.Equipment != null ? src.Equipment.EquipmentName : null));
 
             // ======================================================
             // 11. FINANCE (Tài chính: FundSource & Invoice)

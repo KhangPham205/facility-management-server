@@ -18,9 +18,11 @@ namespace backend.Repositories.Implements
             _context = context;
         }
 
-        public async Task<LiquidateVoucherDetail?> GetByIdAsync(string id)
+        public async Task<LiquidateVoucherDetail?> GetByIdAsync(string voucherId, string equipmentId)
         {
-            return await _context.LiquidateVoucherDetails.FindAsync(id);
+            return await _context.LiquidateVoucherDetails
+                .Include(l => l.Equipment)
+                .FirstOrDefaultAsync(l => l.LiquidateId == voucherId && l.EquipmentId == equipmentId);
         }
 
         public async Task<PageVO<LiquidateVoucherDetail>> GetPagedAsync(
