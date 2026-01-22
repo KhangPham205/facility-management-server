@@ -47,11 +47,11 @@ namespace backend.Repositories.Implements
             return new PageVO<AuditDetail>(pageNumber, pageSize, totalElements, content);
         }
 
-        //public async Task AddAsync(AuditDetail auditDetail)
-        //{
-        //    await _context.AuditDetails.AddAsync(auditDetail);
-        //    await _context.SaveChangesAsync();
-        //}
+        public async Task AddAsync(AuditDetail auditDetail)
+        {
+            await _context.AuditDetails.AddAsync(auditDetail);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task UpdateAsync(AuditDetail auditDetail)
         {

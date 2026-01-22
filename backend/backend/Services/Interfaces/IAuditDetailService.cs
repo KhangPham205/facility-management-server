@@ -12,7 +12,7 @@ namespace backend.Services.Interfaces
     {
         Task<PageVO<AuditDetailResponse>> GetAll(EntityFilter<AuditDetail> filter, EntitySort<AuditDetail> sort, int page, int size, string auditId);
         Task<AuditDetailResponse?> GetById(string auditId, string equipmentId);
-        //Task<AuditDetailResponse> Create(CreateAuditDetailRequest request);
+        Task<AuditDetailResponse> Create(string auditId, string equipmentId, CreateAuditDetailRequest request);
         Task<AuditDetailResponse> Update(string auditId, string equipmentId, UpdateAuditDetailRequest request);
         Task Delete(string auditId, string equipmentId);
     }

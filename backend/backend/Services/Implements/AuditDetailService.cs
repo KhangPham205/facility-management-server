@@ -44,13 +44,15 @@ namespace backend.Services.Implements
             return _mapper.Map<AuditDetailResponse>(entity);
         }
 
-        //public async Task<AuditDetailResponse> Create(CreateAuditDetailRequest request)
-        //{
-        //    var entity = _mapper.Map<AuditDetail>(request);
+        public async Task<AuditDetailResponse> Create(string auditId, string equipmentId, CreateAuditDetailRequest request)
+        {
+            var entity = _mapper.Map<AuditDetail>(request);
+            entity.AuditId = auditId;
+            entity.EquipmentId = equipmentId;
 
-        //    await _repo.AddAsync(entity);
-        //    return _mapper.Map<AuditDetailResponse>(entity);
-        //}
+            await _repo.AddAsync(entity);
+            return _mapper.Map<AuditDetailResponse>(entity);
+        }
 
         public async Task<AuditDetailResponse> Update(string auditId, string equipmentId, UpdateAuditDetailRequest request)
         {

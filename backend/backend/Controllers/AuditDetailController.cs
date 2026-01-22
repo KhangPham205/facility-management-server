@@ -3,6 +3,7 @@ using backend.DTOs.Audit.Request;
 using backend.DTOs.Audit.Response;
 using backend.Models;
 using backend.Models.Audit;
+using backend.Models.EquipmentInfo;
 using backend.Services.Interfaces;
 using backend.vo;
 using Microsoft.AspNetCore.Mvc;
@@ -49,19 +50,18 @@ namespace backend.Controllers
             return Ok(result);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<AuditDetailResponse>> Create([FromBody] CreateAuditDetailRequest request)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.Create(request);
-        //        return CreatedAtAction(nameof(GetById), new { id = result.PeriodId }, result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new { message = ex.Message });
-        //    }
-        //}
+        [HttpPost("{auditId}/{equipmentId}")]
+        public async Task<ActionResult<AuditDetailResponse?>> Create(string auditId, string equipmentId, [FromBody] CreateAuditDetailRequest request)
+        {
+            try
+            {
+                return await _service.Create(auditId, equipmentId, request);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
         [HttpPut("{auditId}/{equipmentId}")]
         public async Task<ActionResult<AuditDetailResponse>> Update(string auditId, string equipmentId, [FromBody] UpdateAuditDetailRequest request)

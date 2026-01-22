@@ -10,7 +10,7 @@ namespace backend.Repositories.Interfaces
         Task<AuditDetail?> GetByIdAsync(string auditId, string equipmentId);
 
         Task<PageVO<AuditDetail>> GetPagedAsync(EntityFilter<AuditDetail> filter, EntitySort<AuditDetail> sort, int pageNumber, int pageSize, string auditId);
-        //Task AddAsync(AuditDetail auditDetail);
+        Task AddAsync(AuditDetail auditDetail);
         Task UpdateAsync(AuditDetail auditDetail);
         Task DeleteAsync(AuditDetail auditDetail);
 
