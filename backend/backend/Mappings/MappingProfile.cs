@@ -245,7 +245,8 @@ namespace backend.Mappings
                 .ForMember(dest => dest.ApprovedByName, opt => opt.MapFrom(src => src.Approver.Fullname));
 
             CreateMap<LiquidateRequestDetail, LiquidateRequestDetailResponse>()
-                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src =>
+                    src.Equipment != null ? src.Equipment.EquipmentName : null));
 
             // -- Voucher --
             CreateMap<CreateLiquidateVoucherRequest, LiquidateVoucher>()
@@ -276,7 +277,8 @@ namespace backend.Mappings
             CreateMap<LiquidateVoucherDetailDto, LiquidateVoucherDetail>();
 
             CreateMap<LiquidateVoucherDetail, LiquidateVoucherDetailResponse>()
-                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src =>
+                    src.Equipment != null ? src.Equipment.EquipmentName : null));
 
             // ======================================================
             // 10. AUDIT PROCESS (Kiểm kê)

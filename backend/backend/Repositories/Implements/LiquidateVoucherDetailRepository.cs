@@ -33,7 +33,9 @@ namespace backend.Repositories.Implements
         {
             var query = _context.LiquidateVoucherDetails.AsQueryable();
 
-            query = query.Where(filter);
+            query = query
+                .Include(l=>l.Equipment)
+                .Where(filter);
 
             var totalElements = await query.CountAsync();
 
