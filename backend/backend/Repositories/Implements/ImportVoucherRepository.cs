@@ -25,6 +25,7 @@ namespace backend.Repositories.Implements
             return await _context.ImportVouchers
                 .Include(i=>i.Creator)
                 .Include(i=>i.Details)
+                    .ThenInclude(Details=>Details.Equipment)
                 .Include(i=>i.Invoice)
                     .ThenInclude(invoice=>invoice.Unit)
                 .FirstOrDefaultAsync(i=>i.ImportId == id);
@@ -41,6 +42,7 @@ namespace backend.Repositories.Implements
             query = query
                 .Include(i => i.Creator)
                 .Include(i=>i.Details)
+                    .ThenInclude(Details => Details.Equipment)
                 .Include(i => i.Invoice)
                     .ThenInclude(invoice => invoice.Unit);
 

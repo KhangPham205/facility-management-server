@@ -31,7 +31,7 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.LiquidateVoucherDetails.AsQueryable();
+            var query = _context.LiquidateVoucherDetails.AsNoTracking().AsQueryable();
 
             query = query
                 .Include(l=>l.Equipment)
