@@ -102,6 +102,7 @@ namespace backend.Mappings
             // ======================================================
 
             CreateMap<CreateExternalUnitRequest, ExternalUnit>();
+            CreateMap<UpdateExternalUnitRequest, ExternalUnit>();
             CreateMap<ExternalUnit, ExternalUnitResponse>();
 
             // ======================================================
