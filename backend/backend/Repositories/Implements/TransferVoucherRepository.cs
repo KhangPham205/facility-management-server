@@ -17,6 +17,7 @@ namespace backend.Repositories.Implements
         {
             var query = _context.TransferVouchers
                 .Include(x => x.Creator)
+                .Include(x => x.Details).ThenInclude(d => d.Equipment)
                 .AsQueryable();
 
             query = query.Where(filter).OrderBy(sort);
