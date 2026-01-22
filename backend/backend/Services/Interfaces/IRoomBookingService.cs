@@ -10,6 +10,7 @@ namespace backend.Services.Interfaces
     public interface IRoomBookingService
     {
         Task<PageVO<RoomBookingResponse>> GetAll(EntityFilter<RoomBooking> filter, EntitySort<RoomBooking> sort, int page, int size);
+        Task<RoomBookingResponse> GetById(string id);
         Task<RoomBookingResponse> Create(CreateBookingRequest request);
         Task<RoomBookingResponse> UpdateStatus(string id, UpdateBookingStatusRequest request);
         Task<RoomBookingResponse> Approve(string id, ApproveBookingRequest request);

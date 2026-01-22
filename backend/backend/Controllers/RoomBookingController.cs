@@ -31,6 +31,18 @@ namespace backend.Controllers
             return Ok(await _service.GetAll(filter, orderBy, page, size));
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<RoomBookingResponse>> GetById(string id)
+        {
+            var result = await _service.GetById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<RoomBookingResponse>> Create([FromBody] CreateBookingRequest request)
         {

@@ -35,6 +35,13 @@ namespace backend.Services.Implements
             return new PageVO<RoomBookingResponse>(paged.Page, paged.Size, paged.TotalElements, dtos);
         }
 
+        public async Task<RoomBookingResponse> GetById(string id)
+        {
+            var booking = await _repo.GetByIdAsync(id);
+            if (booking == null) throw new NotFoundException("Booking not found");
+            return _mapper.Map<RoomBookingResponse>(booking);
+        }
+
         public async Task<RoomBookingResponse> Create(CreateBookingRequest request)
         {
             if (request.StartTime >= request.EndTime)
