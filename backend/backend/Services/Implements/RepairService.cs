@@ -8,6 +8,7 @@ using backend.Models.Repair;
 using backend.Models.Transfer;
 using backend.Repositories.Interfaces;
 using backend.Services.Interfaces;
+using backend.Utils;
 using backend.vo;
 using Plainquire.Filter;
 using Plainquire.Sort;
@@ -20,16 +21,19 @@ namespace backend.Services.Implements
         private readonly IRepairVoucherRepository _voucherRepo;
         private readonly DataApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly JwtUtils _jwtUtils;
         public RepairService(
             IRepairRequestRepository requestRepo,
             IRepairVoucherRepository voucherRepo,
             DataApplicationDbContext context,
-            IMapper mapper)
+            IMapper mapper,
+            JwtUtils jwtUtils)
         {
             _requestRepo = requestRepo;
             _voucherRepo = voucherRepo;
             _context = context;
             _mapper = mapper;
+            _jwtUtils = jwtUtils;
         }
 
         public async Task<PageVO<RepairRequestResponse>> GetRequests(EntityFilter<RepairRequest> filter, EntitySort<RepairRequest> sort, int page, int size)
@@ -61,6 +65,7 @@ namespace backend.Services.Implements
         {
             var entity = _mapper.Map<RepairRequest>(request);
             entity.Status = VoucherStatus.Pending;
+            entity.CreatedBy = _jwtUtils.GetCurrentUserId();
 
             if (entity.Details == null || !entity.Details.Any())
             {
@@ -79,7 +84,7 @@ namespace backend.Services.Implements
             }
 
             entity.Status = request.Status;
-            entity.ApprovedBy = request.ApprovedBy;
+            entity.ApprovedBy = _jwtUtils.GetCurrentUserId();
             entity.ApprovedAt = DateTime.Now;
 
             await _requestRepo.UpdateAsync(entity);
@@ -144,7 +149,7 @@ namespace backend.Services.Implements
                 var voucher = new RepairVoucher
                 {
                     RequestId = request.RequestId,
-                    CreatedBy = request.CreatedBy,
+                    CreatedBy = _jwtUtils.GetCurrentUserId(),
                     Details = new List<RepairVoucherDetail>()
                 };
                 foreach (var detail in repairRequest.Details)

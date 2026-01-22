@@ -3,7 +3,6 @@
     public class CreateRepairVoucherRequest
     {
         public string RequestId { get; set; }
-        public string CreatedBy { get; set; }
         public string InvoiceId { get; set; }
         public List<RepairRequestDetailDto> Details { get; set; }
     }
