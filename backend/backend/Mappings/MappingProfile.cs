@@ -130,7 +130,7 @@ namespace backend.Mappings
             // -- Import Voucher --
             CreateMap<CreateImportVoucherRequest, ImportVoucher>()
                 // Details cần xử lý tay trong Service vì logic nhập kho phức tạp (check tồn kho/tạo mới)
-                .ForMember(dest => dest.Details, opt => opt.Ignore());
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(srs => srs.Details));
 
             CreateMap<ImportVoucher, ImportVoucherResponse>()
             // 1. Lấy TotalAmount từ Invoice
@@ -268,7 +268,7 @@ namespace backend.Mappings
             // -- Voucher --
             CreateMap<CreateLiquidateVoucherRequest, LiquidateVoucher>()
                 // Details cần map tay để xử lý logic trừ kho
-                .ForMember(dest => dest.Details, opt => opt.Ignore());
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(srs => srs.Details));
 
             CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
             // 1. Lấy TotalAmount từ Invoice
