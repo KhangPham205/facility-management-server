@@ -22,6 +22,7 @@ namespace backend.Repositories.Implements
         {
             return await _context.LiquidateRequests
                 .Include(l=>l.Creator)
+                .Include(i => i.Details)
                 .Include(l=>l.Approver)
                 .FirstOrDefaultAsync(l=>l.RequestId == id);
         }
@@ -36,6 +37,7 @@ namespace backend.Repositories.Implements
 
             query = query
                 .Include(l => l.Creator)
+                .Include(i => i.Details)
                 .Include(l => l.Approver);
 
             query = query.Where(filter);

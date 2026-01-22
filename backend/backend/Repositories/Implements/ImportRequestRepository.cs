@@ -23,6 +23,7 @@ namespace backend.Repositories.Implements
             return await _context.ImportRequests
                 .Include(i=>i.Creator)
                 .Include(i=>i.Approver)
+                .Include(i=>i.Details)
                 .FirstOrDefaultAsync(i=>i.RequestId == id);
         }
 
@@ -36,7 +37,8 @@ namespace backend.Repositories.Implements
 
             query = query
                 .Include(i => i.Creator)
-                .Include(i => i.Approver);
+                .Include(i => i.Approver)
+                .Include(i=>i.Details);
 
             query = query.Where(filter);
 
