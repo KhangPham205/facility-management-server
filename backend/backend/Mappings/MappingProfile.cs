@@ -288,11 +288,14 @@ namespace backend.Mappings
             CreateMap<CreateInventoryAuditRequest, InventoryAudit>();
             CreateMap<InventoryAudit, InventoryAuditResponse>()
                 // LocationName cần resolve
-                .ForMember(dest => dest.LocationName, opt => opt.Ignore());
+                .ForMember(dest => dest.LocationName, opt => opt.Ignore())
+                .ForMember(dest => dest.PeriodicAuditName, opt => opt.MapFrom(src =>
+                    src.PeriodicAudit != null ? src.PeriodicAudit.PeriodicAuditName : null));
             CreateMap<CreateAuditDetailRequest, AuditDetail>();
             CreateMap<UpdateAuditDetailRequest, AuditDetail>();
             CreateMap<AuditDetail, AuditDetailResponse>()
-                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.EquipmentName));
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src =>
+                    src.Equipment != null ? src.Equipment.EquipmentName : null));
 
             // ======================================================
             // 11. FINANCE (Tài chính: FundSource & Invoice)
