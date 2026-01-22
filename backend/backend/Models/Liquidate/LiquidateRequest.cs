@@ -27,7 +27,7 @@ namespace backend.Models.Liquidate
 
 
         [ForeignKey("CreatedBy")]
-        public User Creator { get; set; }
+        public User? Creator { get; set; }
 
         [ForeignKey("ApprovedBy")]
         public User? Approver { get; set; }
