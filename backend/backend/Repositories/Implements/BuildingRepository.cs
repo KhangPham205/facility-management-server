@@ -20,8 +20,9 @@ namespace backend.Repositories.Implements
         public async Task<Building?> GetByIdAsync(string id)
         {
             return await _context.Buildings
-                .Include(b=>b.Floors)
-                .FirstOrDefaultAsync(b=>b.BuildingId == id);
+                .Include(b => b.Floors)
+                    .ThenInclude(Floors => Floors.Rooms)
+                .FirstOrDefaultAsync(b => b.BuildingId == id);
         }
 
         public async Task<PageVO<Building>> GetPagedAsync(
@@ -32,7 +33,10 @@ namespace backend.Repositories.Implements
         {
             var query = _context.Buildings.AsNoTracking().AsQueryable();
 
-            query = query.Include(b => b.Floors);
+            query = query
+                .Include(b => b.Floors)
+                    .ThenInclude(floors => floors.Rooms);
+
 
             query = query.Where(filter);
 
