@@ -21,6 +21,7 @@ namespace backend.Repositories.Implements
         {
             return await _context.Floors
                 .Include(f=>f.Building)
+                .Include(f=>f.Rooms)
                 .FirstOrDefaultAsync(f=>f.FloorId == id);
         }
 
@@ -32,7 +33,9 @@ namespace backend.Repositories.Implements
         {
             var query = _context.Floors.AsNoTracking().AsQueryable();
 
-            query = query.Include(f => f.Building);
+            query = query
+                .Include(f => f.Building)
+                .Include(f => f.Rooms);
 
             query = query.Where(filter);
 

@@ -19,7 +19,9 @@ namespace backend.Repositories.Implements
 
         public async Task<Building?> GetByIdAsync(string id)
         {
-            return await _context.Buildings.FindAsync(id);
+            return await _context.Buildings
+                .Include(b=>b.Floors)
+                .FirstOrDefaultAsync(b=>b.BuildingId == id);
         }
 
         public async Task<PageVO<Building>> GetPagedAsync(
@@ -28,13 +30,16 @@ namespace backend.Repositories.Implements
             int pageNumber,
             int pageSize)
         {
-            var query = _context.Buildings.AsQueryable();
+            var query = _context.Buildings.AsNoTracking().AsQueryable();
+
+            query = query.Include(b => b.Floors);
 
             query = query.Where(filter);
 
+            var totalElements = await query.CountAsync();
+
             query = query.OrderBy(sort);
 
-            var totalElements = await query.CountAsync();
 
             var content = await query
                 .Skip((pageNumber - 1) * pageSize)
