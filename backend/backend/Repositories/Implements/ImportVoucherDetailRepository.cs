@@ -1,4 +1,5 @@
-using backend.Data;
+﻿using backend.Data;
+using backend.DTOs.Import.Request;
 using backend.Enums;
 using backend.Models.Import;
 using backend.Repositories.Interfaces;
@@ -50,6 +51,16 @@ namespace backend.Repositories.Implements
         {
             await _context.ImportVoucherDetails.AddAsync(importVoucherDetail);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsVoucherDetailValidAsync(string requestId, ImportVoucherDetailDto voucherDetail)
+        {
+            // Kiểm tra xem trong Request đó có yêu cầu thiết bị tên này không
+            bool exists = await _context.ImportRequestDetails
+                .AnyAsync(x => x.RequestId == requestId &&
+                               x.EquipmentName == voucherDetail.EquipmentName);
+
+            return exists;
         }
 
         //public async Task UpdateAsync(ImportVoucherDetail importVoucherDetail)

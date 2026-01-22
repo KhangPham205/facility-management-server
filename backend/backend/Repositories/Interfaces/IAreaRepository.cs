@@ -8,8 +8,8 @@ namespace backend.Repositories.Interfaces
 {
     public interface IAreaRepository
     {
-        Task<String?> GetNameByIdAsync(LocationType type, string id);
+        Task<String?> GetNameByIdAsync(LocationType? type, string id);
 
-        Task<Dictionary<string, string>> GetNamesByIdsAsync(LocationType type, List<string> ids);
+        Task<Dictionary<string, string>> GetNamesByIdsAsync(LocationType? type, List<string> ids);
     }
 }

@@ -18,8 +18,11 @@ namespace backend.Repositories.Implements
             _context = context;
         }
 
-        public async Task<String?> GetNameByIdAsync(LocationType type, string id)
+        public async Task<String?> GetNameByIdAsync(LocationType? type, string id)
         {
+            if (type == null)
+                return null;
+
             switch (type)
             {
                 case LocationType.Building:
@@ -42,7 +45,7 @@ namespace backend.Repositories.Implements
             }
         }
 
-        public async Task<Dictionary<string, string>> GetNamesByIdsAsync(LocationType type, List<string> ids)
+        public async Task<Dictionary<string, string>> GetNamesByIdsAsync(LocationType? type, List<string> ids)
         {
             if (ids == null || !ids.Any()) return new Dictionary<string, string>();
 
