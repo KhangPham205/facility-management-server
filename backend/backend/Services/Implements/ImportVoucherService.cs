@@ -53,27 +53,31 @@ namespace backend.Services.Implements
 
         public async Task<ImportVoucherResponse> Create(CreateImportVoucherRequest request)
         {
-            var allEquipments = new List<Equipment>();
-
             var entity = _mapper.Map<ImportVoucher>(request);
 
             entity.CreatedBy = _jwtUtils.GetCurrentUserId();
 
-            // equipment adding
-            foreach (var detail in request.Details)
+            entity.Details = new List<ImportVoucherDetail>();
+
+            foreach (var reqDetail in request.Details)
             {
-                for (int i = 0; i < detail.Quantity; i++)
+                for (int i = 0; i < reqDetail.Quantity; i++)
                 {
-                    allEquipments.Add(new Equipment
+                    var newEquipment = new Equipment
                     {
-                        EquipmentName = detail.EquipmentName,
-                        Note = detail.Note,
-                    });
+                        EquipmentName = reqDetail.EquipmentName,
+                        Note = reqDetail.Note,
+                        Status = EquipmentStatus.UnderMaintenance,
+                    };
+
+                    var newDetail = new ImportVoucherDetail
+                    {
+                        Equipment = newEquipment,
+                        Note = reqDetail.Note
+                    };
+
+                    entity.Details.Add(newDetail);
                 }
-            }
-            if (allEquipments.Any())
-            {
-                await _equipmentRepo.AddRangeAsync(allEquipments);
             }
 
 
