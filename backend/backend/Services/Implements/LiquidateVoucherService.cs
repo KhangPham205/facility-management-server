@@ -19,13 +19,14 @@ namespace backend.Services.Implements
     public class LiquidateVoucherService : ILiquidateVoucherService
     {
         private readonly ILiquidateVoucherRepository _repo;
+        private readonly IEquipmentRepository _equipmentRepository;
         private readonly IMapper _mapper;
         private readonly JwtUtils _jwtUtils;
-        private readonly DataApplicationDbContext _context;
 
-        public LiquidateVoucherService(ILiquidateVoucherRepository repo, IMapper mapper, JwtUtils jwtUtils)
+        public LiquidateVoucherService(ILiquidateVoucherRepository repo, IEquipmentRepository equipmentRepository, IMapper mapper, JwtUtils jwtUtils)
         {
             _repo = repo;
+            _equipmentRepository = equipmentRepository;
             _mapper = mapper;
             _jwtUtils = jwtUtils;
         }
@@ -57,38 +58,11 @@ namespace backend.Services.Implements
 
             voucher.CreatedBy = _jwtUtils.GetCurrentUserId();
 
-            voucher.Details = new List<LiquidateVoucherDetail>();
-
-            var equipmentIds = request.Details.Select(d => d.EquipmentId).Distinct().ToList();
-            var equipmentsToUpdate = await _context.Equipments
-                .Where(e => equipmentIds.Contains(e.EquipmentId))
-                .ToListAsync();
-
-            if (equipmentsToUpdate.Count != equipmentIds.Count)
+            foreach(var i in voucher.Details)
             {
-                throw new Exception("Có thiết bị không tồn tại hoặc sai lệch dữ liệu.");
+                await _equipmentRepository.UpdateStatusAsync(i.EquipmentId, EquipmentStatus.Disposed);
             }
 
-            foreach (var detailDto in request.Details)
-            {
-                var equipment = equipmentsToUpdate.First(e => e.EquipmentId == detailDto.EquipmentId);
-
-                if (equipment.Status == EquipmentStatus.Disposed)
-                {
-                    throw new Exception($"Thiết bị {equipment.EquipmentName} đã thanh lý rồi.");
-                }
-
-                equipment.Status = EquipmentStatus.Disposed;
-
-                var detailEntity = new LiquidateVoucherDetail
-                {
-                    EquipmentId = detailDto.EquipmentId,
-                    LiquidatePrice = detailDto.LiquidatePrice,
-                    Note = detailDto.Note
-                };
-
-                voucher.Details.Add(detailEntity);
-            }
 
             await _repo.AddAsync(voucher);
             return _mapper.Map<LiquidateVoucherResponse>(voucher);
