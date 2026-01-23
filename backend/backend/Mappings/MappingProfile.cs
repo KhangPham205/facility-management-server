@@ -285,10 +285,6 @@ namespace backend.Mappings
                 .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src =>
                     src.Equipment != null ? src.Equipment.EquipmentName : null));
 
-            CreateMap<LiquidateVoucher, LiquidateVoucherResponse>()
-                .ForMember(dest => dest.CreatedByName, opt => opt.MapFrom(src =>
-                    src.Creator != null ? src.Creator.Fullname : null));
-
             // ======================================================
             // 10. AUDIT PROCESS (Kiểm kê)
             // ======================================================
